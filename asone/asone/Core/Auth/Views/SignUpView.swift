@@ -22,6 +22,14 @@ struct SignUpView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 40)
                 
+                // Name Field
+                TextField("Full Name", text: $viewModel.fullname)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 20)
+                    .disableAutocorrection(true)
+                
                 // Email Field
                 TextField("Email", text: $viewModel.email)
                     .padding()
