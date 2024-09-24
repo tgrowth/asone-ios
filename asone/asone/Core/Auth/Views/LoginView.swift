@@ -48,6 +48,7 @@ struct LoginView: View {
                     // Forgot password action
                 }
                 .font(.footnote)
+                .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing)
                 
@@ -64,15 +65,6 @@ struct LoginView: View {
                         .padding(.horizontal, 20)
                 }
                 .padding(.top, 20)
-                
-                // Sign up button
-                Button(action: {
-                    // Handle sign-up
-                }) {
-                    Text("Sign Up")
-                        .foregroundColor(.black)
-                }
-                .padding(.top, 10)
                 
                 Spacer()
                 
@@ -124,6 +116,19 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
+                
+                NavigationLink {
+                    SignUpView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    HStack{
+                        Text("Don't have an account?")
+                        Text("Sign Up")
+                            .fontWeight(.bold)
+                    }
+                    .padding(.vertical)
+                    .foregroundColor(.black)
+                }
                 
                 Spacer()
             }
