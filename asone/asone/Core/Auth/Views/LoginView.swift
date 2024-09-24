@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LoginView: View {
 
-    @State private var rememberMe: Bool = false
     @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
@@ -39,17 +38,13 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
                 
-                // Remember Me Toggle and Forgot Password Button
-                Toggle("Remember me", isOn: $rememberMe)
-                    .padding()
-                
                 Button("Forgot your password?") {
                     // Forgot password action
                 }
                 .font(.footnote)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.trailing)
+                .padding()
                 
                 // Login Button
                 Button(action: {
