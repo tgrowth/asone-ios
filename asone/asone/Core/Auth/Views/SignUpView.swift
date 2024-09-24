@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
-    @Environment(\.dismiss) var dismiss;
 
+    @StateObject var viewModel = SignUpViewModel()
+    @Environment(\.dismiss) var dismiss;
     
     var body: some View {
         NavigationStack {
@@ -25,7 +23,7 @@ struct SignUpView: View {
                     .padding(.bottom, 40)
                 
                 // Email Field
-                TextField("Email", text: $email)
+                TextField("Email", text: $viewModel.email)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
@@ -35,14 +33,7 @@ struct SignUpView: View {
                     .keyboardType(.emailAddress)
                 
                 // Password Field
-                SecureField("Password", text: $password)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
-                
-                // Confirm Password Field
-                SecureField("Confirm Password", text: $confirmPassword)
+                SecureField("Password", text: $viewModel.password)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)

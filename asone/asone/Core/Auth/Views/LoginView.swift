@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+
     @State private var rememberMe: Bool = false
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack {
@@ -23,7 +23,7 @@ struct LoginView: View {
                     .padding(.bottom, 40)
                 
                 // Email Field
-                TextField("Email", text: $email)
+                TextField("Email", text: $viewModel.email)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
@@ -33,7 +33,7 @@ struct LoginView: View {
                     .keyboardType(.emailAddress)
                 
                 // Password Field
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $viewModel.password)
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
