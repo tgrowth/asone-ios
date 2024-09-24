@@ -17,7 +17,6 @@ struct LoginView: View {
             VStack {
                 Spacer()
                 
-                // App Title or Logo (if you want to replace this with an image, use Image())
                 Text("AsOne")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -54,7 +53,7 @@ struct LoginView: View {
                 
                 // Login Button
                 Button(action: {
-                    // Perform login action here
+
                 }) {
                     Text("Login")
                         .frame(maxWidth: .infinity)
@@ -68,7 +67,6 @@ struct LoginView: View {
                 
                 Spacer()
                 
-                // Divider with "or"
                 HStack {
                     Rectangle()
                         .frame(height: 1)

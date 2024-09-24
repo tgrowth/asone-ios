@@ -19,7 +19,6 @@ struct SignUpView: View {
             VStack {
                 Spacer()
                 
-                // App Title or Logo
                 Text("AsOne")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -51,7 +50,7 @@ struct SignUpView: View {
                 
                 // Sign Up Button
                 Button(action: {
-                    // Perform sign-up action
+
                 }) {
                     Text("Sign Up")
                         .frame(maxWidth: .infinity)
@@ -64,7 +63,6 @@ struct SignUpView: View {
                 .padding(.top, 20)
                 
                 Spacer()
-                
                 // Divider with "or"
                 HStack {
                     Rectangle()
