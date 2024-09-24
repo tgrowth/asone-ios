@@ -36,11 +36,9 @@ struct LoginView: View {
                 .padding()
                 
                 // Login Button
-                PrimaryButton(
-                    title: "Sign In",
-                    destination: OnboardingMainView(),  // Navigate to Onboarding
-                    isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty
-                )
+                PrimaryButton(title: "Login", action: {
+                    Task { try await viewModel.login() }
+                }, isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty)
                 
                 Spacer()
                 
