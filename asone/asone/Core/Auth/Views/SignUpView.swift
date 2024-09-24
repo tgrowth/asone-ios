@@ -23,44 +23,21 @@ struct SignUpView: View {
                     .padding(.bottom, 40)
                 
                 // Name Field
-                TextField("Full Name", text: $viewModel.fullname)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
-                    .disableAutocorrection(true)
+                CustomTextField(placeholder: "First and Last Name", text: $viewModel.fullname)
                 
                 // Email Field
-                TextField("Email", text: $viewModel.email)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .keyboardType(.emailAddress)
+                CustomTextField(placeholder: "Email", text: $viewModel.email)
                 
                 // Password Field
-                SecureField("Password", text: $viewModel.password)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
+                CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
                 
                 // Sign Up Button
-                Button(action: {
+                PrimaryButton(
+                    title: "Sign Up",
+                    destination: OnboardingMainView(),  // Navigate to Onboarding
+                    isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty || viewModel.fullname.isEmpty
+                )
 
-                }) {
-                    Text("Sign Up")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(.black)
-                        .cornerRadius(10)
-                        .padding(.horizontal, 20)
-                }
-                .padding(.top, 20)
-                
                 Spacer()
                 // Divider with "or"
                 HStack {

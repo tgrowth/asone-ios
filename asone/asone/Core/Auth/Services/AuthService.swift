@@ -41,6 +41,10 @@ class AuthService {
         }
     }
     
+    @MainActor func resetPassword(withEmail email: String) async throws {
+        
+    }
+    
     func signOut(){
         try? Auth.auth().signOut()
         self.userSession = nil

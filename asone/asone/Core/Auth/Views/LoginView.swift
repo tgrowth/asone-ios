@@ -22,24 +22,13 @@ struct LoginView: View {
                     .padding(.bottom, 40)
                 
                 // Email Field
-                TextField("Email", text: $viewModel.email)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                    .keyboardType(.emailAddress)
+                CustomTextField(placeholder: "Email", text: $viewModel.email)
                 
                 // Password Field
-                SecureField("Password", text: $viewModel.password)
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
+                CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
                 
-                Button("Forgot your password?") {
-                    // Forgot password action
+                NavigationLink("Forgot your password?") {
+                    ForgotPasswordView()
                 }
                 .font(.footnote)
                 .foregroundColor(.gray)
@@ -47,18 +36,11 @@ struct LoginView: View {
                 .padding()
                 
                 // Login Button
-                Button(action: {
-
-                }) {
-                    Text("Login")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.black)
-                        .cornerRadius(10)
-                        .padding(.horizontal, 20)
-                }
-                .padding(.top, 20)
+                PrimaryButton(
+                    title: "Sign In",
+                    destination: OnboardingMainView(),  // Navigate to Onboarding
+                    isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty
+                )
                 
                 Spacer()
                 
