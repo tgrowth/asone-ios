@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseAuth
+
 
 struct LoginView: View {
 
@@ -68,23 +72,12 @@ struct LoginView: View {
                         .padding()
                         .foregroundColor(.white)
                         .background(Color.black)
-                        .cornerRadius(10)
+                        .cornerRadius(8)
                     }
                     
-                    Button(action: {
-                        // Google Sign In action
-                    }) {
-                        HStack {
-                            Text("Google")
+                    GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
+                            Task { try await viewModel.googleLogin()
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
                     }
                 }
                 .padding(.horizontal)

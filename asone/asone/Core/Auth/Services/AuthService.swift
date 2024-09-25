@@ -30,6 +30,16 @@ class AuthService {
         }
     }
     
+    func googleLogin(credential: AuthCredential) async throws {
+        do {
+            let result = try await Auth.auth().signIn(with: credential)
+            self.userSession = result.user
+            try await UserService.shared.fetchCurrentUser()
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+    }
+    
     @MainActor
     func register(withEmail email: String, password: String, fullname: String) async throws {
         do {
