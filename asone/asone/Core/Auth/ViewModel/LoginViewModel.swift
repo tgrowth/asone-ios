@@ -25,16 +25,20 @@ class LoginViewModel: ObservableObject {
         
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
-
+        
         let signInResult = try await GIDSignIn.sharedInstance.signIn(withPresenting: Application_utility.rootViewController)
-
+        
         guard let idToken: String = signInResult.user.idToken?.tokenString else {
             throw URLError(.badURL)
         }
         let accessToken: String = signInResult.user.accessToken.tokenString
-
+        
         let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
         
         try await AuthService.shared.googleLogin(credential: credential)
+    }
+    
+    func appleLogin() async throws {
+        
     }
 }

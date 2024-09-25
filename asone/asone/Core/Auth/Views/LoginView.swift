@@ -9,6 +9,7 @@ import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 import FirebaseAuth
+import AuthenticationServices
 
 
 struct LoginView: View {
@@ -61,20 +62,18 @@ struct LoginView: View {
                 .padding(.top, 10)
                 
                 // Sign in with Apple and Google
-                HStack {
-                    Button(action: {
-                        // Apple Sign In action
-                    }) {
-                        HStack {
-                            Image(systemName: "applelogo")
+                VStack {
+                    SignInWithAppleButton(.signIn){ request in
+                        request.requestedScopes = [.email, .fullName]
+                    } onCompletion: { result in
+                        switch result {
+                        case .success(let authorization):
+                            Task { try await viewModel.appleLogin() }
+                        case .failure(let error): print("ERROR: \(error)")
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.black)
-                        .cornerRadius(8)
                     }
-                    
+                    .frame(height: 40)
+                
                     GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
                             Task { try await viewModel.googleLogin()
                         }
