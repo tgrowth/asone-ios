@@ -52,7 +52,7 @@ struct OnboardingStep7View: View {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
-                    viewModel.goToNextStep()
+                    AuthService.shared.signOut()
                 }
             )
         }
