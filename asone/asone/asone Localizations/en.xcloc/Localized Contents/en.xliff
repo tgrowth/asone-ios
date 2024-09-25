@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Asone/Asone-InfoPlist.xcstrings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.0" build-num="16A242d"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>Asone</source>
+        <target state="new">Asone</target>
+        <note>Bundle name</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Asone/Localizable.xcstrings" source-language="en" target-language="en" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.0" build-num="16A242d"/>
+    </header>
+    <body>
+      <trans-unit id="" xml:space="preserve">
+        <source/>
+        <target state="new"/>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@" xml:space="preserve">
+        <source>%@</source>
+        <target state="new">%@</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld days" xml:space="preserve">
+        <source>%lld days</source>
+        <target state="new">%lld days</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="A reset link has been sent to your email." xml:space="preserve">
+        <source>A reset link has been sent to your email.</source>
+        <target state="new">A reset link has been sent to your email.</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Already have an account?" xml:space="preserve">
+        <source>Already have an account?</source>
+        <target state="new">Already have an account?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Are you trying to conceive right now?" xml:space="preserve">
+        <source>Are you trying to conceive right now?</source>
+        <target state="new">Are you trying to conceive right now?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Are you using AsOne for yourself?" xml:space="preserve">
+        <source>Are you using AsOne for yourself?</source>
+        <target state="new">Are you using AsOne for yourself?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="AsOne" xml:space="preserve">
+        <source>AsOne</source>
+        <target state="new">AsOne</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Back" xml:space="preserve">
+        <source>Back</source>
+        <target state="new">Back</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Days" xml:space="preserve">
+        <source>Days</source>
+        <target state="new">Days</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Do you know your last period?" xml:space="preserve">
+        <source>Do you know your last period?</source>
+        <target state="new">Do you know your last period?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Don't have an account?" xml:space="preserve">
+        <source>Don't have an account?</source>
+        <target state="new">Don't have an account?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Forgot your password?" xml:space="preserve">
+        <source>Forgot your password?</source>
+        <target state="new">Forgot your password?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Google" xml:space="preserve">
+        <source>Google</source>
+        <target state="new">Google</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="How long is your cycle?" xml:space="preserve">
+        <source>How long is your cycle?</source>
+        <target state="new">How long is your cycle?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="How long is your period?" xml:space="preserve">
+        <source>How long is your period?</source>
+        <target state="new">How long is your period?</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="I'm not interested" xml:space="preserve">
+        <source>I'm not interested</source>
+        <target state="new">I'm not interested</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Invite partner" xml:space="preserve">
+        <source>Invite partner</source>
+        <target state="new">Invite partner</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Next" xml:space="preserve">
+        <source>Next</source>
+        <target state="new">Next</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="No, I have a code" xml:space="preserve">
+        <source>No, I have a code</source>
+        <target state="new">No, I have a code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="No, I just want to track my cycle" xml:space="preserve">
+        <source>No, I just want to track my cycle</source>
+        <target state="new">No, I just want to track my cycle</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partner Invite Code" xml:space="preserve">
+        <source>Partner Invite Code</source>
+        <target state="new">Partner Invite Code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partner Mode" xml:space="preserve">
+        <source>Partner Mode</source>
+        <target state="new">Partner Mode</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Set your date of birth" xml:space="preserve">
+        <source>Set your date of birth</source>
+        <target state="new">Set your date of birth</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share invite code" xml:space="preserve">
+        <source>Share invite code</source>
+        <target state="new">Share invite code</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sign In" xml:space="preserve">
+        <source>Sign In</source>
+        <target state="new">Sign In</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sign Up" xml:space="preserve">
+        <source>Sign Up</source>
+        <target state="new">Sign Up</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Yes" xml:space="preserve">
+        <source>Yes</source>
+        <target state="new">Yes</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Yes, I'm trying to get pregnant" xml:space="preserve">
+        <source>Yes, I'm trying to get pregnant</source>
+        <target state="new">Yes, I'm trying to get pregnant</target>
+        <note/>
+      </trans-unit>
+      <trans-unit id="or" xml:space="preserve">
+        <source>or</source>
+        <target state="new">or</target>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -26,11 +26,9 @@ struct ForgotPasswordView: View {
                 CustomTextField(placeholder: "Email", text: $viewModel.email)
                 
                 // Reset Password Button
-                PrimaryButton(
-                    title: "Send Reset Link",
-                    destination: OnboardingMainView(),  // Navigate to Onboarding
-                    isDisabled: viewModel.email.isEmpty
-                )
+                PrimaryButton(title: "Send Reset Link", action: {
+                    // Reset Password
+                }, isDisabled: viewModel.email.isEmpty)
                 
                 // If email has been sent, show a confirmation message
                 if isEmailSent {

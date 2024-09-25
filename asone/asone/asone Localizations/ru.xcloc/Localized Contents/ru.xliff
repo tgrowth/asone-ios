@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Asone/Asone-InfoPlist.xcstrings" source-language="en" target-language="ru" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.0" build-num="16A242d"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>Asone</source>
+        <note>Bundle name</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Asone/Localizable.xcstrings" source-language="en" target-language="ru" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="16.0" build-num="16A242d"/>
+    </header>
+    <body>
+      <trans-unit id="" xml:space="preserve">
+        <source/>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%@" xml:space="preserve">
+        <source>%@</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="%lld days" xml:space="preserve">
+        <source>%lld days</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="A reset link has been sent to your email." xml:space="preserve">
+        <source>A reset link has been sent to your email.</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Already have an account?" xml:space="preserve">
+        <source>Already have an account?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Are you trying to conceive right now?" xml:space="preserve">
+        <source>Are you trying to conceive right now?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Are you using AsOne for yourself?" xml:space="preserve">
+        <source>Are you using AsOne for yourself?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="AsOne" xml:space="preserve">
+        <source>AsOne</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Back" xml:space="preserve">
+        <source>Back</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Days" xml:space="preserve">
+        <source>Days</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Do you know your last period?" xml:space="preserve">
+        <source>Do you know your last period?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Don't have an account?" xml:space="preserve">
+        <source>Don't have an account?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Forgot your password?" xml:space="preserve">
+        <source>Forgot your password?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Google" xml:space="preserve">
+        <source>Google</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="How long is your cycle?" xml:space="preserve">
+        <source>How long is your cycle?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="How long is your period?" xml:space="preserve">
+        <source>How long is your period?</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="I'm not interested" xml:space="preserve">
+        <source>I'm not interested</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Invite partner" xml:space="preserve">
+        <source>Invite partner</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Next" xml:space="preserve">
+        <source>Next</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="No, I have a code" xml:space="preserve">
+        <source>No, I have a code</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="No, I just want to track my cycle" xml:space="preserve">
+        <source>No, I just want to track my cycle</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partner Invite Code" xml:space="preserve">
+        <source>Partner Invite Code</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Partner Mode" xml:space="preserve">
+        <source>Partner Mode</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Set your date of birth" xml:space="preserve">
+        <source>Set your date of birth</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Share invite code" xml:space="preserve">
+        <source>Share invite code</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sign In" xml:space="preserve">
+        <source>Sign In</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Sign Up" xml:space="preserve">
+        <source>Sign Up</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Yes" xml:space="preserve">
+        <source>Yes</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="Yes, I'm trying to get pregnant" xml:space="preserve">
+        <source>Yes, I'm trying to get pregnant</source>
+        <note/>
+      </trans-unit>
+      <trans-unit id="or" xml:space="preserve">
+        <source>or</source>
+        <note/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

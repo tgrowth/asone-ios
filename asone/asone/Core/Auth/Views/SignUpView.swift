@@ -32,12 +32,10 @@ struct SignUpView: View {
                 CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
                 
                 // Sign Up Button
-                PrimaryButton(
-                    title: "Sign Up",
-                    destination: OnboardingMainView(),  // Navigate to Onboarding
-                    isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty || viewModel.fullname.isEmpty
-                )
-
+                PrimaryButton(title: "Sign Up", action: {
+                    Task { try await viewModel.register() }
+                }, isDisabled: viewModel.email.isEmpty ||  viewModel.password.isEmpty ||  viewModel.fullname.isEmpty)
+                
                 Spacer()
                 // Divider with "or"
                 HStack {

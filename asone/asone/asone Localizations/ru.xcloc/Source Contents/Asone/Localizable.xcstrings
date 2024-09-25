@@ -1,0 +1,96 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@" : {
+
+    },
+    "%lld days" : {
+
+    },
+    "A reset link has been sent to your email." : {
+
+    },
+    "Already have an account?" : {
+
+    },
+    "Are you trying to conceive right now?" : {
+
+    },
+    "Are you using AsOne for yourself?" : {
+
+    },
+    "AsOne" : {
+
+    },
+    "Back" : {
+
+    },
+    "Days" : {
+
+    },
+    "Do you know your last period?" : {
+
+    },
+    "Don't have an account?" : {
+
+    },
+    "Forgot your password?" : {
+
+    },
+    "Google" : {
+
+    },
+    "How long is your cycle?" : {
+
+    },
+    "How long is your period?" : {
+
+    },
+    "I'm not interested" : {
+
+    },
+    "Invite partner" : {
+
+    },
+    "Next" : {
+
+    },
+    "No, I have a code" : {
+
+    },
+    "No, I just want to track my cycle" : {
+
+    },
+    "or" : {
+
+    },
+    "Partner Invite Code" : {
+
+    },
+    "Partner Mode" : {
+
+    },
+    "Set your date of birth" : {
+
+    },
+    "Share invite code" : {
+
+    },
+    "Sign In" : {
+
+    },
+    "Sign Up" : {
+
+    },
+    "Yes" : {
+
+    },
+    "Yes, I'm trying to get pregnant" : {
+
+    }
+  },
+  "version" : "1.0"
+}
