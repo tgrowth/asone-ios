@@ -2,7 +2,7 @@ import SwiftUI
 
 // Define the steps in the onboarding process
 enum OnboardingStep: Int, CaseIterable {
-    case step1, step2, step3, step4, step5, step6, step7, step8
+    case step1, step2, step3, step4, step5, step6, step7
 }
 
 // A model to store the user data collected during the onboarding process

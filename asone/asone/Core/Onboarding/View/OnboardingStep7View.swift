@@ -22,9 +22,30 @@ struct OnboardingStep7View: View {
             .pickerStyle(.segmented)
             
             if viewModel.userData.isPartnerMode {
-                CustomTextField(placeholder: "Enter your partner's email", text: $viewModel.userData.partnerEmail)
+                VStack(spacing: 16) {                    
+                    Text("\(viewModel.userData.inviteCode)")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding()
+                    
+                    Button(action: {
+                        
+                    }) {
+                        HStack {
+                            Text("Share invite code").foregroundColor(.white)
+                            Image(systemName: "paperplane.fill")
+                                .foregroundColor(.white)
+                            
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(.blue)
+                        .cornerRadius(10)
+                    }
+                }
+                .padding()
             }
-            
+
             Spacer()
             OnboardingNavigation(
                 backAction: {

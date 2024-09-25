@@ -27,8 +27,6 @@ struct OnboardingMainView: View {
                 OnboardingStep6View(viewModel: viewModel)
             case .step7:
                 OnboardingStep7View(viewModel: viewModel)
-            case .step8:
-                OnboardingStep8View(viewModel: viewModel)
             }
         }
         .animation(.easeInOut, value: viewModel.currentStep)
