@@ -42,9 +42,6 @@ class LoginViewModel: ObservableObject {
     }
     
     func appleLogin(_ authorization: ASAuthorization) async throws {
-        nonce = randomNonceString()
-        self.nonce = nonce
-
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
           guard let nonce else {
             print("Invalid state: A login callback was received, but no login request was sent.")

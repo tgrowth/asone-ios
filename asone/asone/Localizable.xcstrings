@@ -21,6 +21,9 @@
         }
       }
     },
+    "%lld" : {
+
+    },
     "%lld days" : {
       "localizations" : {
         "es" : {
@@ -298,6 +301,7 @@
       }
     },
     "How long is your cycle?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -472,6 +476,9 @@
           }
         }
       }
+    },
+    "Select your cycle days" : {
+
     },
     "Send Reset Link" : {
       "localizations" : {

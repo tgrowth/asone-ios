@@ -16,7 +16,7 @@ struct OnboardingUserData {
     var isTryingToConceive: Bool = false
     var isPartnerMode: Bool = false
     var partnerEmail: String = ""
-    var inviteCode: String = "SSM-BGH"
+    var inviteCode: String = "254313"
 }
 
 class OnboardingViewModel: ObservableObject {

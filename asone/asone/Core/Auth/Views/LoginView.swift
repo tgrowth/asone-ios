@@ -15,7 +15,6 @@ import AuthenticationServices
 struct LoginView: View {
 
     @StateObject var viewModel = LoginViewModel()
-    @State private var nonce: String?
     
     var body: some View {
         NavigationStack {
@@ -65,8 +64,10 @@ struct LoginView: View {
                 // Sign in with Apple and Google
                 VStack {
                     SignInWithAppleButton(.signIn){ request in
+                        let nonce = viewModel.randomNonceString()
+                        request.nonce = viewModel.sha256(nonce)
+                        viewModel.nonce = nonce
                         request.requestedScopes = [.email, .fullName]
-                        request.nonce = viewModel.sha256(viewModel.nonce!)
                     } onCompletion: { result in
                         switch result {
                         case .success(let authorization):
