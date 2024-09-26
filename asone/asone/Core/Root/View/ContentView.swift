@@ -9,11 +9,17 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @StateObject var viewModel = ContentViewModel()
+    @StateObject var contentViewModel = ContentViewModel()
+    @StateObject var onboardingViewModel = OnboardingViewModel()
+    
     var body: some View {
         Group{
-            if viewModel.userSession != nil {
-                OnboardingMainView()
+            if contentViewModel.userSession != nil {
+                if onboardingViewModel.userData.isComplete {
+                    MainView()
+                } else {
+                    OnboardingMainView()
+                }
             } else {
                 LoginView()
             }

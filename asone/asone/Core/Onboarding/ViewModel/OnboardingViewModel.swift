@@ -16,7 +16,8 @@ struct OnboardingUserData {
     var isTryingToConceive: Bool = false
     var isPartnerMode: Bool = false
     var partnerEmail: String = ""
-    var inviteCode: String = "254313"
+    var inviteCode: String = ""
+    var isComplete: Bool = false
 }
 
 class OnboardingViewModel: ObservableObject {
@@ -43,6 +44,13 @@ class OnboardingViewModel: ObservableObject {
     // Finalize the onboarding process
     func completeOnboarding() {
         // Logic to handle when the user completes onboarding (e.g., saving user data)
+        
         print("Onboarding Completed with Data: \(userData)")
+    }
+    
+    func generateInviteCode(length: Int = 6) {
+        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let inviteCode = String((0..<length).map { _ in characters.randomElement()! })
+        userData.inviteCode = inviteCode
     }
 }

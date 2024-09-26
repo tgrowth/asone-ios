@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingStep7View: View {
     @ObservedObject var viewModel: OnboardingViewModel
+    @State private var isSharing = false
 
     var body: some View {
         VStack {
@@ -29,7 +30,7 @@ struct OnboardingStep7View: View {
                         .padding()
                     
                     Button(action: {
-                        
+                        isSharing = true
                     }) {
                         HStack {
                             Text("Share invite code").foregroundColor(.white)
@@ -42,19 +43,35 @@ struct OnboardingStep7View: View {
                         .background(.blue)
                         .cornerRadius(10)
                     }
+                    .sheet(isPresented: $isSharing, onDismiss: {
+                        print("Dismissed")
+                    }) {
+                        ActivityView(activityItems: [URL(string: "https://asone.com/?ref=\(viewModel.userData.inviteCode)")!])
+                    }
                 }
                 .padding()
             }
 
             Spacer()
-            OnboardingNavigation(
-                backAction: {
-                    viewModel.goToPreviousStep()
-                },
-                nextAction: {
-                    AuthService.shared.signOut()
+            HStack{
+                OnboardingNavigation(
+                    showNext: false,
+                    backAction: viewModel.goToPreviousStep
+                ) {
+                        
                 }
-            )
+                Button(action: {
+                    viewModel.completeOnboarding()
+                }) {
+                    HStack {
+                        Text("Done").foregroundColor(.white)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.black)
+                    .cornerRadius(10)
+                }
+            }
         }
         .padding()
     }
@@ -63,4 +80,16 @@ struct OnboardingStep7View: View {
 
 #Preview {
     OnboardingStep7View(viewModel: OnboardingViewModel())
+}
+
+struct ActivityView: UIViewControllerRepresentable {
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
