@@ -30,7 +30,7 @@ class AuthService {
         }
     }
     
-    func googleLogin(credential: AuthCredential) async throws {
+    func thirdPartyLogin(credential: AuthCredential) async throws {
         do {
             let result = try await Auth.auth().signIn(with: credential)
             self.userSession = result.user
