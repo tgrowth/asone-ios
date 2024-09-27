@@ -27,7 +27,7 @@ struct MainView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
-        }
+        }.tint(.black)
     }
 }
 
@@ -54,18 +54,6 @@ struct SettingsView: View {
     }
 }
 
-struct ProfileView: View {
-    var body: some View {
-        VStack {
-            Text("Profile")
-                .font(.largeTitle)
-                .padding()
-            Text("View and update your profile information.")
-                .font(.headline)
-        }
-        .padding()
-    }
-}
 
 #Preview {
     MainView()

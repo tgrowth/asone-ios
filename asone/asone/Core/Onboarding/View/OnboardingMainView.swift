@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingMainView: View {
-    @StateObject var viewModel = OnboardingViewModel()
+    @ObservedObject var viewModel = OnboardingViewModel()
     
     var body: some View {
         VStack {
@@ -35,5 +35,5 @@ struct OnboardingMainView: View {
 
 
 #Preview {
-    OnboardingMainView()
+    OnboardingMainView(viewModel: OnboardingViewModel())
 }

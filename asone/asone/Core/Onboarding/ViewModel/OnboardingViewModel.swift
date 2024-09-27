@@ -44,7 +44,7 @@ class OnboardingViewModel: ObservableObject {
     // Finalize the onboarding process
     func completeOnboarding() {
         // Logic to handle when the user completes onboarding (e.g., saving user data)
-        
+        userData.isComplete = true
         print("Onboarding Completed with Data: \(userData)")
     }
     

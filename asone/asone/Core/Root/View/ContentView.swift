@@ -7,18 +7,17 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
-    @StateObject var contentViewModel = ContentViewModel()
-    @StateObject var onboardingViewModel = OnboardingViewModel()
+    @StateObject var contentViewModel = ContentViewModel() // Assuming this handles session
+    @StateObject var onboardingViewModel = OnboardingViewModel() // Onboarding state
     
     var body: some View {
-        Group{
-            if contentViewModel.userSession != nil {
+        Group {
+            if let _ = contentViewModel.userSession {
                 if onboardingViewModel.userData.isComplete {
                     MainView()
                 } else {
-                    OnboardingMainView()
+                    OnboardingMainView(viewModel: onboardingViewModel)
                 }
             } else {
                 LoginView()
