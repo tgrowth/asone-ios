@@ -16,12 +16,6 @@ struct ForgotPasswordView: View {
             VStack {
                 Spacer()
                 
-                // App Title or Logo
-                Text("AsOne")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 40)
-                
                 // Reusable Custom Text Field for Email
                 CustomTextField(placeholder: "Email", text: $viewModel.email)
                 

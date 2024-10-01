@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAuth
 
 // Define the steps in the onboarding process
 enum OnboardingStep: Int, CaseIterable {
@@ -44,10 +45,64 @@ class OnboardingViewModel: ObservableObject {
     // Finalize the onboarding process
     func completeOnboarding() {
         // Logic to handle when the user completes onboarding (e.g., saving user data)
-        userData.isComplete = true
+        
+        guard let user = Auth.auth().currentUser else {
+            print("No Firebase user found")
+            return
+        }
+        
+        user.getIDToken { token, error in
+            if let error = error {
+                print("Error fetching ID token: \(error)")
+                return
+            }
+            
+            guard let token = token else {
+                print("No token found")
+                return
+            }
+            
+            // Send token to backend
+            self.fetch(token: token)
+        }
+
+        self.userData.isComplete = true
         print("Onboarding Completed with Data: \(userData)")
     }
     
+    func fetch(token: String) {
+        guard let url = URL(string: "http://localhost:3000/signin") else {
+            print("Invalid URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // Set the headers
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Send the request
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error sending token to backend: \(error)")
+                return
+            }
+            
+            // Handle response from the backend
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    print("Token successfully sent to backend")
+                } else {
+                    print("Failed to send token. Status code: \(httpResponse.statusCode)")
+                }
+            }
+        }
+        
+        task.resume()
+    }
+
     func generateInviteCode(length: Int = 6) {
         let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let inviteCode = String((0..<length).map { _ in characters.randomElement()! })
