@@ -73,7 +73,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     private func sendToken(token: String) {
-        guard let url = URL(string: "http://localhost:3000/signin") else {
+        guard let url = URL(string: "http://api.asone.life/signin") else {
             print("Invalid URL")
             return
         }
@@ -138,7 +138,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     private func sendUserData(jsonData: Data) {
-        guard let url = URL(string: "http://localhost:3000/api/userdata") else { //api changes
+        guard let url = URL(string: "http://api.asone.life/userdata") else { //api changes
             print("Invalid URL")
             return
         }
