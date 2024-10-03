@@ -76,6 +76,15 @@
         }
       }
     },
+    "6,500" : {
+
+    },
+    "7 hrs" : {
+
+    },
+    "72 BPM" : {
+
+    },
     "A reset link has been sent to your email." : {
       "localizations" : {
         "es" : {
@@ -91,9 +100,6 @@
           }
         }
       }
-    },
-    "Adjust your preferences here." : {
-
     },
     "Already have an account?" : {
       "localizations" : {
@@ -175,6 +181,18 @@
         }
       }
     },
+    "Birthday" : {
+
+    },
+    "Cycle Length" : {
+
+    },
+    "Daily Tips" : {
+
+    },
+    "Day 14 of 28-day cycle" : {
+
+    },
     "Days" : {
       "localizations" : {
         "es" : {
@@ -190,6 +208,9 @@
           }
         }
       }
+    },
+    "Did you know that staying hydrated can help alleviate period cramps?" : {
+
     },
     "Do you know your last period?" : {
       "localizations" : {
@@ -306,6 +327,12 @@
         }
       }
     },
+    "Health Overview" : {
+
+    },
+    "Heart Rate" : {
+
+    },
     "Home" : {
 
     },
@@ -374,6 +401,15 @@
         }
       }
     },
+    "Language" : {
+
+    },
+    "Last Period Date" : {
+
+    },
+    "Log Today's Symptoms" : {
+
+    },
     "Login" : {
       "localizations" : {
         "es" : {
@@ -390,6 +426,12 @@
         }
       }
     },
+    "Mood" : {
+
+    },
+    "My Profile" : {
+
+    },
     "Next" : {
       "localizations" : {
         "es" : {
@@ -405,6 +447,9 @@
           }
         }
       }
+    },
+    "Next period starts on October 10th" : {
+
     },
     "No, I have a code" : {
       "localizations" : {
@@ -438,6 +483,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "or" : {
       "localizations" : {
         "es" : {
@@ -453,6 +501,9 @@
           }
         }
       }
+    },
+    "Partner Email" : {
+
     },
     "Partner Mode" : {
       "localizations" : {
@@ -486,10 +537,19 @@
         }
       }
     },
-    "Profile" : {
+    "Period Length" : {
+
+    },
+    "Profile Updated" : {
+
+    },
+    "Save Changes" : {
 
     },
     "Select your cycle days" : {
+
+    },
+    "Send" : {
 
     },
     "Send Reset Link" : {
@@ -523,9 +583,6 @@
           }
         }
       }
-    },
-    "Settings" : {
-
     },
     "Share invite code" : {
       "localizations" : {
@@ -575,7 +632,22 @@
         }
       }
     },
-    "This is the Home tab." : {
+    "Sleep" : {
+
+    },
+    "Steps" : {
+
+    },
+    "Symptoms" : {
+
+    },
+    "Trying to Conceive" : {
+
+    },
+    "Upcoming Events" : {
+
+    },
+    "Using for Self" : {
 
     },
     "Yes" : {
@@ -609,6 +681,12 @@
           }
         }
       }
+    },
+    "Your Cycle" : {
+
+    },
+    "Your profile has been successfully updated." : {
+
     }
   },
   "version" : "1.0"

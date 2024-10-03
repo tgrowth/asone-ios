@@ -13,44 +13,15 @@ struct MainView: View {
             // Home Tab
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-
-            // Settings Tab
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
+                    Label("", systemImage: "house.fill")
                 }
 
             // Profile Tab
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "person.fill")
+                    Label("", systemImage: "person.fill")
                 }
         }.tint(.black)
-    }
-}
-
-struct HomeView: View {
-    var body: some View {
-        VStack {
-            Text("This is the Home tab.")
-                .font(.headline)
-        }
-        .padding()
-    }
-}
-
-struct SettingsView: View {
-    var body: some View {
-        VStack {
-            Text("Settings")
-                .font(.largeTitle)
-                .padding()
-            Text("Adjust your preferences here.")
-                .font(.headline)
-        }
-        .padding()
     }
 }
 

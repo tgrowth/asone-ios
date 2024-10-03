@@ -124,7 +124,6 @@ class OnboardingViewModel: ObservableObject {
             "isPartnerMode": userData.isPartnerMode,
             "partnerEmail": userData.partnerEmail,
             "inviteCode": userData.inviteCode
-            // Add any additional fields here
         ]
         
         // Convert dictionary to JSON data
