@@ -69,7 +69,7 @@ class OnboardingViewModel: ObservableObject {
         
         print("Onboarding Completed with Data: \(userData)")
         
-        //self.submitUserData()
+        self.submitUserData()
     }
     
     private func sendToken(token: String) {
@@ -125,19 +125,27 @@ class OnboardingViewModel: ObservableObject {
             "partnerEmail": userData.partnerEmail,
             "inviteCode": userData.inviteCode
         ]
-        
+
         // Convert dictionary to JSON data
         guard let jsonData = try? JSONSerialization.data(withJSONObject: userDataDictionary) else {
             print("Error serializing user data to JSON")
             return
         }
+
+        // Get the current Firebase user and their UID
+        guard let user = Auth.auth().currentUser else {
+            print("No Firebase user found")
+            return
+        }
         
-        // Send the data to the backend
-        sendUserData(jsonData: jsonData)
+        let userId = user.uid  // Get the Firebase UID
+
+        // Send the data to the backend, including the UID
+        sendUserData(jsonData: jsonData, userId: userId)
     }
     
-    private func sendUserData(jsonData: Data) {
-        guard let url = URL(string: "http://api.asone.life/userdata") else { //api changes
+    private func sendUserData(jsonData: Data, userId: String) {
+        guard let url = URL(string: "http://api.asone.life/userinfo/\(userId)") else {
             print("Invalid URL")
             return
         }
