@@ -66,9 +66,6 @@ class OnboardingViewModel: ObservableObject {
         }
 
         self.userData.isComplete = true
-        
-        print("Onboarding Completed with Data: \(userData)")
-        
         self.submitUserData()
     }
     
@@ -112,28 +109,36 @@ class OnboardingViewModel: ObservableObject {
     }
     
     func submitUserData() {
-        // Convert the user data to a format suitable for your backend
+        // Create a DateFormatter to ensure correct formatting for "yyyy-MM-dd"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        // Format the dates to strings
+        let formattedBirthday = dateFormatter.string(from: userData.birthday)
+        let formattedLastPeriodDate = dateFormatter.string(from: userData.lastPeriodDate)
+        
+        // Convert the user data to a dictionary with the formatted date strings
         let userDataDictionary: [String: Any] = [
             "isUsingForSelf": userData.isUsingForSelf,
             "code": userData.code,
-            "birthday": userData.birthday.timeIntervalSince1970,
+            "birthday": formattedBirthday,  // Use the formatted birthday
             "periodLength": userData.periodLength,
             "cycleLength": userData.cycleLength,
-            "lastPeriodDate": userData.lastPeriodDate.timeIntervalSince1970,
+            "lastPeriodDate": formattedLastPeriodDate,  // Use the formatted lastPeriodDate
             "isTryingToConceive": userData.isTryingToConceive,
             "isPartnerMode": userData.isPartnerMode,
             "partnerEmail": userData.partnerEmail,
             "inviteCode": userData.inviteCode,
             "isComplete": userData.isComplete
         ]
-
+        
         // Convert dictionary to JSON data
         guard let jsonData = try? JSONSerialization.data(withJSONObject: userDataDictionary) else {
             print("Error serializing user data to JSON")
             return
         }
-        
-        print(jsonData)
+
+        print(String(data: jsonData, encoding: .utf8) ?? "Invalid JSON")
 
         // Get the current Firebase user and their UID
         guard let user = Auth.auth().currentUser else {
@@ -141,14 +146,12 @@ class OnboardingViewModel: ObservableObject {
             return
         }
         
-        let userId = user.uid  // Get the Firebase UID
-        print(userId)
+        let userId = user.uid;
 
-        // Send the data to the backend, including the UID
-        sendUserData(jsonData: jsonData, userId: userId)
+        sendUserData(jsonData: jsonData, userId: 4) // userId
     }
-    
-    private func sendUserData(jsonData: Data, userId: String) {
+
+    private func sendUserData(jsonData: Data, userId: Int) { //change to string uid
         guard let url = URL(string: "http://api.asone.life/userInfo/\(userId)") else {
             print("Invalid URL")
             return

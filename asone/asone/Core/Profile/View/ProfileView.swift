@@ -1,10 +1,3 @@
-//
-//  ProfileView.swift
-//  Asone
-//
-//  Created by Arslan Kamchybekov on 9/26/24.
-//
-
 import SwiftUI
 
 struct ProfileView: View {
@@ -56,7 +49,7 @@ struct ProfileView: View {
                                     .padding(.horizontal)
                                 
                                 Button {
-                                    
+                                    // Logic for sending partner invite email
                                 } label: {
                                     Text("Send")
                                 }
@@ -70,7 +63,6 @@ struct ProfileView: View {
                         }
                         .padding(.horizontal)
                         
-
                         // Birthday
                         DatePicker("Birthday", selection: $onboardingViewModel.userData.birthday, displayedComponents: .date)
                             .padding(.horizontal)
@@ -137,6 +129,18 @@ struct ProfileView: View {
                 }
                 .padding(.top, 20)
             }
+            .onAppear {
+                if let userData = profileViewModel.currentUser {
+                    onboardingViewModel.userData.isUsingForSelf = userData.isUsingForSelf
+                    onboardingViewModel.userData.partnerEmail = userData.partnerEmail ?? ""
+                    onboardingViewModel.userData.isTryingToConceive = userData.isTryingToConceive
+                    // Convert date strings (e.g., "1990-01-01") back to Date format
+                    onboardingViewModel.userData.birthday = convertToDate(dateString: userData.birthday)
+                    onboardingViewModel.userData.lastPeriodDate = convertToDate(dateString: userData.lastPeriodDate)
+                    onboardingViewModel.userData.cycleLength = userData.cycleLength
+                    onboardingViewModel.userData.periodLength = userData.periodLength
+                }
+            }
             .navigationTitle("My Profile")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -153,10 +157,16 @@ struct ProfileView: View {
 
     // Function to handle saving profile changes
     func saveProfileChanges() {
-        // Here, save the user's selected language to UserDefaults or update the app's localization settings
         UserDefaults.standard.set(selectedLanguage, forKey: "AppLanguage")
         onboardingViewModel.completeOnboarding() // Save updates to user data
         showingConfirmation = true
+    }
+    
+    // Helper function to convert a date string to Date
+    func convertToDate(dateString: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.date(from: dateString) ?? Date()
     }
 }
 
