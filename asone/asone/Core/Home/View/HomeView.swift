@@ -1,19 +1,13 @@
-//
-//  HomeView.swift
-//  Asone
-//
-//  Created by Arslan Kamchybekov on 10/2/24.
-//
-
 import SwiftUI
 
 struct HomeView: View {
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
                     
-                    // Cycle Overview
+                    // Cycle Overview (existing component)
                     VStack(alignment: .leading) {
                         Text("Your Cycle")
                             .font(.headline)
@@ -26,7 +20,22 @@ struct HomeView: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                     
-                    // Health Metrics
+                    // "My Quizzes" Dashboard Section
+                    NavigationLink(destination: QuizListView(viewModel: QuizViewModel())) {
+                        VStack(alignment: .leading) {
+                            Text("My Quizzes")
+                                .font(.headline)
+                                .padding(.bottom, 2)
+                            Text("View and manage your quizzes")
+                                .font(.subheadline)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.purple.opacity(0.2))
+                        .cornerRadius(10)
+                    }
+                    
+                    // Health Metrics (existing component)
                     VStack(alignment: .leading) {
                         Text("Health Overview")
                             .font(.headline)
@@ -55,60 +64,9 @@ struct HomeView: View {
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                     
-                    // Daily Tips
-                    VStack(alignment: .leading) {
-                        Text("Daily Tips")
-                            .font(.headline)
-                            .padding(.bottom, 2)
-                        Text("Did you know that staying hydrated can help alleviate period cramps?")
-                            .font(.subheadline)
-                    }
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
-                    
-                    // Calendar Preview
-                    VStack(alignment: .leading) {
-                        Text("Upcoming Events")
-                            .font(.headline)
-                            .padding(.bottom, 2)
-                        Text("Next period starts on October 10th")
-                            .font(.subheadline)
-                    }
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
-                    
-                    // Quick Symptom Logging
-                    VStack(alignment: .leading) {
-                        Text("Log Today's Symptoms")
-                            .font(.headline)
-                            .padding(.bottom, 2)
-                        
-                        // Mood and Symptoms Logging
-                        HStack {
-                            Button(action: {
-                                // Log mood
-                            }) {
-                                Text("Mood")
-                                    .padding()
-                                    .background(Color.blue.opacity(0.2))
-                                    .cornerRadius(10)
-                            }
-                            Spacer()
-                            Button(action: {
-                                // Log symptoms
-                            }) {
-                                Text("Symptoms")
-                                    .padding()
-                                    .background(Color.green.opacity(0.2))
-                                    .cornerRadius(10)
-                            }
-                        }
-                    }
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(10)
+                    // Other components (Daily Tips, Calendar, etc.)
+                    // ...
+
                 }
                 .padding()
             }

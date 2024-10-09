@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var contentViewModel = ContentViewModel() // Assuming this handles session
-    @StateObject var onboardingViewModel = OnboardingViewModel() // Onboarding state
+    @StateObject var contentViewModel = ContentViewModel()
+    @StateObject var onboardingViewModel = OnboardingViewModel()
     
     var body: some View {
         Group {

@@ -184,10 +184,10 @@
     "Birthday" : {
 
     },
-    "Cycle Length" : {
+    "Complete" : {
 
     },
-    "Daily Tips" : {
+    "Cycle Length" : {
 
     },
     "Day 14 of 28-day cycle" : {
@@ -208,9 +208,6 @@
           }
         }
       }
-    },
-    "Did you know that staying hydrated can help alleviate period cramps?" : {
-
     },
     "Do you know your last period?" : {
       "localizations" : {
@@ -407,9 +404,6 @@
     "Last Period Date" : {
 
     },
-    "Log Today's Symptoms" : {
-
-    },
     "Login" : {
       "localizations" : {
         "es" : {
@@ -426,10 +420,10 @@
         }
       }
     },
-    "Mood" : {
+    "My Profile" : {
 
     },
-    "My Profile" : {
+    "My Quizzes" : {
 
     },
     "Next" : {
@@ -447,9 +441,6 @@
           }
         }
       }
-    },
-    "Next period starts on October 10th" : {
-
     },
     "No, I have a code" : {
       "localizations" : {
@@ -541,6 +532,9 @@
 
     },
     "Profile Updated" : {
+
+    },
+    "Quizzes" : {
 
     },
     "Save Changes" : {
@@ -635,19 +629,19 @@
     "Sleep" : {
 
     },
-    "Steps" : {
+    "Start" : {
 
     },
-    "Symptoms" : {
+    "Steps" : {
 
     },
     "Trying to Conceive" : {
 
     },
-    "Upcoming Events" : {
+    "Using for Self" : {
 
     },
-    "Using for Self" : {
+    "View and manage your quizzes" : {
 
     },
     "Yes" : {

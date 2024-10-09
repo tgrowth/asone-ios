@@ -12,10 +12,6 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var showingConfirmation = false
     
-    private var currentUser: User? {
-        return profileViewModel.currentUser
-    }
-    
     // Language selection
     @State private var selectedLanguage = "English" // Default to English
     
@@ -29,17 +25,17 @@ struct ProfileView: View {
                     Group {
                         // Name
                         HStack {
-                            Text(currentUser?.fullname ?? "Name")
+                            Text(profileViewModel.displayName)
                                 .fontWeight(.semibold)
                                 .font(.title2)
                             Spacer()
                         }
                         .padding(.horizontal)
-                        
+
                         HStack {
-                            Text(currentUser?.email ?? "Email")
+                            Text(profileViewModel.email)
                                 .fontWeight(.semibold)
-                                .font(.title3)
+                                .font(.subheadline)
                             Spacer()
                         }
                         .padding(.horizontal)

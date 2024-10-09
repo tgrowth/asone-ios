@@ -123,7 +123,8 @@ class OnboardingViewModel: ObservableObject {
             "isTryingToConceive": userData.isTryingToConceive,
             "isPartnerMode": userData.isPartnerMode,
             "partnerEmail": userData.partnerEmail,
-            "inviteCode": userData.inviteCode
+            "inviteCode": userData.inviteCode,
+            "isComplete": userData.isComplete
         ]
 
         // Convert dictionary to JSON data
@@ -131,6 +132,8 @@ class OnboardingViewModel: ObservableObject {
             print("Error serializing user data to JSON")
             return
         }
+        
+        print(jsonData)
 
         // Get the current Firebase user and their UID
         guard let user = Auth.auth().currentUser else {
@@ -139,13 +142,14 @@ class OnboardingViewModel: ObservableObject {
         }
         
         let userId = user.uid  // Get the Firebase UID
+        print(userId)
 
         // Send the data to the backend, including the UID
         sendUserData(jsonData: jsonData, userId: userId)
     }
     
     private func sendUserData(jsonData: Data, userId: String) {
-        guard let url = URL(string: "http://api.asone.life/userinfo/\(userId)") else {
+        guard let url = URL(string: "http://api.asone.life/userInfo/\(userId)") else {
             print("Invalid URL")
             return
         }
