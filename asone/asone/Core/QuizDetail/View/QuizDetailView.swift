@@ -1,18 +1,13 @@
-//
-//  QuizDetailView.swift
-//  Asone
-//
-//  Created by Arslan Kamchybekov on 10/8/24.
-//
-
 import SwiftUI
 
 struct QuizDetailView: View {
     @ObservedObject var viewModel: QuizViewModel
+    @State private var quizCompleted = false
     
     var body: some View {
         if let currentQuiz = viewModel.currentQuiz {
             let currentQuestion = currentQuiz.questions[viewModel.currentQuestionIndex]
+            
             VStack {
                 Text(currentQuiz.name)
                     .font(.title)
@@ -29,7 +24,7 @@ struct QuizDetailView: View {
                         RadioButton(isSelected: viewModel.currentQuiz?.questions[viewModel.currentQuestionIndex].selectedChoice == index)
                         
                         Text(currentQuestion.choices[index])
-                            .frame(maxWidth: .infinity, alignment: .leading)  // Ensure the text aligns to the left
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             .onTapGesture {
                                 viewModel.selectChoice(at: index)
                             }
@@ -47,12 +42,25 @@ struct QuizDetailView: View {
                     }
                     Spacer()
                     Button(action: {
-                        viewModel.nextQuestion()
+                        if viewModel.currentQuestionIndex == currentQuiz.questions.count - 1 {
+                            // viewModel.completeQuiz()
+                            print("Complete")
+                            quizCompleted = true // Set quizCompleted to true
+                        } else {
+                            viewModel.nextQuestion()
+                        }
                     }) {
-                        Text("Next").foregroundColor(.blue)
+                        Text(viewModel.currentQuestionIndex == currentQuiz.questions.count - 1 ? "Complete" : "Next")
+                            .foregroundColor(.blue)
                     }
                 }
-                .padding(.top, 20)
+                .padding()
+                
+                // NavigationLink to redirect to the result view after quiz is complete
+                NavigationLink(destination: QuizResultView(), isActive: $quizCompleted) {
+                    EmptyView()
+                }
+                .navigationBarBackButtonHidden()
             }
             .padding()
         }
@@ -66,7 +74,7 @@ struct RadioButton: View {
         Circle()
             .strokeBorder(isSelected ? Color.blue : Color.gray, lineWidth: 2)
             .background(Circle().fill(isSelected ? Color.blue : Color.clear))
-            .frame(width: 20, height: 20)
+            .frame(width: 16, height: 16)
     }
 }
 

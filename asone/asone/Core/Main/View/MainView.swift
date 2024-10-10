@@ -85,6 +85,7 @@ struct MainView: View {
                 .background(Color.black.opacity(0.05))
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

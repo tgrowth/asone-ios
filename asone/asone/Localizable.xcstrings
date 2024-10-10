@@ -76,6 +76,9 @@
         }
       }
     },
+    "%lld%%" : {
+
+    },
     "A reset link has been sent to your email." : {
       "localizations" : {
         "es" : {
@@ -674,6 +677,9 @@
       }
     },
     "Your code:" : {
+
+    },
+    "Your love language is..." : {
 
     }
   },

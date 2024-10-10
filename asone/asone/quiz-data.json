@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Love Language Quiz",
+        "isComplete": false,
+        "questions": [
+            {
+                "text": "It's more meaningful to me when...",
+                "choices": [
+                    "My partner surprises me with a thoughtful gift",
+                    "My partner helps me with a task without being asked"
+                ]
+            },
+            {
+                "text": "It's more meaningful to me when...",
+                "choices": [
+                    "My partner and I have a deep, uninterrupted conversation",
+                    "My partner gives me a hug or holds my hand"
+                ]
+            }
+        ]
+    }
+]

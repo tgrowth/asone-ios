@@ -6,7 +6,7 @@
 //
 
 
-struct Question {
+struct Question: Codable {
     let text: String
     let choices: [String]
     var selectedChoice: Int? = nil
