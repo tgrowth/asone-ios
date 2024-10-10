@@ -1,174 +1,120 @@
 import SwiftUI
 
+
 struct ProfileView: View {
-    @StateObject var onboardingViewModel = OnboardingViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
-    @State private var showingConfirmation = false
-    
-    // Language selection
-    @State private var selectedLanguage = "English" // Default to English
-    
-    // List of available languages (you can extend this)
-    let availableLanguages = ["English", "Spanish", "Russian"]
+    @StateObject var quizViewModel = QuizViewModel()
     
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    Group {
-                        // Name
-                        HStack {
+                    // Profile section
+                    HStack {
+                        Circle()
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 60, height: 60)
+                        
+                        VStack(alignment: .leading) {
                             Text(profileViewModel.displayName)
-                                .fontWeight(.semibold)
                                 .font(.title2)
-                            Spacer()
-                        }
-                        .padding(.horizontal)
-
-                        HStack {
-                            Text(profileViewModel.email)
                                 .fontWeight(.semibold)
-                                .font(.subheadline)
-                            Spacer()
+                            Text("Status: Period")
+                                .foregroundColor(.gray)
                         }
-                        .padding(.horizontal)
+                        Spacer()
                         
-                        // Using For Self or Partner Mode
-                        Toggle(isOn: $onboardingViewModel.userData.isUsingForSelf) {
-                            Text("Using for Self")
+                        Button {
+                            // Action for editing profile
+                        } label: {
+                            Image(systemName: "pencil")
+                                .foregroundColor(.black)
                         }
-                        .padding(.horizontal)
-                        
-                        // Partner Email (conditionally shown if Partner Mode is enabled)
-                        if !onboardingViewModel.userData.isUsingForSelf {
-                            HStack{
-                                TextField("Partner Email", text: $onboardingViewModel.userData.partnerEmail)
-                                    .keyboardType(.emailAddress)
-                                    .autocapitalization(.none)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding(.horizontal)
-                                
-                                Button {
-                                    // Logic for sending partner invite email
-                                } label: {
-                                    Text("Send")
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                        
-                        // Trying to Conceive
-                        Toggle(isOn: $onboardingViewModel.userData.isTryingToConceive) {
-                            Text("Trying to Conceive")
-                        }
-                        .padding(.horizontal)
-                        
-                        // Birthday
-                        DatePicker("Birthday", selection: $onboardingViewModel.userData.birthday, displayedComponents: .date)
-                            .padding(.horizontal)
-                        
-                        // Last Period Date
-                        DatePicker("Last Period Date", selection: $onboardingViewModel.userData.lastPeriodDate, displayedComponents: .date)
-                            .padding(.horizontal)
+                    }
+                    .padding()
 
-                        // Cycle Length
-                        HStack {
-                            Text("Cycle Length")
-                            Spacer()
-                            TextField("", value: $onboardingViewModel.userData.cycleLength, formatter: NumberFormatter())
-                                .keyboardType(.numberPad)
-                                .frame(width: 60)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
-                        .padding(.horizontal)
+                    // Premium offer section
+                    VStack {
+                        Text("Make your life with partner more peacefull and greatfull with AsOne Premium")
+                            .multilineTextAlignment(.center)
+                            .font(.subheadline)
+                            .padding()
                         
-                        // Period Length
-                        HStack {
-                            Text("Period Length")
-                            Spacer()
-                            TextField("", value: $onboardingViewModel.userData.periodLength, formatter: NumberFormatter())
-                                .keyboardType(.numberPad)
-                                .frame(width: 60)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
-                        .padding(.horizontal)
-                        
-                        // Language Picker
-                        HStack() {
-                            Text("Language")
-                                .padding(.horizontal)
-                            Spacer()
-                            Picker("Language", selection: $selectedLanguage) {
-                                ForEach(availableLanguages, id: \.self) { language in
-                                    Text(language).tag(language)
-                                }
-                            }
-                            .pickerStyle(MenuPickerStyle())
-                            .padding(.horizontal)
-                        }
-                    }
-                    
-                    // Save Button
-                    Button(action: {
-                        saveProfileChanges()
-                    }) {
-                        HStack {
-                            Text("Save Changes")
+                        Button(action: {
+                            // Premium action
+                        }) {
+                            Text("Join premium")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.black)
                                 .foregroundColor(.white)
-                                .font(.headline)
+                                .cornerRadius(10)
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.black)
-                        .cornerRadius(10)
                         .padding(.horizontal)
                     }
-                    .alert(isPresented: $showingConfirmation) {
-                        Alert(title: Text("Profile Updated"), message: Text("Your profile has been successfully updated."), dismissButton: .default(Text("OK")))
+                    .padding(.vertical, 8)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+                    
+                    // Other menu options
+                    VStack(spacing: 8) {
+                        NavigationLink(destination: InvitePartnerView()) {
+                            ProfileOptionRow(icon: "heart", text: "Invite partner")
+                        }
+                        
+                        NavigationLink(destination: QuizListView(viewModel: QuizViewModel())) {
+                            ProfileOptionRow(icon: "list.bullet", text: "Re-Test Love Languages")
+                        }
+                        
+                        NavigationLink(destination: SettingsView()) {
+                            ProfileOptionRow(icon: "gearshape", text: "Settings")
+                        }
+                        
+                        NavigationLink(destination: StatisticsView()) {
+                            ProfileOptionRow(icon: "chart.bar", text: "Statistics")
+                        }
                     }
-                }
-                .padding(.top, 20)
-            }
-            .onAppear {
-                if let userData = profileViewModel.currentUser {
-                    onboardingViewModel.userData.isUsingForSelf = userData.isUsingForSelf
-                    onboardingViewModel.userData.partnerEmail = userData.partnerEmail ?? ""
-                    onboardingViewModel.userData.isTryingToConceive = userData.isTryingToConceive
-                    // Convert date strings (e.g., "1990-01-01") back to Date format
-                    onboardingViewModel.userData.birthday = convertToDate(dateString: userData.birthday)
-                    onboardingViewModel.userData.lastPeriodDate = convertToDate(dateString: userData.lastPeriodDate)
-                    onboardingViewModel.userData.cycleLength = userData.cycleLength
-                    onboardingViewModel.userData.periodLength = userData.periodLength
+                    .padding(.horizontal)
                 }
             }
             .navigationTitle("My Profile")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        AuthService.shared.signOut()
+                        // Add additional actions if needed
                     } label: {
                         Image(systemName: "rectangle.portrait.and.arrow.right")
-                            .foregroundColor(.black)
+                            .foregroundColor(.red)
                     }
                 }
             }
         }
     }
+}
 
-    // Function to handle saving profile changes
-    func saveProfileChanges() {
-        UserDefaults.standard.set(selectedLanguage, forKey: "AppLanguage")
-        onboardingViewModel.completeOnboarding() // Save updates to user data
-        showingConfirmation = true
-    }
+struct ProfileOptionRow: View {
+    var icon: String
+    var text: String
+    var iconColor: Color = .black
     
-    // Helper function to convert a date string to Date
-    func convertToDate(dateString: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.date(from: dateString) ?? Date()
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(iconColor)
+                .frame(width: 24, height: 24)
+            Text(text)
+                .foregroundColor(.black)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundColor(.gray)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(10)
     }
 }
+
 
 #Preview {
     ProfileView()

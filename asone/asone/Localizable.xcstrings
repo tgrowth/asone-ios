@@ -92,6 +92,9 @@
         }
       }
     },
+    "Add Symptoms" : {
+
+    },
     "Already have an account?" : {
       "localizations" : {
         "es" : {
@@ -172,13 +175,22 @@
         }
       }
     },
-    "Birthday" : {
+    "Calendar" : {
+
+    },
+    "Calendar Screen" : {
 
     },
     "Complete" : {
 
     },
-    "Cycle Length" : {
+    "Copied" : {
+
+    },
+    "Cycle advices" : {
+
+    },
+    "Day 26" : {
 
     },
     "Days" : {
@@ -312,9 +324,6 @@
         }
       }
     },
-    "Home" : {
-
-    },
     "How long is your cycle?" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -380,10 +389,13 @@
         }
       }
     },
-    "Language" : {
+    "Invite your partner" : {
 
     },
-    "Last Period Date" : {
+    "Join premium" : {
+
+    },
+    "Log period" : {
 
     },
     "Login" : {
@@ -402,10 +414,10 @@
         }
       }
     },
-    "My Profile" : {
+    "Make your life with partner more peacefull and greatfull with AsOne Premium" : {
 
     },
-    "My Quizzes" : {
+    "My Profile" : {
 
     },
     "Next" : {
@@ -456,9 +468,6 @@
         }
       }
     },
-    "OK" : {
-
-    },
     "or" : {
       "localizations" : {
         "es" : {
@@ -475,7 +484,13 @@
         }
       }
     },
-    "Partner Email" : {
+    "Pair with your partner" : {
+
+    },
+    "Pair with your partner to boost your relationship and communication" : {
+
+    },
+    "Partner" : {
 
     },
     "Partner Mode" : {
@@ -494,6 +509,9 @@
         }
       }
     },
+    "Partner Screen" : {
+
+    },
     "Password" : {
       "localizations" : {
         "es" : {
@@ -510,22 +528,16 @@
         }
       }
     },
-    "Period Length" : {
+    "Period in 3 days" : {
 
     },
-    "Profile Updated" : {
+    "PMS phase" : {
 
     },
     "Quizzes" : {
 
     },
-    "Save Changes" : {
-
-    },
     "Select your cycle days" : {
-
-    },
-    "Send" : {
 
     },
     "Send Reset Link" : {
@@ -560,6 +572,9 @@
         }
       }
     },
+    "Settings" : {
+
+    },
     "Share invite code" : {
       "localizations" : {
         "es" : {
@@ -575,6 +590,9 @@
           }
         }
       }
+    },
+    "Share my invite code" : {
+
     },
     "Sign In" : {
       "localizations" : {
@@ -611,13 +629,16 @@
     "Start" : {
 
     },
-    "Trying to Conceive" : {
+    "Statistics" : {
 
     },
-    "Using for Self" : {
+    "Status: Period" : {
 
     },
-    "View and manage your quizzes" : {
+    "Tap to copy" : {
+
+    },
+    "Today, October 2" : {
 
     },
     "Yes" : {
@@ -652,7 +673,7 @@
         }
       }
     },
-    "Your profile has been successfully updated." : {
+    "Your code:" : {
 
     }
   },
