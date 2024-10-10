@@ -1,16 +1,27 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    private var today: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d" // Format as "Month Day"
+        return formatter.string(from: Date())
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
             // Top Date Picker Section
             VStack {
-                Text("Today, October 2")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading)
+                HStack{
+                    Text("Today, \(today)")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "bell")
+                }.padding(.horizontal)
                 
-                // Horizontal Day Picker
                 HStack {
                     ForEach(0..<7) { index in
                         DayView(day: getDay(index), date: getDate(index), isSelected: index == 2)

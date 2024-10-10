@@ -57,7 +57,7 @@ struct QuizResultView: View {
                         .foregroundColor(.black)
                 }
                 .padding()
-                .background(Color(UIColor.systemGray5)) // Light gray background
+                .background(Color(UIColor.systemGray5))
                 .cornerRadius(10)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 4)
@@ -68,7 +68,7 @@ struct QuizResultView: View {
             // Next Button
             NavigationLink(destination: MainView(), isActive: $navigateToHome) {
                 Button(action: {
-                    navigateToHome = true // Trigger navigation to HomeView
+                    navigateToHome = true
                 }) {
                     Text("Next")
                         .font(.headline)
@@ -81,7 +81,7 @@ struct QuizResultView: View {
             }
             .padding(.bottom, 20)
         }
-        .navigationBarBackButtonHidden(true) // Optional: Hide the back button
+        .navigationBarBackButtonHidden(true)
     }
 }
 

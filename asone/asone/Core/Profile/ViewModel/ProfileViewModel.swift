@@ -23,7 +23,7 @@ class ProfileViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var displayName: String = ""
     
-    @Published var currentUser: UserProfile? // Store the fetched user profile here
+    @Published var currentUser: UserProfile?
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -35,9 +35,7 @@ class ProfileViewModel: ObservableObject {
             self.uid = user.uid
             self.email = user.email ?? "No Email"
             self.displayName = user.displayName ?? "No Name"
-            
-            // Fetch user data from the backend once the user is authenticated
-            
+                        
             getUserData(userId: 4) // user.uid
         } else {
             print("No user is logged in")

@@ -9,72 +9,100 @@ struct QuizDetailView: View {
             let currentQuestion = currentQuiz.questions[viewModel.currentQuestionIndex]
             
             VStack {
-                Text(currentQuiz.name)
-                    .font(.title)
-                    .fontWeight(.semibold)
+                // Progress Bar
+                ProgressView(value: Double(viewModel.currentQuestionIndex + 1), total: Double(currentQuiz.questions.count))
+                    .progressViewStyle(LinearProgressViewStyle(tint: Color.black))
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
                 
-                Spacer()
+                // Question Counter
+                Text("Question \(viewModel.currentQuestionIndex + 1) of \(currentQuiz.questions.count)")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
                 
+                // Question Text
                 Text(currentQuestion.text)
-                    .font(.headline)
-                    .padding(.bottom, 20)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 32)
                 
-                ForEach(currentQuestion.choices.indices, id: \.self) { index in
-                    HStack(alignment: .center) {
-                        RadioButton(isSelected: viewModel.currentQuiz?.questions[viewModel.currentQuestionIndex].selectedChoice == index)
-                        
+                // Choices
+                VStack(spacing: 12) {
+                    ForEach(currentQuestion.choices.indices, id: \.self) { index in
                         Text(currentQuestion.choices[index])
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.body)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(viewModel.currentQuiz?.questions[viewModel.currentQuestionIndex].selectedChoice == index ? Color.gray.opacity(0.5) : Color(UIColor.systemGray5))
+                            .cornerRadius(12)
                             .onTapGesture {
                                 viewModel.selectChoice(at: index)
                             }
                     }
-                    .padding(8)
                 }
-
+                .padding(.horizontal, 16)
+                
                 Spacer()
                 
+                // Bottom Controls (Back and Next Buttons)
                 HStack {
+                    // Back Button
                     Button(action: {
                         viewModel.previousQuestion()
                     }) {
-                        Text("Back").foregroundColor(.blue)
+                        Image(systemName: "chevron.left")
+                            .padding()
+                            .background(Color(UIColor.systemGray5))
+                            .cornerRadius(12)
                     }
+                    .padding(.leading, 16)
+                    
                     Spacer()
+                    
+                    // Next Button
+                    // Next Button
                     Button(action: {
                         if viewModel.currentQuestionIndex == currentQuiz.questions.count - 1 {
-                            // viewModel.completeQuiz()
-                            print("Complete")
-                            quizCompleted = true // Set quizCompleted to true
+                            quizCompleted = true
+                            viewModel.completeQuiz()
+                            
+                            if let quizResult = viewModel.prepareQuizResult() {
+                                viewModel.sendQuizResult(quizResult) { success in
+                                    if success {
+                                        print("Quiz result saved successfully.")
+                                    } else {
+                                        print("Failed to save quiz result.")
+                                    }
+                                }
+                            }
+                            
                         } else {
                             viewModel.nextQuestion()
                         }
                     }) {
                         Text(viewModel.currentQuestionIndex == currentQuiz.questions.count - 1 ? "Complete" : "Next")
-                            .foregroundColor(.blue)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
                     }
+                    .padding(.horizontal, 16)
+
                 }
-                .padding()
+                .padding(.bottom, 20)
                 
-                // NavigationLink to redirect to the result view after quiz is complete
+                // Navigation to Result View after quiz completion
                 NavigationLink(destination: QuizResultView(), isActive: $quizCompleted) {
                     EmptyView()
                 }
-                .navigationBarBackButtonHidden()
+                .navigationBarBackButtonHidden(true)
             }
-            .padding()
+            .padding(.vertical, 16)
         }
-    }
-}
-
-struct RadioButton: View {
-    var isSelected: Bool
-    
-    var body: some View {
-        Circle()
-            .strokeBorder(isSelected ? Color.blue : Color.gray, lineWidth: 2)
-            .background(Circle().fill(isSelected ? Color.blue : Color.clear))
-            .frame(width: 16, height: 16)
     }
 }
 

@@ -89,7 +89,7 @@ class QuizViewModel: ObservableObject {
     }
 
     
-    private func sendQuizResult(_ result: QuizResult, completion: @escaping (Bool) -> Void){
+    func sendQuizResult(_ result: QuizResult, completion: @escaping (Bool) -> Void){
         guard let url = URL(string: "https://api.asone.life/quiz/results") else {
             print("Invalid URL")
             completion(false)
@@ -103,6 +103,8 @@ class QuizViewModel: ObservableObject {
         do {
             let jsonData = try JSONEncoder().encode(result)
             request.httpBody = jsonData
+            
+            print(jsonData)
         } catch {
             print("Error encoding quiz result: \(error)")
             completion(false)
@@ -115,7 +117,6 @@ class QuizViewModel: ObservableObject {
                 completion(false)
                 return
             }
-            
             completion(true)
         }
         

@@ -9,7 +9,6 @@ struct ProfileView: View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 20) {
-                    // Profile section
                     HStack {
                         Circle()
                             .fill(Color.gray.opacity(0.3))
@@ -24,9 +23,7 @@ struct ProfileView: View {
                         }
                         Spacer()
                         
-                        Button {
-                            // Action for editing profile
-                        } label: {
+                        NavigationLink(destination: EditProfileView()) {
                             Image(systemName: "pencil")
                                 .foregroundColor(.black)
                         }
@@ -40,13 +37,11 @@ struct ProfileView: View {
                             .font(.subheadline)
                             .padding()
                         
-                        Button(action: {
-                            // Premium action
-                        }) {
+                        NavigationLink(destination: PremiumView()) {
                             Text("Join premium")
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.black)
+                                .background(.black)
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
@@ -82,7 +77,7 @@ struct ProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        // Add additional actions if needed
+                        AuthService.shared.signOut()
                     } label: {
                         Image(systemName: "rectangle.portrait.and.arrow.right")
                             .foregroundColor(.red)

@@ -18,7 +18,7 @@ struct QuizListView: View {
                     HStack {
                         Text(quiz.name)
                         Spacer()
-                        Text(quiz.isComplete ? "Complete" : "Start")
+                        Text(quiz.isComplete ? "Re-start" : "Start")
                             .foregroundColor(.blue)
                             .onTapGesture {
                                 viewModel.startQuiz(quiz)
