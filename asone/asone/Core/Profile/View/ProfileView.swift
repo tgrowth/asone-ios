@@ -35,7 +35,7 @@ struct ProfileView: View {
 
                     // Premium offer section
                     VStack {
-                        Text("Make your life with partner more peacefull and greatfull with AsOne Premium")
+                        Text("Make your life with partner more peaceful and greatful with AsOne Premium")
                             .multilineTextAlignment(.center)
                             .font(.subheadline)
                             .padding()
