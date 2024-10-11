@@ -79,6 +79,9 @@
     "%lld%%" : {
 
     },
+    "─────────   OR   ─────────" : {
+
+    },
     "A reset link has been sent to your email." : {
       "localizations" : {
         "es" : {
@@ -266,6 +269,12 @@
         }
       }
     },
+    "Enter code here" : {
+
+    },
+    "Enter partner's code" : {
+
+    },
     "Enter your code" : {
       "localizations" : {
         "es" : {
@@ -387,6 +396,9 @@
           }
         }
       }
+    },
+    "Invalid code. Please try again." : {
+
     },
     "Invite partner" : {
       "localizations" : {
