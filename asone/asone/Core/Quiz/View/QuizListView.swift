@@ -19,7 +19,6 @@ struct QuizListView: View {
                         Text(quiz.name)
                         Spacer()
                         Text(quiz.isComplete ? "Re-start" : "Start")
-                            .foregroundColor(.blue)
                             .onTapGesture {
                                 viewModel.startQuiz(quiz)
                             }

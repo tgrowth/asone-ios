@@ -56,17 +56,18 @@ class QuizViewModel: ObservableObject {
     }
     
     func completeQuiz() {
-        currentQuiz?.isComplete = true
-        
-        if let quizResult = prepareQuizResult() {
-            sendQuizResult(quizResult) { success in
-                if success {
-                    print("Quiz result saved successfully.")
-                } else {
-                    print("Failed to save quiz result.")
-                }
-            }
-        }        
+//        currentQuiz?.isComplete = true
+//        
+//        if let quizResult = prepareQuizResult() {
+//            sendQuizResult(quizResult) { success in
+//                if success {
+//                    print("Quiz result saved successfully.")
+//                } else {
+//                    print("Failed to save quiz result.")
+//                }
+//            }
+//        }
+        sendLoveLanguageResults(userId: 4, languageIds: [1, 2, 3, 4, 5], percentages: [10, 45, 20, 15, 0])
     }
     
     func prepareQuizResult() -> QuizResult? {
@@ -120,6 +121,57 @@ class QuizViewModel: ObservableObject {
             completion(true)
         }
         
+        task.resume()
+    }
+    
+    func sendLoveLanguageResults(userId: Int, languageIds: [Int], percentages: [Int]) {
+        // Ensure the arrays meet the table constraints
+        guard languageIds.count == 5, percentages.count == 5, percentages.reduce(0, +) == 100 else {
+            print("Error: Data does not meet the required constraints.")
+            return
+        }
+        
+        // Zip language_ids with percentages so they can be sorted together
+        let zippedArray = zip(languageIds, percentages).sorted { $0.1 > $1.1 }
+        
+        // Unzip the sorted result into two arrays
+        let sortedLanguageIds = zippedArray.map { $0.0 }
+        let sortedPercentages = zippedArray.map { $0.1 }
+        
+        // Prepare the request URL (replace with your actual API endpoint)
+        guard let url = URL(string: "https://api.asone.life/love_languages_results") else {
+            print("Invalid URL")
+            return
+        }
+        
+        // Create the request body
+        let loveLanguageResult = LoveLanguageResult(user_id: userId, language_ids: sortedLanguageIds, percentages: sortedPercentages)
+        
+        // Convert the result into JSON
+        guard let httpBody = try? JSONEncoder().encode(loveLanguageResult) else {
+            print("Failed to encode JSON")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = httpBody
+        
+        // Send the request
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data {
+                // Handle the response, for example by printing it
+                if let responseBody = String(data: data, encoding: .utf8) {
+                    print("Response: \(responseBody)")
+                }
+            }
+        }
         task.resume()
     }
 }

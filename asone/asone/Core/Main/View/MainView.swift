@@ -1,14 +1,9 @@
-//
-//  DashboardView.swift
-//  Asone
-//
-//  Created by Arslan Kamchybekov on 9/26/24.
-//
-
 import SwiftUI
 
 struct MainView: View {
     @State private var selectedTab: Tab = .home
+    @State private var isExpanded = false
+    @StateObject var profileViewModel = ProfileViewModel()
 
     var body: some View {
         NavigationStack {
@@ -24,7 +19,11 @@ struct MainView: View {
                 case .add:
                     SymptomsView()
                 case .partner:
-                    PartnerView()
+                    if profileViewModel.currentUser!.isPartnerMode {
+                        PartnerView()
+                    } else {
+                        InvitePartnerView()
+                    }
                 case .account:
                     ProfileView()
                 }
@@ -32,57 +31,81 @@ struct MainView: View {
                 Spacer()
 
                 // Custom Tab Bar
-                HStack {
-                    Spacer()
+                ZStack {
+                    HStack {
+                        Spacer()
 
-                    // Home Button
-                    TabBarItem(icon: "drop", label: "home") {
-                        selectedTab = .home
+                        // Home Button
+                        TabBarItem(icon: "drop", label: "home", selectedTab: $selectedTab)
+                        Spacer()
+
+                        // Calendar Button
+                        TabBarItem(icon: "calendar", label: "calendar", selectedTab: $selectedTab)
+                        Spacer()
+
+                        // Partner Button
+                        TabBarItem(icon: "heart", label: "partner", selectedTab: $selectedTab)
+                        Spacer()
+
+                        // Profile Button
+                        TabBarItem(icon: "person", label: "account", selectedTab: $selectedTab)
+                        Spacer()
                     }
+                    .frame(height: 60)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.black) // Dark gray tab bar background
+                            .shadow(radius: 10)
+                    )
+                    .padding(.horizontal)
 
-                    Spacer()
+                    // Center Button with Expandable Options
+                    VStack {
+                        if isExpanded {
+                            // Additional options displayed above the center button
+                            HStack(spacing: 40) {
+                                // Button 1
+                                OptionButton(icon: "drop.fill") {
+                                    // Action for Log Period
+                                    isExpanded = false
+                                }
 
-                    // Calendar Button
-                    TabBarItem(icon: "calendar", label: "calendar") {
-                        selectedTab = .calendar
+                                // Button 2
+                                OptionButton(icon: "chart.pie.fill") {
+                                    // Action for Cycle Advice
+                                    isExpanded = false
+                                }
+
+                                // Button 3
+                                OptionButton(icon: "square.and.pencil") {
+                                    // Action for Add Symptoms
+                                    isExpanded = false
+                                    selectedTab = .add
+                                }
+                            }
+                            .offset(y: -55) // Position the expanded buttons above the center button
+                            .transition(.scale)
+                        }
+
+                        // Plus/X Button (Center)
+                        Button(action: {
+                            withAnimation {
+                                isExpanded.toggle() // Toggle expand/collapse of buttons
+                            }
+                        }) {
+                            Image(systemName: isExpanded ? "xmark" : "plus.circle.fill")
+                                .font(.system(size: 30))
+                                .foregroundColor(.white)
+                                .background(
+                                    Circle()
+                                        .fill(Color.black) // Black circle background
+                                        .frame(width: 50, height: 50)
+                                        .shadow(color: .gray.opacity(0.3), radius: 10, x: 0, y: 5)
+                                )
+                        }
+                        .offset(y: -40) // Push the button up for emphasis
                     }
-
-                    Spacer()
-
-                    // Plus Button (Center)
-                    Button(action: {
-                        selectedTab = .add
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 40))
-                            .foregroundColor(.black)
-                            .background(
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 60, height: 60)
-                                    .shadow(color: .gray.opacity(0.3), radius: 10, x: 0, y: 5)
-                            )
-                    }
-                    .offset(y: -20) // Push the button up for emphasis
-
-                    Spacer()
-
-                    // Partner Button
-                    TabBarItem(icon: "heart", label: "partner") {
-                        selectedTab = .partner
-                    }
-
-                    Spacer()
-
-                    // Profile Button
-                    TabBarItem(icon: "person", label: "account") {
-                        selectedTab = .account
-                    }
-
-                    Spacer()
                 }
-                .frame(height: 60)
-                .background(Color.black.opacity(0.05))
             }
         }
         .navigationBarBackButtonHidden()
@@ -98,25 +121,54 @@ enum Tab {
     case account
 }
 
+// TabBarItem view with color adjustments
 struct TabBarItem: View {
     var icon: String
     var label: String
-    var action: () -> Void
+    @Binding var selectedTab: Tab
+    var tab: Tab {
+        switch label {
+        case "home": return .home
+        case "calendar": return .calendar
+        case "partner": return .partner
+        case "account": return .account
+        default: return .home
+        }
+    }
 
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            selectedTab = tab
+        }) {
             VStack {
                 Image(systemName: icon)
-                    .font(.system(size: 24))
-                    .foregroundColor(.black)
+                    .font(.system(size: 20))
+                    .foregroundColor(.white)
                 Text(label)
                     .font(.caption)
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
             }
         }
     }
 }
 
+// OptionButton view for expanded center button actions
+struct OptionButton: View {
+    var icon: String
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Circle()
+                .foregroundColor(Color.gray) // Dark gray background for the expanded option buttons
+                .frame(width: 50, height: 50)
+                .overlay(
+                    Image(systemName: icon)
+                        .foregroundColor(.white)
+                )
+        }
+    }
+}
 
 struct CalendarView: View {
     var body: some View {
@@ -125,12 +177,6 @@ struct CalendarView: View {
     }
 }
 
-struct SymptomsView: View {
-    var body: some View {
-        Text("Add Symptoms")
-            .navigationTitle("Add Symptoms")
-    }
-}
 
 struct PartnerView: View {
     var body: some View {

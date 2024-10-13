@@ -101,7 +101,7 @@ struct InvitePartnerView: View {
             .background(Color.gray.opacity(0.2))
             .cornerRadius(20)
             
-            Text("─────────   OR   ─────────")
+            Text("─────────   OR   ─────────").foregroundColor(.gray)
             
             // Enter code card
             VStack(alignment: .leading, spacing: 10) {

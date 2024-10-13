@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var selectedDayIndex: Int = 0
     
     private var today: String {
         let formatter = DateFormatter()
@@ -8,11 +9,25 @@ struct HomeView: View {
         return formatter.string(from: Date())
     }
     
+    private var weekDays: [Date] {
+        let calendar = Calendar.current
+        let today = Date()
+        var weekDays = [Date]()
+        if let weekInterval = calendar.dateInterval(of: .weekOfYear, for: today) {
+            for day in 0..<7 {
+                if let weekDay = calendar.date(byAdding: .day, value: day, to: weekInterval.start) {
+                    weekDays.append(weekDay)
+                }
+            }
+        }
+        return weekDays
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
             // Top Date Picker Section
             VStack {
-                HStack{
+                HStack {
                     Text("Today, \(today)")
                         .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -20,11 +35,19 @@ struct HomeView: View {
                     Spacer()
                     
                     Image(systemName: "bell")
-                }.padding(.horizontal)
+                }
+                .padding(.horizontal)
                 
                 HStack {
                     ForEach(0..<7) { index in
-                        DayView(day: getDay(index), date: getDate(index), isSelected: index == 2)
+                        DayView(
+                            day: getDayOfWeek(for: weekDays[index]),
+                            date: getDate(for: weekDays[index]),
+                            isSelected: index == selectedDayIndex
+                        )
+                        .onTapGesture {
+                            selectedDayIndex = index
+                        }
                     }
                 }
                 .padding()
@@ -35,7 +58,7 @@ struct HomeView: View {
                 CircularProgressView()
                     .frame(width: 200, height: 200)
                     .overlay {
-                        VStack{
+                        VStack {
                             Text("Day 26")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
@@ -83,16 +106,18 @@ struct HomeView: View {
         .padding(.top)
     }
     
-    // Helper function to get the days of the week
-    func getDay(_ index: Int) -> String {
-        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        return days[index]
+    // Helper function to get the day of the week for a specific date
+    func getDayOfWeek(for date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E"  // Format as "Mon", "Tue", etc.
+        return formatter.string(from: date)
     }
     
-    // Helper function to get the date for the respective day
-    func getDate(_ index: Int) -> String {
-        let dates = ["30", "1", "2", "3", "4", "5", "6"]
-        return dates[index]
+    // Helper function to get the date (day number) for a specific day
+    func getDate(for date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d"
+        return formatter.string(from: date)
     }
 }
 
@@ -132,7 +157,7 @@ struct DayView: View {
                 .foregroundColor(isSelected ? .black : .gray)
             
             Text(date)
-                .font(.title3)
+                .font(.caption)
                 .fontWeight(isSelected ? .bold : .regular)
                 .foregroundColor(isSelected ? .black : .gray)
                 .padding(16)

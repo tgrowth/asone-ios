@@ -98,9 +98,6 @@
         }
       }
     },
-    "Add Symptoms" : {
-
-    },
     "Already have an account?" : {
       "localizations" : {
         "es" : {
@@ -116,6 +113,9 @@
           }
         }
       }
+    },
+    "Apply" : {
+
     },
     "Are you trying to conceive right now?" : {
       "localizations" : {
@@ -291,6 +291,9 @@
         }
       }
     },
+    "Error: %@" : {
+
+    },
     "First and Last Name" : {
       "localizations" : {
         "es" : {
@@ -420,6 +423,9 @@
 
     },
     "Join premium" : {
+
+    },
+    "Loading..." : {
 
     },
     "Log period" : {
@@ -673,6 +679,9 @@
 
     },
     "Status: Period" : {
+
+    },
+    "Symptoms" : {
 
     },
     "Tap to copy" : {
