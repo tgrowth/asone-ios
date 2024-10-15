@@ -3,12 +3,14 @@ import SwiftUI
 struct HomeView: View {
     @State private var selectedDayIndex: Int = 0
     
+    // Formatter for "Today"
     private var today: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d" // Format as "Month Day"
         return formatter.string(from: Date())
     }
     
+    // Get the week days (starting from Sunday, or locale dependent)
     private var weekDays: [Date] {
         let calendar = Calendar.current
         let today = Date()
@@ -21,6 +23,14 @@ struct HomeView: View {
             }
         }
         return weekDays
+    }
+    
+    // Automatically select today's day index when the view loads
+    init() {
+        let today = Date()
+        if let index = Calendar.current.dateComponents([.weekday], from: today).weekday {
+            _selectedDayIndex = State(initialValue: index - 1)  // Subtract 1 because weekday starts from 1 (Sunday)
+        }
     }
     
     var body: some View {

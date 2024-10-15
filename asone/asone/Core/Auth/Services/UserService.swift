@@ -14,10 +14,8 @@ class UserService{
     
     static let shared = UserService()
     
-    init(){
-        Task{ try await fetchCurrentUser() }
-    }
-    
+    private init() {}
+
     @MainActor
     func fetchCurrentUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -26,19 +24,62 @@ class UserService{
         self.currentUser = user
     }
     
-    static func fetchUsers() async throws -> [User] {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return [] }
-        let snapshot = try await Firestore.firestore().collection("users").getDocuments()
-        let users = snapshot.documents.compactMap({ try? $0.data(as: User.self) })
-        return users.filter({ $0.id != currentUid })
+    func getCurrentUserId(completion: @escaping (Int?) -> Void) {
+        if let user = Auth.auth().currentUser {
+            fetchUserData(userId: 1) { userProfile in
+                completion(userProfile?.id)
+            }
+        } else {
+            print("No user is logged in")
+            completion(nil)
+        }
     }
     
-    static func fetchUser(withUid uid: String) async throws -> User {
-        let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
-        return try snapshot.data(as: User.self)
+    func fetchUserData(userId: Int, completion: @escaping (UserProfile?) -> Void) {
+        guard let url = URL(string: "http://api.asone.life/userInfo/\(userId)") else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error fetching user data: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200, let data = data else {
+                print("Failed to fetch user data")
+                completion(nil)
+                return
+            }
+
+            do {
+                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                if let userInfo = jsonResponse?["userInfo"] as? [String: Any] {
+                    let jsonData = try JSONSerialization.data(withJSONObject: userInfo, options: [])
+                    let decoder = JSONDecoder()
+                    let userProfile = try decoder.decode(UserProfile.self, from: jsonData)
+                    completion(userProfile)
+                } else {
+                    print("Invalid JSON format")
+                    completion(nil)
+                }
+            } catch {
+                print("Error decoding user data: \(error.localizedDescription)")
+                completion(nil)
+            }
+        }.resume()
     }
+
     
     func reset(){
         self.currentUser = nil
     }
 }
+
+

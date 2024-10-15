@@ -2,12 +2,15 @@
 //  Question.swift
 //  Asone
 //
-//  Created by Arslan Kamchybekov on 10/8/24.
+//  Created by Arslan Kamchybekov on 10/15/24.
 //
 
+import Foundation
 
-struct Question: Codable {
+struct Question: Codable, Identifiable {
+    let id: Int
     let text: String
-    let choices: [String]
-    var selectedChoice: Int? = nil
+    let optionA: String
+    let optionB: String
+    var selectedOption: Int? = nil
 }

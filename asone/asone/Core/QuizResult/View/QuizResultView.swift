@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct QuizResultView: View {
-    @StateObject private var viewModel = QuizResultViewModel()
+    var quizResult: [String: Double] // Receiving percentages as [String: Double]
     
-    // State to control the navigation
     @State private var navigate = false
     
     var body: some View {
@@ -27,42 +26,31 @@ struct QuizResultView: View {
                 .frame(width: 100, height: 100)
                 .foregroundColor(.gray)
                 .padding(.vertical, 30)
-            
-            if viewModel.isLoading {
-                ProgressView("Loading...")
-                    .padding()
-            } else if let errorMessage = viewModel.errorMessage {
-                Text("Error: \(errorMessage)")
-                    .foregroundColor(.red)
-                    .padding()
-            } else {
-                // List of results
-                ForEach(viewModel.results, id: \.category) { result in
-                    HStack {
-                        // Radio button icon
-                        Circle()
-                            .fill(Color.black)
-                            .frame(width: 16, height: 16)
-                            .padding(.trailing, 10)
-                        
-                        // Category and percentage
-                        Text(result.category)
-                            .font(.body)
-                            .fontWeight(.medium)
-                            .foregroundColor(.black)
-                        
-                        Spacer()
-                        
-                        Text("\(result.percentage)%")
-                            .font(.body)
-                            .foregroundColor(.black)
-                    }
-                    .padding()
-                    .background(Color(UIColor.systemGray5))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 4)
+
+            // List of results displaying the calculated percentages
+            ForEach(quizResult.sorted(by: { $0.value > $1.value }), id: \.key) { category, percentage in
+                HStack {
+                    Circle()
+                        .fill(Color.black)
+                        .frame(width: 16, height: 16)
+                        .padding(.trailing, 10)
+                    
+                    Text(category)
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(.black)
+                    
+                    Spacer()
+                    
+                    Text(String(format: "%.1f%%", percentage)) // Display as percentage
+                        .font(.body)
+                        .foregroundColor(.black)
                 }
+                .padding()
+                .background(Color(UIColor.systemGray5))
+                .cornerRadius(10)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 4)
             }
             
             Spacer()
@@ -85,11 +73,7 @@ struct QuizResultView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            viewModel.fetchQuizResults()
+            // Optionally, load or handle any data when this view appears
         }
     }
-}
-
-#Preview {
-    QuizResultView()
 }

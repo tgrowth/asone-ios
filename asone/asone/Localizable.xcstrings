@@ -76,9 +76,6 @@
         }
       }
     },
-    "%lld%%" : {
-
-    },
     "─────────   OR   ─────────" : {
 
     },
@@ -291,9 +288,6 @@
         }
       }
     },
-    "Error: %@" : {
-
-    },
     "First and Last Name" : {
       "localizations" : {
         "es" : {
@@ -429,9 +423,6 @@
 
     },
     "Loading user information..." : {
-
-    },
-    "Loading..." : {
 
     },
     "Log period" : {

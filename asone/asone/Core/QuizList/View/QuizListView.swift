@@ -16,7 +16,7 @@ struct QuizListView: View {
                 ForEach(viewModel.quizzes.indices, id: \.self) { index in
                     let quiz = viewModel.quizzes[index]
                     HStack {
-                        Text(quiz.name)
+                        Text(quiz.title)
                         Spacer()
                         Text(quiz.isComplete ? "Re-start" : "Start")
                             .onTapGesture {
@@ -28,8 +28,8 @@ struct QuizListView: View {
             .navigationTitle("Quizzes")
             .navigationDestination(isPresented: Binding<Bool>(
                 get: { viewModel.currentQuiz != nil },
-                set: { if !$0 { viewModel.currentQuiz = nil } })
-            ) {
+                set: { if !$0 { viewModel.currentQuiz = nil } }
+            )) {
                 if let currentQuiz = viewModel.currentQuiz {
                     QuizDetailView(viewModel: viewModel)
                 }
