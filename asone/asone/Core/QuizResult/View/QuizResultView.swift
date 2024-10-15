@@ -11,7 +11,7 @@ struct QuizResultView: View {
     @StateObject private var viewModel = QuizResultViewModel()
     
     // State to control the navigation
-    @State private var navigateToHome = false
+    @State private var navigate = false
     
     var body: some View {
         VStack {
@@ -68,9 +68,9 @@ struct QuizResultView: View {
             Spacer()
             
             // Next Button
-            NavigationLink(destination: MainView(), isActive: $navigateToHome) {
+            NavigationLink(destination: CompareView(), isActive: $navigate) {
                 Button(action: {
-                    navigateToHome = true
+                    navigate = true
                 }) {
                     Text("Next")
                         .font(.headline)

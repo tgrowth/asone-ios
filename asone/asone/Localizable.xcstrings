@@ -403,6 +403,9 @@
     "Invalid code. Please try again." : {
 
     },
+    "Invite my partner" : {
+
+    },
     "Invite partner" : {
       "localizations" : {
         "es" : {
@@ -423,6 +426,9 @@
 
     },
     "Join premium" : {
+
+    },
+    "Loading user information..." : {
 
     },
     "Loading..." : {
@@ -469,6 +475,9 @@
         }
       }
     },
+    "Nice work!" : {
+
+    },
     "No, I have a code" : {
       "localizations" : {
         "es" : {
@@ -500,6 +509,12 @@
           }
         }
       }
+    },
+    "Not now" : {
+
+    },
+    "Now you can compare answers with your partner" : {
+
     },
     "or" : {
       "localizations" : {
