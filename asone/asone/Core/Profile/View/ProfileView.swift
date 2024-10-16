@@ -90,7 +90,7 @@ struct ProfileView: View {
 
 struct ProfileOptionRow: View {
     var icon: String
-    var text: String
+    var text: LocalizedStringKey
     var iconColor: Color = .black
     
     var body: some View {

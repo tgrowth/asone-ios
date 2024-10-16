@@ -61,7 +61,7 @@ struct SymptomsView: View {
 
 // SymptomSection View for each category
 struct SymptomSection: View {
-    var title: String
+    var title: LocalizedStringKey
     var symptoms: [String]
     @Binding var selectedSymptoms: [String: Bool]
 

@@ -91,7 +91,7 @@ struct PremiumView: View {
 
 // Custom View for Feature Comparison Row
 struct FeatureComparisonRow: View {
-    var feature: String
+    var feature: LocalizedStringKey
     var isFreeIncluded: Bool
     var isPremiumIncluded: Bool
     
@@ -120,8 +120,8 @@ struct FeatureComparisonRow: View {
 // Custom View for Pricing Option
 struct PricingOptionView: View {
     var price: String
-    var period: String
-    var plan: String
+    var period: LocalizedStringKey
+    var plan: LocalizedStringKey
     var discountText: String? = nil
     
     var body: some View {

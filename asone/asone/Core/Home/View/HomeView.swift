@@ -179,7 +179,7 @@ struct DayView: View {
 
 // Advice Card View
 struct AdviceCard: View {
-    var text: String
+    var text: LocalizedStringKey
     
     var body: some View {
         VStack {

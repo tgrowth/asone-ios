@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct OpenningScreensStep {
-let image: String
-let text: String
+    let image: String
+    let text: LocalizedStringKey
 }
 
 private let openningSteps = [
