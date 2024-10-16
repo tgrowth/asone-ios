@@ -57,6 +57,12 @@ class QuizViewModel: ObservableObject {
         }
         
         currentQuiz?.isComplete = true
+        
+        // Calculate and print scores
+        let percentages = calculateScore(quizResult)
+        
+        // Save quiz data
+        saveQuizResults(userId: 1)
     }
     
     func calculateScore(_ quizResult: [String: Double]) -> [String: Double] {
@@ -92,4 +98,52 @@ class QuizViewModel: ObservableObject {
             quizResult["Physical Touch", default: 0] += 1
         }
     }
+    
+    func saveQuizResults(userId: Int) {
+        guard let url = URL(string: "http://api.asone.life/love_languages_results/\(userId)") else { return }
+        
+        // Prepare the request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        // Create a dictionary with the data to be sent
+        let resultData: [String: Any] = [
+            "user_id": userId,
+            "quiz_id": currentQuiz?.id ?? 0,
+            "quizResult": calculateScore(quizResult)
+        ]
+        
+        print(resultData)
+        
+        do {
+            // Encode the result data into JSON
+            let jsonData = try JSONSerialization.data(withJSONObject: resultData, options: [])
+            
+            // Set the request body
+            request.httpBody = jsonData
+            
+            // Send the request
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error saving quiz results: \(error)")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200 {
+                        print("Quiz results saved successfully!")
+                    } else {
+                        print("Failed to save quiz results, status code: \(httpResponse.statusCode)")
+                    }
+                }
+            }
+            
+            task.resume()
+            
+        } catch {
+            print("Error encoding quiz results: \(error)")
+        }
+    }
+
 }

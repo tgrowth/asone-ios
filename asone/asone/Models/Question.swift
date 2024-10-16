@@ -12,5 +12,5 @@ struct Question: Codable, Identifiable {
     let text: String
     let optionA: String
     let optionB: String
-    var selectedOption: Int? = nil
+    var selectedOption: Int?
 }
