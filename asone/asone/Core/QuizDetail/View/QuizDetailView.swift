@@ -93,11 +93,10 @@ struct QuizDetailView: View {
                 .padding(.bottom, 20)
                 
                 // Navigation to Result View after quiz completion
-                NavigationLink(destination: QuizResultView(quizResult: viewModel.calculateScore(viewModel.quizResult)
-), isActive: $quizCompleted) {
+                NavigationLink(destination: QuizResultView(quizResult: viewModel.calculateScore(viewModel.quizResult)), isActive: $quizCompleted) {
                     EmptyView()
-                }
-                .navigationBarBackButtonHidden(true)
+                }.navigationBarBackButtonHidden(true)
+                
             }
             .padding(.vertical, 16)
         }

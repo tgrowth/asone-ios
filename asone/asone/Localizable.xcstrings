@@ -1627,6 +1627,9 @@
         }
       }
     },
+    "View" : {
+
+    },
     "Yes" : {
       "localizations" : {
         "es" : {

@@ -1,10 +1,22 @@
 import Foundation
 
+struct QuizResultResponse: Codable {
+    let isComplete: Bool
+    let quizResult: [String: Double]
+}
+
 class QuizViewModel: ObservableObject {
+    let baseUrl = "http://api.asone.life/love_languages_results"
+    
     @Published var quizzes: [Quiz] = []
     @Published var currentQuiz: Quiz?
     @Published var currentQuestionIndex: Int = 0
-    @Published var quizResult: [String: Double] = ["Words of Affirmation": 0, "Acts of Service": 0, "Receiving Gifts": 0, "Quality Time": 0, "Physical Touch": 0]
+    @Published var fetchedQuizResults: [String: Double] = [:]
+    @Published var quizResult: [String: Double] = ["Words of Affirmation": 0,
+                                                   "Acts of Service": 0,
+                                                   "Receiving Gifts": 0,
+                                                   "Quality Time": 0,
+                                                   "Physical Touch": 0]
     
     init() {
         loadQuiz()
@@ -58,9 +70,6 @@ class QuizViewModel: ObservableObject {
         
         currentQuiz?.isComplete = true
         
-        // Calculate and print scores
-        let percentages = calculateScore(quizResult)
-        
         // Save quiz data
         saveQuizResults(userId: 1)
     }
@@ -100,17 +109,16 @@ class QuizViewModel: ObservableObject {
     }
     
     func saveQuizResults(userId: Int) {
-        guard let url = URL(string: "http://api.asone.life/love_languages_results/\(userId)") else { return }
+        guard let url = URL(string: "\(baseUrl)/\(userId)") else { return }
         
-        // Prepare the request
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        // Create a dictionary with the data to be sent
         let resultData: [String: Any] = [
             "user_id": userId,
             "quiz_id": currentQuiz?.id ?? 0,
+            "isComplete": currentQuiz?.isComplete ?? true,
             "quizResult": calculateScore(quizResult)
         ]
         
@@ -144,6 +152,43 @@ class QuizViewModel: ObservableObject {
         } catch {
             print("Error encoding quiz results: \(error)")
         }
+    }
+    
+    func getQuizResults(for userId: Int) {
+        guard let url = URL(string: "\(baseUrl)/\(userId)") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        // Create a data task to fetch quiz results
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            if let error = error {
+                print("Error fetching quiz results: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data returned")
+                return
+            }
+            
+            // Decode the returned data into a dictionary
+            do {
+                let decoder = JSONDecoder()
+                let quizResultResponse = try decoder.decode(QuizResultResponse.self, from: data)
+
+                DispatchQueue.main.async {
+                    self?.currentQuiz?.isComplete = quizResultResponse.isComplete
+                    self?.fetchedQuizResults = quizResultResponse.quizResult
+                }
+            } catch {
+                print("Error decoding quiz results: \(error)")
+            }
+        }
+        
+        task.resume()
     }
 
 }
