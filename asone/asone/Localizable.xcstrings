@@ -614,6 +614,7 @@
       }
     },
     "Get personalized tips for better communication with your partner." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -630,6 +631,7 @@
       }
     },
     "Get Started" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -694,6 +696,7 @@
       }
     },
     "Improve your relationship with data-driven insights and advice" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -790,6 +793,7 @@
       }
     },
     "Learn how hormonal changes affect your relationship day-by-day." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1452,6 +1456,7 @@
       }
     },
     "Skip" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1580,6 +1585,7 @@
       }
     },
     "Track your cycle, mood, and activities in one place." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1611,6 +1617,9 @@
         }
       }
     },
+    "View" : {
+
+    },
     "Yearly" : {
       "localizations" : {
         "es" : {
@@ -1626,9 +1635,6 @@
           }
         }
       }
-    },
-    "View" : {
-
     },
     "Yes" : {
       "localizations" : {

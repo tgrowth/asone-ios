@@ -8,30 +8,10 @@
 import SwiftUI
 
 struct SymptomsView: View {
-    @State private var selectedDate = 2 // Example: Selected date is October 2
-    @State private var selectedSymptoms: [String: Bool] = [:] // To track selected symptoms
+    @State private var selectedSymptoms: [String: Bool] = [:]
 
     var body: some View {
         VStack {
-            // Date Selection Scroll
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
-                    ForEach(30..<37, id: \.self) { day in
-                        Button(action: {
-                            selectedDate = day
-                        }) {
-                            Text("\(day)")
-                                .font(.headline)
-                                .padding(10)
-                                .background(selectedDate == day ? Color.black : Color.gray.opacity(0.2))
-                                .foregroundColor(selectedDate == day ? .white : .black)
-                                .cornerRadius(10)
-                        }
-                    }
-                }
-                .padding()
-            }
-
             // Symptom Categories
             ScrollView {
                 SymptomSection(title: "Mood", symptoms: ["happy", "calm", "anxios", "irritable", "sad"], selectedSymptoms: $selectedSymptoms)
@@ -54,6 +34,8 @@ struct SymptomsView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }.padding(.horizontal)
+            
+            Spacer()
         }
         .navigationTitle("Symptoms")
     }
