@@ -15,6 +15,114 @@
                 "text": "It's more meaningful to me when...",
                 "optionA": "My partner and I have a deep, uninterrupted conversation",
                 "optionB": "My partner gives me a hug or holds my hand"
+            },
+            {
+                "id": 3,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner praises me for my accomplishments",
+                "optionB": "My partner spends quality time with me doing something I enjoy"
+            },
+            {
+                "id": 4,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner brings me a souvenir from their trip",
+                "optionB": "My partner offers to run an errand for me"
+            },
+            {
+                "id": 5,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner tells me they're proud of me",
+                "optionB": "My partner gives me a massage after a long day"
+            },
+            {
+                "id": 6,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner and I cook a meal together",
+                "optionB": "My partner leaves me a loving note"
+            },
+            {
+                "id": 7,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner buys me something they noticed I needed",
+                "optionB": "My partner actively listens when I'm talking about my day"
+            },
+            {
+                "id": 8,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner plans a special date night",
+                "optionB": "My partner compliments my appearance"
+            },
+            {
+                "id": 9,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner offers a comforting touch when I'm upset",
+                "optionB": "My partner remembers and acknowledges our anniversary"
+            },
+            {
+                "id": 10,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner helps me with my work or hobbies",
+                "optionB": "My partner expresses their appreciation for me verbally"
+            },
+            {
+                "id": 11,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner initiates physical affection in public",
+                "optionB": "My partner gives me a gift 'just because'"
+            },
+            {
+                "id": 12,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner takes care of me when I'm sick",
+                "optionB": "My partner creates a photo album of our memories"
+            },
+            {
+                "id": 13,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner says 'I love you' unprompted",
+                "optionB": "My partner surprises me with tickets to an event I'd enjoy"
+            },
+            {
+                "id": 14,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner stands close to me at social gatherings",
+                "optionB": "My partner takes on extra responsibilities to make my day easier"
+            },
+            {
+                "id": 15,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner and I have a technology-free evening together",
+                "optionB": "My partner sends me an encouraging text during a tough day"
+            },
+            {
+                "id": 16,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner remembers important dates without reminders",
+                "optionB": "My partner gives me their undivided attention when we're together"
+            },
+            {
+                "id": 17,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner writes me a heartfelt letter",
+                "optionB": "My partner plans a surprise weekend getaway for us"
+            },
+            {
+                "id": 18,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner holds my hand in public",
+                "optionB": "My partner notices when I'm overwhelmed and takes over some tasks"
+            },
+            {
+                "id": 19,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner and I engage in a shared hobby together",
+                "optionB": "My partner leaves little notes for me to find throughout the day"
+            },
+            {
+                "id": 20,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner buys me my favorite treat when I'm having a bad day",
+                "optionB": "My partner offers a back rub after a stressful day"
             }
         ],
         "scoringGuide": {
@@ -41,6 +149,12 @@
                 "text": "It's more meaningful to me when...",
                 "optionA": "My partner and I have a deep, uninterrupted conversation",
                 "optionB": "My partner gives me a hug or holds my hand"
+            },
+            {
+                "id": 3,
+                "text": "It's more meaningful to me when...",
+                "optionA": "My partner praises me for my accomplishments",
+                "optionB": "My partner spends quality time with me doing something I enjoy"
             }
         ],
         "scoringGuide": {
@@ -52,4 +166,5 @@
         }
     }
 ]
+
 

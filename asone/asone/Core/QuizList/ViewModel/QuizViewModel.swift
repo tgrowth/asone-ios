@@ -1,13 +1,11 @@
 import Foundation
 
 struct QuizResultResponse: Codable {
-    let isComplete: Bool
+    //let isComplete: Bool
     let quizResult: [String: Double]
 }
 
 class QuizViewModel: ObservableObject {
-    let baseUrl = "http://api.asone.life/love_languages_results"
-    
     @Published var quizzes: [Quiz] = []
     @Published var currentQuiz: Quiz?
     @Published var currentQuestionIndex: Int = 0
@@ -70,8 +68,13 @@ class QuizViewModel: ObservableObject {
         
         currentQuiz?.isComplete = true
         
-        // Save quiz data
-        saveQuizResults(userId: 1)
+        UserService.shared.getCurrentUserId { userId in
+            if let userId = userId {
+                self.saveQuizResults(userId: userId)
+            } else {
+                print("Error: User ID not found")
+            }
+        }
     }
     
     func calculateScore(_ quizResult: [String: Double]) -> [String: Double] {
@@ -109,7 +112,7 @@ class QuizViewModel: ObservableObject {
     }
     
     func saveQuizResults(userId: Int) {
-        guard let url = URL(string: "\(baseUrl)/\(userId)") else { return }
+        guard let url = URL(string: "http://localhost:3000/love_languages_results/\(userId)") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -118,11 +121,9 @@ class QuizViewModel: ObservableObject {
         let resultData: [String: Any] = [
             "user_id": userId,
             "quiz_id": currentQuiz?.id ?? 0,
-            "isComplete": currentQuiz?.isComplete ?? true,
+            //"isComplete": currentQuiz?.isComplete ?? true,
             "quizResult": calculateScore(quizResult)
         ]
-        
-        print(resultData)
         
         do {
             // Encode the result data into JSON
@@ -140,6 +141,7 @@ class QuizViewModel: ObservableObject {
                 
                 if let httpResponse = response as? HTTPURLResponse {
                     if httpResponse.statusCode == 200 {
+                        print(resultData)
                         print("Quiz results saved successfully!")
                     } else {
                         print("Failed to save quiz results, status code: \(httpResponse.statusCode)")
@@ -154,15 +156,14 @@ class QuizViewModel: ObservableObject {
         }
     }
     
-    func getQuizResults(for userId: Int) {
-        guard let url = URL(string: "\(baseUrl)/\(userId)") else {
+    func getQuizResults(userId: Int) {
+        guard let url = URL(string: "http://localhost:3000/love_languages_results/\(userId)") else {
             print("Invalid URL")
             return
         }
         
         let request = URLRequest(url: url)
         
-        // Create a data task to fetch quiz results
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             if let error = error {
                 print("Error fetching quiz results: \(error)")
@@ -178,16 +179,16 @@ class QuizViewModel: ObservableObject {
             do {
                 let decoder = JSONDecoder()
                 let quizResultResponse = try decoder.decode(QuizResultResponse.self, from: data)
+                print(quizResultResponse)
 
                 DispatchQueue.main.async {
-                    self?.currentQuiz?.isComplete = quizResultResponse.isComplete
+                    //self?.currentQuiz?.isComplete = quizResultResponse.isComplete
                     self?.fetchedQuizResults = quizResultResponse.quizResult
                 }
             } catch {
                 print("Error decoding quiz results: \(error)")
             }
         }
-        
         task.resume()
     }
 

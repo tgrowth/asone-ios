@@ -9,8 +9,7 @@ import SwiftUI
 
 struct QuizListView: View {
     @ObservedObject var viewModel: QuizViewModel
-    
-    @State private var showingQuizResult: Bool = false // State to control result view navigation
+    @State private var showingQuizResult: Bool = false
     
     var body: some View {
         NavigationView {

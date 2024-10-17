@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct QuizResultView: View {
-    var quizResult: [String: Double] // Receiving percentages as [String: Double]
+    @StateObject var viewModel = QuizViewModel()
+    var quizResult: [String: Double]
     
     @State private var navigate = false
     
@@ -42,7 +43,7 @@ struct QuizResultView: View {
                     
                     Spacer()
                     
-                    Text(String(format: "%.1f%%", percentage)) // Display as percentage
+                    Text(String(format: "%.1f%%", percentage))
                         .font(.body)
                         .foregroundColor(.black)
                 }
@@ -73,7 +74,13 @@ struct QuizResultView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            // Optionally, load or handle any data when this view appears
+            UserService.shared.getCurrentUserId { userId in
+                if let userId = userId {
+                    viewModel.getQuizResults(userId: userId)
+                } else {
+                    print("Error: User ID not found")
+                }
+            }
         }
     }
 }
