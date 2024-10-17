@@ -614,7 +614,6 @@
       }
     },
     "Get personalized tips for better communication with your partner." : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -631,7 +630,6 @@
       }
     },
     "Get Started" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -646,6 +644,9 @@
           }
         }
       }
+    },
+    "Give feedback to John" : {
+
     },
     "Google" : {
       "localizations" : {
@@ -662,6 +663,9 @@
           }
         }
       }
+    },
+    "How is your partner responding to your needs during this week?" : {
+
     },
     "How long is your period?" : {
       "localizations" : {
@@ -696,7 +700,6 @@
       }
     },
     "Improve your relationship with data-driven insights and advice" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -776,6 +779,9 @@
         }
       }
     },
+    "John is connected" : {
+
+    },
     "Join premium" : {
       "localizations" : {
         "es" : {
@@ -793,7 +799,6 @@
       }
     },
     "Learn how hormonal changes affect your relationship day-by-day." : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1082,6 +1087,7 @@
       }
     },
     "Partner" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1130,6 +1136,7 @@
       }
     },
     "Partner Screen" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1456,7 +1463,6 @@
       }
     },
     "Skip" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1568,6 +1574,12 @@
         }
       }
     },
+    "Tip #%lld" : {
+
+    },
+    "Tips for you" : {
+
+    },
     "Today, %@" : {
       "localizations" : {
         "es" : {
@@ -1585,7 +1597,6 @@
       }
     },
     "Track your cycle, mood, and activities in one place." : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1618,6 +1629,9 @@
       }
     },
     "View" : {
+
+    },
+    "Write a few nice words to John or thank him for his efforts" : {
 
     },
     "Yearly" : {
@@ -1668,6 +1682,12 @@
         }
       }
     },
+    "You may feel a bit tired and irritable. This is a great time to communicate openly with your partner about your needs, while showing appreciation for their patience and support." : {
+
+    },
+    "You're in the luteal phase." : {
+
+    },
     "Your code:" : {
       "localizations" : {
         "es" : {
@@ -1683,6 +1703,9 @@
           }
         }
       }
+    },
+    "Your feedback" : {
+
     },
     "Your love language is..." : {
       "localizations" : {

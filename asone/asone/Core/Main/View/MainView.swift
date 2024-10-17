@@ -18,6 +18,8 @@ struct MainView: View {
                     CalendarView()
                 case .add:
                     SymptomsView()
+                case .stats:
+                    PartnerView()
                 case .partner:
                     if profileViewModel.currentUser!.isPartnerMode {
                         PartnerView()
@@ -74,6 +76,7 @@ struct MainView: View {
                                 OptionButton(icon: "chart.pie.fill") {
                                     // Action for Cycle Advice
                                     isExpanded = false
+                                    selectedTab = .stats
                                 }
 
                                 // Button 3
@@ -119,6 +122,7 @@ enum Tab {
     case add
     case partner
     case account
+    case stats
 }
 
 // TabBarItem view with color adjustments
@@ -174,14 +178,6 @@ struct CalendarView: View {
     var body: some View {
         Text("Calendar Screen")
             .navigationTitle("Calendar")
-    }
-}
-
-
-struct PartnerView: View {
-    var body: some View {
-        Text("Partner Screen")
-            .navigationTitle("Partner")
     }
 }
 
