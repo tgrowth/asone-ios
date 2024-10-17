@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PartnerView: View {
+    @ObservedObject var viewModel: PartnerViewModel
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 15) {
@@ -15,9 +17,9 @@ struct PartnerView: View {
                 HStack(spacing: 8) {
                     ForEach(0..<7) { day in
                         VStack {
-                            Text(getDayName(for: day))
+                            Text(viewModel.dayNames[day])
                                 .font(.footnote)
-                            Text(getDayDate(for: day))
+                            Text(viewModel.dayDates[day])
                                 .font(.subheadline)
                         }
                         .frame(width: 40, height: 40)
@@ -30,7 +32,7 @@ struct PartnerView: View {
 
                 // Phase Information
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("You're in the luteal phase.")
+                    Text(viewModel.phaseInfo)
                         .font(.subheadline)
                         .bold()
                     Text("You may feel a bit tired and irritable. This is a great time to communicate openly with your partner about your needs, while showing appreciation for their patience and support.")
@@ -58,8 +60,9 @@ struct PartnerView: View {
                         .font(.subheadline)
                     
                     HStack(spacing: 8) {
-                        TipView(tipNumber: 1, text: "Thank your partner for being understanding during your luteal phase. Even a simple \"I appreciate you\" can make a difference.")
-                        TipView(tipNumber: 2, text: "Feeling a bit emotional? Share your thoughts with your partner—they'll appreciate the trust you put in them.")
+                        ForEach(viewModel.tips, id: \.tipNumber) { tip in
+                            TipView(tipNumber: tip.tipNumber, text: tip.text)
+                        }
                     }
                 }
                 .padding(.horizontal, 10)
@@ -68,10 +71,9 @@ struct PartnerView: View {
                 VStack(alignment: .leading) {
                     Text("Your feedback")
                         .font(.subheadline)
-                    Text("How is your partner responding to your needs during this week?")
+                    Text(viewModel.feedbackPrompt)
                         .font(.footnote)
                     
-                    // Feedback buttons (circles for response options)
                     HStack(spacing: 12) {
                         ForEach(0..<5) { _ in
                             Circle()
@@ -81,19 +83,9 @@ struct PartnerView: View {
                     }
                 }
                 .padding(.horizontal, 10)
-            }.navigationTitle("John is connected")
+            }
+            .navigationTitle("John is connected")
         }
-    }
-    
-    // Helper function for days
-    func getDayName(for index: Int) -> String {
-        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        return days[index]
-    }
-    
-    func getDayDate(for index: Int) -> String {
-        let dates = ["30", "1", "2", "3", "4", "5", "6"]
-        return dates[index]
     }
 }
 
@@ -117,6 +109,7 @@ struct TipView: View {
     }
 }
 
+
 #Preview {
-    PartnerView()
+    PartnerView(viewModel: PartnerViewModel())
 }

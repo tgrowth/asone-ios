@@ -4,7 +4,9 @@ struct MainView: View {
     @State private var selectedTab: Tab = .home
     @State private var isExpanded = false
     @StateObject var profileViewModel = ProfileViewModel()
-
+    @StateObject var partnerViewModel = PartnerViewModel()
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -19,10 +21,10 @@ struct MainView: View {
                 case .add:
                     SymptomsView()
                 case .stats:
-                    PartnerView()
+                    PartnerView(viewModel: partnerViewModel)
                 case .partner:
                     if profileViewModel.currentUser!.isPartnerMode {
-                        PartnerView()
+                        PartnerView(viewModel: partnerViewModel)
                     } else {
                         InvitePartnerView()
                     }

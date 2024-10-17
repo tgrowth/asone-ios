@@ -664,9 +664,6 @@
         }
       }
     },
-    "How is your partner responding to your needs during this week?" : {
-
-    },
     "How long is your period?" : {
       "localizations" : {
         "es" : {
@@ -1683,9 +1680,6 @@
       }
     },
     "You may feel a bit tired and irritable. This is a great time to communicate openly with your partner about your needs, while showing appreciation for their patience and support." : {
-
-    },
-    "You're in the luteal phase." : {
 
     },
     "Your code:" : {
