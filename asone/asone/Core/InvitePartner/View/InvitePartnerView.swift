@@ -14,12 +14,10 @@ struct InvitePartnerView: View {
     @State private var partnerCode: String = ""
     @State private var showError: Bool = false
     
-    // Function to validate the partner's code
     func isValidCode(_ code: String) -> Bool {
-        return !code.isEmpty && code.count == 6 // Simple validation for a 6-character code
+        return !code.isEmpty && code.count == 6
     }
     
-    // Function to pair with the partner using the code
     func pairWithPartner(code: String) {
         // Pairing logic goes here
         print("Pairing with partner's code: \(code)")
@@ -119,16 +117,14 @@ struct InvitePartnerView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    .autocapitalization(.allCharacters) // Automatically capitalizes the code
+                    .autocapitalization(.allCharacters)
                 
-                // Error message if code is invalid
                 if showError {
                     Text("Invalid code. Please try again.")
                         .foregroundColor(.red)
                         .font(.caption)
                 }
                 
-                // Submit button
                 Button(action: {
                     // Action to validate and pair with partner's code
                     if isValidCode(partnerCode) {

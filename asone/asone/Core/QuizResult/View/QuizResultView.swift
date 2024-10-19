@@ -74,13 +74,7 @@ struct QuizResultView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            UserService.shared.getCurrentUserId { userId in
-                if let userId = userId {
-                    viewModel.getQuizResults(userId: userId)
-                } else {
-                    print("Error: User ID not found")
-                }
-            }
+            viewModel.getQuizResults(uid: UserService.shared.getCurrentUserUid() ?? "")
         }
     }
 }

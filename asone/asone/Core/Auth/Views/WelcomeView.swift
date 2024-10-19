@@ -62,8 +62,7 @@ struct WelcomeView: View {
 
                 Spacer()
             }
-            .navigationBarHidden(true)
-        }
+        }.navigationBarBackButtonHidden()
     }
 }
 

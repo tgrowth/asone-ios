@@ -17,6 +17,9 @@
         }
       }
     },
+    " " : {
+
+    },
     "/mo" : {
       "localizations" : {
         "es" : {
@@ -34,6 +37,7 @@
       }
     },
     "%@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -149,6 +153,9 @@
         }
       }
     },
+    "Accept all" : {
+
+    },
     "Activities" : {
       "localizations" : {
         "es" : {
@@ -261,6 +268,9 @@
         }
       }
     },
+    "Authentication View" : {
+
+    },
     "Back" : {
       "localizations" : {
         "es" : {
@@ -276,6 +286,9 @@
           }
         }
       }
+    },
+    "Back to login" : {
+
     },
     "Calendar" : {
       "localizations" : {
@@ -309,6 +322,9 @@
         }
       }
     },
+    "Choose your avatar" : {
+
+    },
     "Complete" : {
       "localizations" : {
         "es" : {
@@ -325,6 +341,9 @@
         }
       }
     },
+    "Confirm password" : {
+
+    },
     "Copied" : {
       "localizations" : {
         "es" : {
@@ -340,6 +359,9 @@
           }
         }
       }
+    },
+    "Create account" : {
+
     },
     "Cycle advices" : {
       "localizations" : {
@@ -406,6 +428,7 @@
       }
     },
     "Do you know your last period?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -436,6 +459,9 @@
           }
         }
       }
+    },
+    "Don’t worry! It happens. Please enter the email associated with your account." : {
+
     },
     "Done" : {
       "localizations" : {
@@ -534,6 +560,7 @@
       }
     },
     "First and Last Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -549,7 +576,11 @@
         }
       }
     },
+    "Forgot password?" : {
+
+    },
     "Forgot your password?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -564,6 +595,9 @@
           }
         }
       }
+    },
+    "Full Name" : {
+
     },
     "Get 33% off premium" : {
       "localizations" : {
@@ -649,6 +683,7 @@
 
     },
     "Google" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -664,7 +699,29 @@
         }
       }
     },
+    "Got it! We’ll help you with:" : {
+
+    },
+    "Great! The more you log, the more accurate AsOne predictions get🌷" : {
+
+    },
+    "Hi, Welcome to AsOne" : {
+
+    },
+    "How do you feel about your period, Mary?" : {
+
+    },
+    "How long did your period last? (in days)" : {
+
+    },
+    "How long is your menstrual cycle?" : {
+
+    },
+    "How long is your menstrual period?" : {
+
+    },
     "How long is your period?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -679,6 +736,12 @@
           }
         }
       }
+    },
+    "I agree with Privacy Policy" : {
+
+    },
+    "I agree with Terms and Conditions" : {
+
     },
     "I'm not interested" : {
       "localizations" : {
@@ -727,6 +790,9 @@
           }
         }
       }
+    },
+    "Invalid Input" : {
+
     },
     "Invite my partner" : {
       "localizations" : {
@@ -795,6 +861,9 @@
         }
       }
     },
+    "Last Period End Date" : {
+
+    },
     "Learn how hormonal changes affect your relationship day-by-day." : {
       "localizations" : {
         "es" : {
@@ -811,6 +880,9 @@
         }
       }
     },
+    "Let's get to know you better!" : {
+
+    },
     "Loading user information..." : {
       "localizations" : {
         "es" : {
@@ -826,6 +898,9 @@
           }
         }
       }
+    },
+    "Loading..." : {
+
     },
     "Log period" : {
       "localizations" : {
@@ -891,6 +966,9 @@
         }
       }
     },
+    "Mary, how are you feeling today?" : {
+
+    },
     "Mood" : {
       "localizations" : {
         "es" : {
@@ -939,6 +1017,9 @@
         }
       }
     },
+    "New password" : {
+
+    },
     "Next" : {
       "localizations" : {
         "es" : {
@@ -954,6 +1035,12 @@
           }
         }
       }
+    },
+    "Next step" : {
+
+    },
+    "Nice to meet you Mary 🌷" : {
+
     },
     "Nice work!" : {
       "localizations" : {
@@ -972,6 +1059,7 @@
       }
     },
     "No, I have a code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1035,7 +1123,11 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "or" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1050,6 +1142,9 @@
           }
         }
       }
+    },
+    "Or" : {
+
     },
     "Pair with your partner" : {
       "localizations" : {
@@ -1117,6 +1212,7 @@
       }
     },
     "Partner Mode" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1165,6 +1261,9 @@
         }
       }
     },
+    "Password changed" : {
+
+    },
     "Period in 3 days" : {
       "localizations" : {
         "es" : {
@@ -1180,6 +1279,9 @@
           }
         }
       }
+    },
+    "Period Length" : {
+
     },
     "Personalized Tips" : {
       "localizations" : {
@@ -1212,6 +1314,15 @@
           }
         }
       }
+    },
+    "Please check your email" : {
+
+    },
+    "Please enter a valid period length greater than 0." : {
+
+    },
+    "Please type something you’ll remember." : {
+
     },
     "PMS phase" : {
       "localizations" : {
@@ -1315,6 +1426,9 @@
         }
       }
     },
+    "Reset password" : {
+
+    },
     "Sample Advice" : {
       "localizations" : {
         "es" : {
@@ -1330,6 +1444,9 @@
           }
         }
       }
+    },
+    "Select the last day of your period" : {
+
     },
     "Select your cycle days" : {
       "localizations" : {
@@ -1347,7 +1464,14 @@
         }
       }
     },
+    "Send code" : {
+
+    },
+    "Send code again %lld" : {
+
+    },
     "Send Reset Link" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1396,6 +1520,7 @@
       }
     },
     "Share invite code" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1442,6 +1567,9 @@
           }
         }
       }
+    },
+    "Sign out" : {
+
     },
     "Sign Up" : {
       "localizations" : {
@@ -1539,6 +1667,9 @@
         }
       }
     },
+    "Supercharge your lives with AsOne" : {
+
+    },
     "Symptoms" : {
       "localizations" : {
         "es" : {
@@ -1555,6 +1686,9 @@
         }
       }
     },
+    "Take control of your well-being and let your partner be a part of the journey" : {
+
+    },
     "Tap to copy" : {
       "localizations" : {
         "es" : {
@@ -1570,6 +1704,12 @@
           }
         }
       }
+    },
+    "Tell us about your last period" : {
+
+    },
+    "The menstrual cycle can have a significant impact on a woman's physical and emotional well-being, which in turn affects her relationships. Understanding the cyclical changes and how they influence mood, energy levels, and needs helps partners to better support one another." : {
+
     },
     "Tip #%lld" : {
 
@@ -1625,7 +1765,28 @@
         }
       }
     },
+    "Verify" : {
+
+    },
     "View" : {
+
+    },
+    "We’ll ask a few questions to personalize your experience and provide the most accurate insights and tips. Ready?" : {
+
+    },
+    "We’ve sent a code to the email address you provided." : {
+
+    },
+    "Welcome to AsOne" : {
+
+    },
+    "What brings you to AsOne?" : {
+
+    },
+    "What would you like AsOne call you?" : {
+
+    },
+    "Why are you feeling like this today?" : {
 
     },
     "Write a few nice words to John or thank him for his efforts" : {
@@ -1698,6 +1859,9 @@
         }
       }
     },
+    "Your email" : {
+
+    },
     "Your feedback" : {
 
     },
@@ -1716,6 +1880,9 @@
           }
         }
       }
+    },
+    "Your password has been changed successfully!" : {
+
     }
   },
   "version" : "1.0"

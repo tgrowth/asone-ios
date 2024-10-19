@@ -24,19 +24,16 @@ class UserService{
         self.currentUser = user
     }
     
-    func getCurrentUserId(completion: @escaping (Int?) -> Void) {
-        if let user = Auth.auth().currentUser {
-            fetchUserData(userId: 1) { userProfile in
-                completion(userProfile?.id)
-            }
+    func getCurrentUserUid() -> String? {
+        if let currentUser = Auth.auth().currentUser {
+            return currentUser.uid
         } else {
-            print("No user is logged in")
-            completion(nil)
+            return nil
         }
     }
     
-    func fetchUserData(userId: Int, completion: @escaping (UserProfile?) -> Void) {
-        guard let url = URL(string: "http://api.asone.life/userInfo/\(userId)") else {
+    func fetchUserData(uid: String, completion: @escaping (UserProfile?) -> Void) {
+        guard let url = URL(string: "http://api.asone.life/userInfo/\(uid)") else {
             print("Invalid URL")
             completion(nil)
             return

@@ -5,65 +5,81 @@
 //  Created by Arslan Kamchybekov on 9/23/24.
 //
 
+
 import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 import FirebaseAuth
 import AuthenticationServices
 
-
 struct LoginView: View {
 
     @StateObject var viewModel = LoginViewModel()
-    
+
     var body: some View {
         NavigationStack {
             VStack {
+                // Top spacer for centering elements
                 Spacer()
                 
-                Text("AsOne")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 40)
+                // Welcome text with emoji and icon
+                HStack {
+                    Text("Hi, Welcome to AsOne")
+                        .font(.title)
+                        .fontWeight(.bold)
+                }
                 
+                Spacer()
+
                 // Email Field
                 CustomTextField(placeholder: "Email", text: $viewModel.email)
                 
                 // Password Field
                 CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
-                
-                NavigationLink("Forgot your password?") {
+
+                // Forgot Password
+                NavigationLink("Forgot password?") {
                     ForgotPasswordView()
                 }
                 .font(.footnote)
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding()
-                
+
                 // Login Button
                 PrimaryButton(title: "Login", action: {
                     Task { try await viewModel.login() }
                 }, isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty)
-                
+
+                // Spacer between login button and social login options
                 Spacer()
-                
+
+                // Divider with "or"
                 HStack {
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(Color.gray.opacity(0.5))
-                    Text("or")
+                    Text("Or")
                         .font(.footnote)
                         .foregroundColor(.gray)
+                        .padding()
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(Color.gray.opacity(0.5))
                 }
                 .padding(.horizontal, 30)
                 .padding(.top, 10)
-                
-                // Sign in with Apple and Google
-                VStack {
-                    SignInWithAppleButton(.signIn){ request in
+
+                // Social login buttons
+                HStack(spacing: 20) {
+                    // Google
+                    GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
+                        Task { try await viewModel.googleLogin() }
+                    }
+                    .frame(height: 40)
+
+                    // Apple Login
+                    SignInWithAppleButton(.signIn) { request in
                         let nonce = viewModel.randomNonceString()
                         request.nonce = viewModel.sha256(nonce)
                         viewModel.nonce = nonce
@@ -76,30 +92,27 @@ struct LoginView: View {
                         }
                     }
                     .frame(height: 40)
-                
-                    GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .wide, state: .normal)) {
-                            Task { try await viewModel.googleLogin()
-                        }
-                    }
                 }
                 .padding(.horizontal)
-                
+
+                // Sign up link
                 NavigationLink {
                     SignUpView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
-                    HStack{
+                    HStack {
                         Text("Don't have an account?")
                         Text("Sign Up")
                             .fontWeight(.bold)
                     }
-                    .padding(.vertical)
                     .foregroundColor(.black)
+                    .padding()
                 }
-                
+
                 Spacer()
             }
-        }
+            .padding(.top) // Adjust padding to ensure proper layout
+        }.navigationBarBackButtonHidden()
     }
 }
 

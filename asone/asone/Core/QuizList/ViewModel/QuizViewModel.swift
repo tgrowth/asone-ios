@@ -1,7 +1,7 @@
 import Foundation
 
 struct QuizResultResponse: Codable {
-    //let isComplete: Bool
+    let isComplete: Bool
     let quizResult: [String: Double]
 }
 
@@ -68,13 +68,7 @@ class QuizViewModel: ObservableObject {
         
         currentQuiz?.isComplete = true
         
-        UserService.shared.getCurrentUserId { userId in
-            if let userId = userId {
-                self.saveQuizResults(userId: userId)
-            } else {
-                print("Error: User ID not found")
-            }
-        }
+        self.saveQuizResults(uid: UserService.shared.getCurrentUserUid() ?? "")
     }
     
     func calculateScore(_ quizResult: [String: Double]) -> [String: Double] {
@@ -111,17 +105,17 @@ class QuizViewModel: ObservableObject {
         }
     }
     
-    func saveQuizResults(userId: Int) {
-        guard let url = URL(string: "http://localhost:3000/love_languages_results/\(userId)") else { return }
+    func saveQuizResults(uid: String) {
+        guard let url = URL(string: "http://localhost:3000/love_languages_results/\(uid)") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let resultData: [String: Any] = [
-            "user_id": userId,
+            "uid": uid,
             "quiz_id": currentQuiz?.id ?? 0,
-            //"isComplete": currentQuiz?.isComplete ?? true,
+            "isComplete": currentQuiz?.isComplete ?? true,
             "quizResult": calculateScore(quizResult)
         ]
         
@@ -156,8 +150,8 @@ class QuizViewModel: ObservableObject {
         }
     }
     
-    func getQuizResults(userId: Int) {
-        guard let url = URL(string: "http://localhost:3000/love_languages_results/\(userId)") else {
+    func getQuizResults(uid: String) {
+        guard let url = URL(string: "http://localhost:3000/love_languages_results/\(uid)") else {
             print("Invalid URL")
             return
         }
@@ -178,12 +172,12 @@ class QuizViewModel: ObservableObject {
             // Decode the returned data into a dictionary
             do {
                 let decoder = JSONDecoder()
-                let quizResultResponse = try decoder.decode(QuizResultResponse.self, from: data)
-                print(quizResultResponse)
+                let response = try decoder.decode(QuizResultResponse.self, from: data)
+                print(response)
 
                 DispatchQueue.main.async {
-                    //self?.currentQuiz?.isComplete = quizResultResponse.isComplete
-                    self?.fetchedQuizResults = quizResultResponse.quizResult
+                    self?.currentQuiz?.isComplete = response.isComplete
+                    self?.fetchedQuizResults = response.quizResult
                 }
             } catch {
                 print("Error decoding quiz results: \(error)")

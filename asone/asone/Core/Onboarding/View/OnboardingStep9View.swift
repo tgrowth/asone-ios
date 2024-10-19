@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct OnboardingStep10View: View {
+struct OnboardingStep9View: View {
     @ObservedObject var viewModel: OnboardingViewModel
 
     var body: some View {
         VStack {
-            Text("How long is your menstrual period?")
+            Text("How long is your menstrual cycle?")
                 .font(.headline)
             
             Picker("Days", selection: $viewModel.userData.periodLength) {
@@ -37,5 +37,5 @@ struct OnboardingStep10View: View {
 }
 
 #Preview {
-    OnboardingStep10View(viewModel: OnboardingViewModel())
+    OnboardingStep9View(viewModel: OnboardingViewModel())
 }

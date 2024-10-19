@@ -27,23 +27,14 @@ class ProfileViewModel: ObservableObject {
             self.uid = user.uid
             self.email = user.email ?? "No Email"
             self.displayName = user.displayName ?? "No Name"
-                        
-            UserService.shared.getCurrentUserId { [weak self] userId in
-                guard let self = self else { return }
-
-                if let userId = userId {
-                    self.fetchUserProfile(userId: userId)
-                } else {
-                    print("No user is logged in or User ID is nil")
-                }
-            }
+            self.fetchUserProfile(uid: user.uid)
         } else {
             print("No user is logged in")
         }
     }
 
-    private func fetchUserProfile(userId: Int) {
-        UserService.shared.fetchUserData(userId: userId) { [weak self] userProfile in
+    private func fetchUserProfile(uid: String) {
+        UserService.shared.fetchUserData(uid: uid) { [weak self] userProfile in
             guard let self = self else { return }
 
             if let userProfile = userProfile {

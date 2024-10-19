@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingStep6View: View {
+struct OnboardingStep13View: View {
     @ObservedObject var viewModel: OnboardingViewModel
 
     var body: some View {
@@ -31,7 +31,7 @@ struct OnboardingStep6View: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(viewModel.userData.isTryingToConceive ? Color.blue : Color.gray.opacity(0.2))
+                    .background(viewModel.userData.isTryingToConceive ? Color.black : Color.gray.opacity(0.2))
                     .cornerRadius(10)
                 }
 
@@ -49,7 +49,7 @@ struct OnboardingStep6View: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(!viewModel.userData.isTryingToConceive ? Color.blue : Color.gray.opacity(0.2))
+                    .background(!viewModel.userData.isTryingToConceive ? Color.black : Color.gray.opacity(0.2))
                     .cornerRadius(10)
                 }
             }
@@ -73,5 +73,5 @@ struct OnboardingStep6View: View {
 }
 
 #Preview {
-    OnboardingStep6View(viewModel: OnboardingViewModel())
+    OnboardingStep13View(viewModel: OnboardingViewModel())
 }

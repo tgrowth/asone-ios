@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseAuth
+import AuthenticationServices
 
 struct SignUpView: View {
 
     @StateObject var viewModel = SignUpViewModel()
+    @StateObject var loginViewModel = LoginViewModel()
     @Environment(\.dismiss) var dismiss;
     
     var body: some View {
@@ -17,13 +22,13 @@ struct SignUpView: View {
             VStack {
                 Spacer()
                 
-                Text("AsOne")
-                    .font(.largeTitle)
+                Text("Create account")
+                    .font(.title)
                     .fontWeight(.bold)
                     .padding(.bottom, 40)
                 
                 // Name Field
-                CustomTextField(placeholder: "First and Last Name", text: $viewModel.fullname)
+                CustomTextField(placeholder: "Full Name", text: $viewModel.fullname)
                 
                 // Email Field
                 CustomTextField(placeholder: "Email", text: $viewModel.email)
@@ -36,55 +41,49 @@ struct SignUpView: View {
                     Task { try await viewModel.register() }
                 }, isDisabled: viewModel.email.isEmpty ||  viewModel.password.isEmpty ||  viewModel.fullname.isEmpty)
                 
+                // Spacer between signup button and social login options
                 Spacer()
+
                 // Divider with "or"
                 HStack {
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(Color.gray.opacity(0.5))
-                    Text("or")
+                    Text("Or")
                         .font(.footnote)
                         .foregroundColor(.gray)
+                        .padding()
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(Color.gray.opacity(0.5))
                 }
                 .padding(.horizontal, 30)
                 .padding(.top, 10)
-                
-                // Sign in with Apple and Google
-                HStack {
-                    Button(action: {
-                        // Apple Sign Up action
-                    }) {
-                        HStack {
-                            Image(systemName: "applelogo")
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.black)
-                        .cornerRadius(10)
+
+                // Social login buttons
+                HStack(spacing: 20) {
+                    // Google
+                    GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
+                        Task { try await loginViewModel.googleLogin() }
                     }
-                    
-                    Button(action: {
-                        // Google Sign Up action
-                    }) {
-                        HStack {
-                            Text("Google")
+                    .frame(height: 40)
+
+                    // Apple Login
+                    SignInWithAppleButton(.signIn) { request in
+                        let nonce = loginViewModel.randomNonceString()
+                        request.nonce = loginViewModel.sha256(nonce)
+                        loginViewModel.nonce = nonce
+                        request.requestedScopes = [.email, .fullName]
+                    } onCompletion: { result in
+                        switch result {
+                        case .success(let authorization):
+                            Task { try await loginViewModel.appleLogin(authorization) }
+                        case .failure(let error): print("ERROR: \(error)")
                         }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black, lineWidth: 1)
-                        )
                     }
+                    .frame(height: 40)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
+                .padding(.horizontal)
                 
                 Button{
                     dismiss()

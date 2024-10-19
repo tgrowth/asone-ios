@@ -13,6 +13,8 @@ struct OnboardingMainView: View {
     var body: some View {
         VStack {
             switch viewModel.currentStep {
+            case .start:
+                OnboardingStartView(viewModel: viewModel)
             case .step1:
                 OnboardingStep1View(viewModel: viewModel)
             case .step2:
@@ -27,6 +29,24 @@ struct OnboardingMainView: View {
                 OnboardingStep6View(viewModel: viewModel)
             case .step7:
                 OnboardingStep7View(viewModel: viewModel)
+            case .step8:
+                OnboardingStep8View(viewModel: viewModel)
+            case .step9:
+                OnboardingStep9View(viewModel: viewModel)
+            case .step10:
+                OnboardingStep10View(viewModel: viewModel)
+            case .step11:
+                OnboardingStep11View(viewModel: viewModel)
+            case .step12:
+                OnboardingStep12View(viewModel: viewModel)
+            case .step13:
+                OnboardingStep13View(viewModel: viewModel)
+            case .step14:
+                OnboardingStep14View(viewModel: viewModel)
+            case .step15:
+                OnboardingStep15View(viewModel: viewModel)
+            case .step16:
+                OnboardingStep16View(viewModel: viewModel)
             }
         }
         .animation(.easeInOut, value: viewModel.currentStep)

@@ -3,7 +3,7 @@ import FirebaseAuth
 
 // Define the steps in the onboarding process
 enum OnboardingStep: Int, CaseIterable {
-    case step1, step2, step3, step4, step5, step6, step7
+    case start, step1, step2, step3, step4, step5, step6, step7, step8, step9, step10, step11, step12, step13, step14, step15, step16
 }
 
 // A model to store the user data collected during the onboarding process
@@ -13,7 +13,8 @@ struct OnboardingUserData {
     var birthday: Date = Date()
     var periodLength: Int = 6
     var cycleLength: Int = 28
-    var lastPeriodDate: Date = Date()
+    var lastPeriodStartDate: Date = Date()
+    var lastPeriodEndDate: Date = Date()
     var isTryingToConceive: Bool = false
     var isPartnerMode: Bool = false
     var partnerEmail: String = ""
@@ -115,16 +116,19 @@ class OnboardingViewModel: ObservableObject {
         
         // Format the dates to strings
         let formattedBirthday = dateFormatter.string(from: userData.birthday)
-        let formattedLastPeriodDate = dateFormatter.string(from: userData.lastPeriodDate)
+        let formattedLastPeriodStartDate = dateFormatter.string(from: userData.lastPeriodStartDate)
+        let formattedLastPeriodEndDate = dateFormatter.string(from: userData.lastPeriodEndDate)
+
         
         // Convert the user data to a dictionary with the formatted date strings
         let userDataDictionary: [String: Any] = [
             "isUsingForSelf": userData.isUsingForSelf,
             "code": userData.code,
-            "birthday": formattedBirthday,  // Use the formatted birthday
+            "birthday": formattedBirthday,
             "periodLength": userData.periodLength,
             "cycleLength": userData.cycleLength,
-            "lastPeriodDate": formattedLastPeriodDate,  // Use the formatted lastPeriodDate
+            "lastPeriodStartDate": formattedLastPeriodStartDate,
+            "lastPeriodEndDate": formattedLastPeriodEndDate,
             "isTryingToConceive": userData.isTryingToConceive,
             "isPartnerMode": userData.isPartnerMode,
             "partnerEmail": userData.partnerEmail,
@@ -145,14 +149,12 @@ class OnboardingViewModel: ObservableObject {
             print("No Firebase user found")
             return
         }
-        
-        let userId = user.uid;
 
-        sendUserData(jsonData: jsonData, userId: 4) // userId
+        sendUserData(jsonData: jsonData, uid: user.uid)
     }
 
-    private func sendUserData(jsonData: Data, userId: Int) { //change to string uid
-        guard let url = URL(string: "http://api.asone.life/userInfo/\(userId)") else {
+    private func sendUserData(jsonData: Data, uid: String) { //change to string uid
+        guard let url = URL(string: "http://api.asone.life/userInfo/\(uid)") else {
             print("Invalid URL")
             return
         }

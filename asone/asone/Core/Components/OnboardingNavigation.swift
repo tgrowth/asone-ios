@@ -20,7 +20,7 @@ struct OnboardingNavigation: View {
             if showBack {
                 Button(action: backAction) {
                     Text("Back")
-                        .foregroundColor(.blue)
+                        .foregroundColor(.black)
                         .padding()
                         .background(Color.gray.opacity(0.2))
                         .cornerRadius(8)
@@ -34,7 +34,7 @@ struct OnboardingNavigation: View {
                     Text("Next")
                         .foregroundColor(.white)
                         .padding()
-                        .background(nextIsDisabled ? Color.gray : Color.blue)
+                        .background(nextIsDisabled ? Color.gray : Color.black)
                         .cornerRadius(8)
                 }
                 .disabled(nextIsDisabled)  // Disable if validation is needed

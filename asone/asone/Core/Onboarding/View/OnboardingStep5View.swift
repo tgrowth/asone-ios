@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingStep2View: View {
+struct OnboardingStep5View: View {
     @ObservedObject var viewModel: OnboardingViewModel
 
     var body: some View {
@@ -34,5 +34,5 @@ struct OnboardingStep2View: View {
 }
 
 #Preview {
-    OnboardingStep2View(viewModel: OnboardingViewModel())
+    OnboardingStep5View(viewModel: OnboardingViewModel())
 }
