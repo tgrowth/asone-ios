@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-struct OnboardingStep2View: View {
+struct OnboardingStep5View: View {
     @ObservedObject var viewModel: OnboardingViewModel
 
     var body: some View {
         VStack {
-            Text("Set your date of birth")
+            Text("Do you know your last period?")
                 .font(.headline)
             
-            DatePicker("", selection: $viewModel.userData.birthday, displayedComponents: .date)
-                .datePickerStyle(WheelDatePickerStyle())
-                .padding()
+            DatePicker("", selection: $viewModel.userData.lastPeriodDate, displayedComponents: .date)
+                .datePickerStyle(GraphicalDatePickerStyle())
             
             Spacer()
             OnboardingNavigation(
@@ -34,5 +33,5 @@ struct OnboardingStep2View: View {
 }
 
 #Preview {
-    OnboardingStep2View(viewModel: OnboardingViewModel())
+    OnboardingStep5View(viewModel: OnboardingViewModel())
 }

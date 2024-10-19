@@ -1,5 +1,5 @@
 //
-//  OnboardingStep1View.swift
+//  OnboardingStep2View.swift
 //  Asone
 //
 //  Created by Arslan Kamchybekov on 9/24/24.
@@ -7,23 +7,20 @@
 
 import SwiftUI
 
-struct OnboardingStep4View: View {
+struct OnboardingStep3View: View {
     @ObservedObject var viewModel: OnboardingViewModel
-    
+
     var body: some View {
         VStack {
-            Text("Are you using AsOne for yourself?")
+            Text("How long is your menstrual period?")
                 .font(.headline)
             
-            Picker("", selection: $viewModel.userData.isUsingForSelf) {
-                Text("Yes").tag(true)
-                Text("No, I have a code").tag(false)
+            Picker("Days", selection: $viewModel.userData.periodLength) {
+                ForEach(1..<31) { days in
+                    Text("\(days) days").tag(days)
+                }
             }
-            .pickerStyle(.segmented)
-            
-            if !viewModel.userData.isUsingForSelf {
-                CustomTextField(placeholder: "Enter your code", text: $viewModel.userData.code)
-            }
+            .pickerStyle(WheelPickerStyle())
             
             Spacer()
             OnboardingNavigation(
@@ -40,5 +37,5 @@ struct OnboardingStep4View: View {
 }
 
 #Preview {
-    OnboardingStep4View(viewModel: OnboardingViewModel())
+    OnboardingStep3View(viewModel: OnboardingViewModel())
 }
