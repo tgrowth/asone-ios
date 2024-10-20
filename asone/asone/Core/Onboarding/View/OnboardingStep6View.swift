@@ -22,10 +22,7 @@ struct OnboardingStep6View: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("What brings you to AsOne?")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding(.bottom, 20)
+            Header(title: "What brings you to AsOne?")
             
             ForEach(options, id: \.self) { option in
                 Button(action: {

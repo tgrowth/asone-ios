@@ -9,26 +9,25 @@ import SwiftUI
 
 struct OnboardingStep15View: View {
     @ObservedObject var viewModel: OnboardingViewModel
-    @State private var selectedSymptoms: [Bool] = Array(repeating: false, count: 8)
+    @State private var selectedSymptoms: [String] = []
     
     let symptoms = ["Symptom 1", "Symptom 2", "Symptom 3", "Symptom 4", "Symptom 5", "Symptom 6", "Symptom 7", "Symptom 8"]
     
     var body: some View {
         VStack {
-            Text("Why are you feeling like this today?")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding()
+            // Custom header component
+            Header(title: "Why are you feeling like this today?")
             
             // Grid of symptom buttons
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3)) {
-                ForEach(0..<symptoms.count, id: \.self) { index in
+                ForEach(symptoms, id: \.self) { symptom in
                     Button(action: {
-                        selectedSymptoms[index].toggle()
+                        toggleSymptom(symptom)
                     }) {
-                        Text(symptoms[index])
+                        Text(symptom)
                             .padding(8)
-                            .background(selectedSymptoms[index] ? Color.gray : Color.clear)
+                            .foregroundColor(isSymptomSelected(symptom) ? Color.white : Color.black)
+                            .background(isSymptomSelected(symptom) ? Color.black : Color.clear)
                             .cornerRadius(8)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
@@ -41,19 +40,35 @@ struct OnboardingStep15View: View {
             
             Spacer()
             
+            // Navigation buttons
             OnboardingNavigation(
                 backAction: {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
+                    viewModel.userData.symptoms = selectedSymptoms
                     viewModel.goToNextStep()
                 }
             )
-        }.padding()
+        }
+        .padding()
+    }
+    
+    // Function to toggle the symptom in the selection array
+    private func toggleSymptom(_ symptom: String) {
+        if let index = selectedSymptoms.firstIndex(of: symptom) {
+            selectedSymptoms.remove(at: index)
+        } else {
+            selectedSymptoms.append(symptom)
+        }
+    }
+    
+    // Helper function to check if the symptom is selected
+    private func isSymptomSelected(_ symptom: String) -> Bool {
+        selectedSymptoms.contains(symptom)
     }
 }
 
 #Preview {
     OnboardingStep15View(viewModel: OnboardingViewModel())
 }
-

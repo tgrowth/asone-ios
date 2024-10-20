@@ -53,6 +53,9 @@
         }
       }
     },
+    "%@ 🌷" : {
+
+    },
     "%lld" : {
       "localizations" : {
         "es" : {
@@ -221,6 +224,7 @@
       }
     },
     "Are you trying to conceive right now?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -237,6 +241,7 @@
       }
     },
     "Are you using AsOne for yourself?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -321,9 +326,6 @@
           }
         }
       }
-    },
-    "Choose your avatar" : {
-
     },
     "Complete" : {
       "localizations" : {
@@ -464,6 +466,7 @@
 
     },
     "Done" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -699,25 +702,10 @@
         }
       }
     },
-    "Got it! We’ll help you with:" : {
-
-    },
-    "Great! The more you log, the more accurate AsOne predictions get🌷" : {
-
-    },
     "Hi, Welcome to AsOne" : {
 
     },
-    "How do you feel about your period, Mary?" : {
-
-    },
     "How long did your period last? (in days)" : {
-
-    },
-    "How long is your menstrual cycle?" : {
-
-    },
-    "How long is your menstrual period?" : {
 
     },
     "How long is your period?" : {
@@ -880,9 +868,6 @@
         }
       }
     },
-    "Let's get to know you better!" : {
-
-    },
     "Loading user information..." : {
       "localizations" : {
         "es" : {
@@ -966,9 +951,6 @@
         }
       }
     },
-    "Mary, how are you feeling today?" : {
-
-    },
     "Mood" : {
       "localizations" : {
         "es" : {
@@ -1037,9 +1019,6 @@
       }
     },
     "Next step" : {
-
-    },
-    "Nice to meet you Mary 🌷" : {
 
     },
     "Nice work!" : {
@@ -1488,6 +1467,7 @@
       }
     },
     "Set your date of birth" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1667,9 +1647,6 @@
         }
       }
     },
-    "Supercharge your lives with AsOne" : {
-
-    },
     "Symptoms" : {
       "localizations" : {
         "es" : {
@@ -1704,9 +1681,6 @@
           }
         }
       }
-    },
-    "Tell us about your last period" : {
-
     },
     "The menstrual cycle can have a significant impact on a woman's physical and emotional well-being, which in turn affects her relationships. Understanding the cyclical changes and how they influence mood, energy levels, and needs helps partners to better support one another." : {
 
@@ -1778,15 +1752,6 @@
 
     },
     "Welcome to AsOne" : {
-
-    },
-    "What brings you to AsOne?" : {
-
-    },
-    "What would you like AsOne call you?" : {
-
-    },
-    "Why are you feeling like this today?" : {
 
     },
     "Write a few nice words to John or thank him for his efforts" : {

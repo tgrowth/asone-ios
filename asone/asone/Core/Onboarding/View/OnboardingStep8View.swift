@@ -20,16 +20,10 @@ struct OnboardingStep8View: View {
 
     var body: some View {
         VStack {
-            // Question Header
             Spacer()
-            Text("How do you feel about your period, Mary?")
-                .font(.title2)
-                .fontWeight(.bold)
-                .multilineTextAlignment(.leading)
-                .padding(.horizontal)
-                .padding(.bottom, 20)
             
-            // Options List
+            Header(title: "How do you feel about your period, \(viewModel.userData.username)?")
+            
             ForEach(options, id: \.self) { option in
                 Button(action: {
                     selectedOption = option
@@ -46,23 +40,24 @@ struct OnboardingStep8View: View {
                         if option == "Version 4 😌" && selectedOption == option {
                             Text("The menstrual cycle can have a significant impact on a woman's physical and emotional well-being, which in turn affects her relationships. Understanding the cyclical changes and how they influence mood, energy levels, and needs helps partners to better support one another.")
                                 .font(.footnote)
+                                .foregroundColor(.white)
                                 .padding()
-                                .background(Color(UIColor.systemGray5))
+                                .background(.black)
                                 .cornerRadius(10)
                         }
                     }
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 10)
             }
             
-            // Next Button
             Spacer()
+            
             OnboardingNavigation(
                 backAction: {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
+                    viewModel.userData.state = selectedOption ?? "Version 1"
+                    
                     viewModel.goToNextStep()
                 }
             )

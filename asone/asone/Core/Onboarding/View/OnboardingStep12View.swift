@@ -20,11 +20,7 @@ struct OnboardingStep12View: View {
                 .padding(.bottom, 20)
             
             // Congratulatory Text
-            Text("Great! The more you log, the more accurate AsOne predictions get🌷")
-                .font(.title3)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-                .padding(.bottom, 30)
+            Header(title: "Great! The more you log, the more accurate AsOne predictions get🌷")
             
             Spacer()
             

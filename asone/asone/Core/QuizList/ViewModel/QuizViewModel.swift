@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseAuth
 
 struct QuizResultResponse: Codable {
     let isComplete: Bool
@@ -68,7 +69,7 @@ class QuizViewModel: ObservableObject {
         
         currentQuiz?.isComplete = true
         
-        self.saveQuizResults(uid: UserService.shared.getCurrentUserUid() ?? "")
+        self.saveQuizResults(uid: Auth.auth().currentUser?.uid ?? "")
     }
     
     func calculateScore(_ quizResult: [String: Double]) -> [String: Double] {

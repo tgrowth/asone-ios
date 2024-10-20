@@ -46,7 +46,7 @@ struct InvitePartnerView: View {
                     
                     // Copy button
                     Button(action: {
-                        UIPasteboard.general.string = profileViewModel.currentUser?.inviteCode
+                        UIPasteboard.general.string = profileViewModel.currentUser?.code
                         isCopied = true
                     }) {
                         HStack {
@@ -68,7 +68,7 @@ struct InvitePartnerView: View {
                     Text("Your code:")
                         .font(.subheadline)
                     
-                    Text(profileViewModel.currentUser?.inviteCode ?? "")
+                    Text(profileViewModel.currentUser?.code ?? "")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
@@ -84,7 +84,7 @@ struct InvitePartnerView: View {
                 // Share invite button
                 Button(action: {
                     // Share code action
-                    shareCode(profileViewModel.currentUser?.inviteCode ?? "")
+                    shareCode(profileViewModel.currentUser?.code ?? "")
                 }) {
                     Text("Share my invite code")
                         .font(.headline)

@@ -12,8 +12,7 @@ struct OnboardingStep13View: View {
 
     var body: some View {
         VStack {
-            Text("Are you trying to conceive right now?")
-                .font(.headline)
+            Header(title: "Are you trying to conceive right now?")
             
             // Custom buttons for selection
             VStack(spacing: 16) {

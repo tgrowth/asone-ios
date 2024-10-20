@@ -15,7 +15,7 @@ class ProfileViewModel: ObservableObject {
     @Published var uid: String = ""
     @Published var email: String = ""
     @Published var displayName: String = ""
-    @Published var currentUser: UserProfile?
+    @Published var currentUser: UserData?
     private var cancellables = Set<AnyCancellable>()
     
     init() {

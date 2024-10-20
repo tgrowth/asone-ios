@@ -4,13 +4,11 @@
 //
 //  Created by Arslan Kamchybekov on 9/23/24.
 //
+
 import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @StateObject var contentViewModel = ContentViewModel()
-    @StateObject var onboardingViewModel = OnboardingViewModel()
-    
     @State private var isLoggedIn: Bool = false
     @State private var showOnboarding: Bool = false
     @State private var isLoading: Bool = true
@@ -40,8 +38,7 @@ struct ContentView: View {
             print(user)
             isLoggedIn = true
             
-            let uid = user.uid
-            UserService.shared.fetchUserData(uid: uid) { userProfile in
+            UserService.shared.fetchUserData(uid: user.uid) { userProfile in
                 DispatchQueue.main.async {
                     if let userProfile = userProfile {
                         // User exists, proceed to main view

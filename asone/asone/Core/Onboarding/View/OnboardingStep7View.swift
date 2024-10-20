@@ -18,18 +18,14 @@ struct OnboardingStep7View: View {
                 .resizable()
                 .frame(width: 100, height: 100)
             
-            Text("Got it! We’ll help you with:")
-                .font(.title)
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
+            Header(title: "Got it! We’ll help you with:")
             
             VStack(alignment: .leading, spacing: 15) {
-                OnboardingBulletPoint(text: "Understanding and tracking your cycle with ease")
-                OnboardingBulletPoint(text: "Managing your emotions and symptoms effectively")
-                OnboardingBulletPoint(text: "Improving communication and intimacy with your partner")
-                OnboardingBulletPoint(text: "Learning what your body is telling you about your health and well-being")
-                OnboardingBulletPoint(text: "Receiving personalized tips to enhance your well-being, tailored just for you")
+                BulletPoint(text: "Understanding and tracking your cycle with ease")
+                BulletPoint(text: "Managing your emotions and symptoms effectively")
+                BulletPoint(text: "Improving communication and intimacy with your partner")
+                BulletPoint(text: "Learning what your body is telling you about your health and well-being")
+                BulletPoint(text: "Receiving personalized tips to enhance your well-being, tailored just for you")
             }
             .padding(.horizontal)
             
@@ -44,12 +40,12 @@ struct OnboardingStep7View: View {
                 }
             )
         }
-        .padding(.vertical)
+        .padding()
     }
 }
 
 // A reusable view for each bullet point
-struct OnboardingBulletPoint: View {
+struct BulletPoint: View {
     let text: String
     
     var body: some View {

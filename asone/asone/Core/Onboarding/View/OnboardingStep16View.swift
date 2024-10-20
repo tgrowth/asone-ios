@@ -23,11 +23,7 @@ struct OnboardingStep16View: View {
                     .frame(width: 100, height: 100)
                 
                 // Title
-                Text("Supercharge your lives with AsOne")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                Header(title: "Supercharge your lives with AsOne")
                 
                 // Radio buttons
                 VStack(alignment: .leading, spacing: 20) {
@@ -41,7 +37,6 @@ struct OnboardingStep16View: View {
                         self.selectedReason = "why3"
                     }
                 }
-                .padding(.bottom, 40)
                 
                 // Bottom Buttons
                 VStack(spacing: 20) {
@@ -86,7 +81,7 @@ struct OnboardingStep16View: View {
                         viewModel.completeOnboarding()
                     }) {
                         HStack {
-                            Text("Done").foregroundColor(.white)
+                            Text("Complete").foregroundColor(.white)
                         }
                         .padding()
                         .frame(maxWidth: .infinity)

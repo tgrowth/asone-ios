@@ -6,8 +6,6 @@
 //
 
 import FirebaseAuth
-import FirebaseFirestore
-
 
 class AuthService {
     
@@ -15,7 +13,7 @@ class AuthService {
     
     static let shared = AuthService()
     
-    init(){
+    init() {
         self.userSession = Auth.auth().currentUser
     }
     
@@ -24,19 +22,10 @@ class AuthService {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
-            try await UserService.shared.fetchCurrentUser()
+            try await ApiService.shared.signIn(withToken: result.user.getIDToken())
         } catch {
             print("ERROR: \(error.localizedDescription)")
-        }
-    }
-    
-    func thirdPartyLogin(credential: AuthCredential) async throws {
-        do {
-            let result = try await Auth.auth().signIn(with: credential)
-            self.userSession = result.user
-            try await UserService.shared.fetchCurrentUser()
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
+            throw error
         }
     }
     
@@ -45,27 +34,38 @@ class AuthService {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            try await uploadUserData(withEmail: email, fullname: fullname, id: result.user.uid)
+            try await ApiService.shared.signUp(email: email, fullname: fullname, uid: result.user.uid)
         } catch {
             print("ERROR: \(error.localizedDescription)")
+            throw error
         }
     }
     
-    @MainActor func resetPassword(withEmail email: String) async throws {
-        
+    @MainActor
+    func forgotPassword(withEmail email: String) async throws {
+        do {
+            try await ApiService.shared.forgotPassword(withEmail: email)
+            print("Password reset request sent")
+        } catch {
+            print("Failed to request password reset: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    @MainActor
+    func resetPassword(newPassword: String, token: String) async throws {
+        do {
+            try await ApiService.shared.resetPassword(newPassword: newPassword, resetToken: token)
+            print("Password successfully reset")
+        } catch {
+            print("Failed to reset password: \(error.localizedDescription)")
+            throw error
+        }
     }
     
-    func signOut(){
+    func signOut() {
         try? Auth.auth().signOut()
         self.userSession = nil
         UserService.shared.reset()
-    }
-    
-    @MainActor
-    private func uploadUserData(withEmail email: String, fullname: String, id: String) async throws {
-        let user = User(id: id, fullname: fullname, email: email)
-        guard let userData = try? Firestore.Encoder().encode(user) else { return }
-        try await Firestore.firestore().collection("users").document(id).setData(userData)
-        UserService.shared.currentUser = user
     }
 }

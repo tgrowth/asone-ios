@@ -12,8 +12,7 @@ struct OnboardingStep9View: View {
 
     var body: some View {
         VStack {
-            Text("How long is your menstrual cycle?")
-                .font(.headline)
+            Header(title: "How long is your menstrual cycle?")
             
             Picker("Days", selection: $viewModel.userData.periodLength) {
                 ForEach(1..<31) { days in

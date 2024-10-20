@@ -16,9 +16,7 @@ struct OnboardingStep11View: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            // Title
-            Text("Tell us about your last period")
-                .font(.headline)
+            Header(title: "Tell us about your last period")
             
             // Last period date picker
             VStack(alignment: .leading, spacing: 10) {

@@ -23,7 +23,7 @@ struct MainView: View {
                 case .stats:
                     PartnerView(viewModel: partnerViewModel)
                 case .partner:
-                    if profileViewModel.currentUser!.isPartnerMode {
+                    if profileViewModel.currentUser!.partnerMode {
                         PartnerView(viewModel: partnerViewModel)
                     } else {
                         InvitePartnerView()

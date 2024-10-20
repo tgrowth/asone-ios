@@ -12,8 +12,7 @@ struct OnboardingStep5View: View {
 
     var body: some View {
         VStack {
-            Text("Set your date of birth")
-                .font(.headline)
+            Header(title: "Set your date of birth")
             
             DatePicker("", selection: $viewModel.userData.birthday, displayedComponents: .date)
                 .datePickerStyle(WheelDatePickerStyle())

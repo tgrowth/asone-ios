@@ -19,13 +19,9 @@ struct OnboardingStep1View: View {
                 .frame(width: 100, height: 100)
                 .padding(.bottom, 20)
             
-            Text("What would you like AsOne call you?")
-                .font(.title3)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-                .padding(.bottom, 30)
+            Header(title: "What would you like AsOne call you?")
             
-            CustomTextField(placeholder: "", text: $viewModel.userData.code) //change***
+            CustomTextField(placeholder: "", text: $viewModel.userData.username)
             
             Spacer()
             

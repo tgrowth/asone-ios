@@ -13,11 +13,8 @@ struct OnboardingStep14View: View {
     
     var body: some View {
         VStack {
-            Text("Mary, how are you feeling today?")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding()
-            
+            Header(title: "\(viewModel.userData.username ?? "Hey"), how are you feeling today?")
+
             // Slider with user avatar
             VStack {
                 ZStack {
@@ -45,6 +42,8 @@ struct OnboardingStep14View: View {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
+                    viewModel.userData.mood = selectedEmotionLevel
+                    
                     viewModel.goToNextStep()
                 }
             )

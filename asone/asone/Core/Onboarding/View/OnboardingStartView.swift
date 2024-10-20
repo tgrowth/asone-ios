@@ -21,10 +21,7 @@ struct OnboardingStartView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 100, height: 100)
             
-            Text("Let's get to know you better!")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
+            Header(title: "Let's get to know you better!")
             
             Text("We’ll ask a few questions to personalize your experience and provide the most accurate insights and tips. Ready?")
                 .multilineTextAlignment(.center)
@@ -39,15 +36,25 @@ struct OnboardingStartView: View {
             
             Spacer()
             
-            OnboardingNavigation(
-                backAction: {
-                    viewModel.goToPreviousStep()
-                },
-                nextAction: {
+            HStack {
+                OnboardingNavigation(
+                    showBack: false,
+                    showNext: false,
+                    backAction: viewModel.goToPreviousStep
+                ) {}
+                
+                Button(action: {
                     viewModel.goToNextStep()
+                }) {
+                    HStack {
+                        Text("Start").foregroundColor(.white)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(.black)
+                    .cornerRadius(10)
                 }
-            )
-            
+            }
         }
         .padding()
     }

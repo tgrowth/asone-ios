@@ -42,7 +42,7 @@ struct CompareView: View {
             VStack(spacing: 20) {
                 // Check if currentUser is not nil and handle safely
                 if let currentUser = profileViewModel.currentUser {
-                    if currentUser.isPartnerMode {
+                    if currentUser.partnerMode {
                         // Show buttons when in partner mode
                         Button(action: {
                             

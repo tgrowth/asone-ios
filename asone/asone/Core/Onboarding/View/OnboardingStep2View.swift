@@ -21,11 +21,12 @@ struct OnboardingStep2View: View {
                 .padding(.bottom, 20)
             
             // Congratulatory Text
-            Text("Nice to meet you Mary 🌷")
-                .font(.title3)
+            Header(title: "Nice to meet you,")
+            
+            Text("\(viewModel.userData.username ?? "") 🌷")
+                .font(.title)
+                .fontWeight(.bold)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal)
-                .padding(.bottom, 30)
             
             Spacer()
             

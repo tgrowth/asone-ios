@@ -18,21 +18,40 @@ class UserService{
 
     @MainActor
     func fetchCurrentUser() async throws {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
-        let user = try snapshot.data(as: User.self)
-        self.currentUser = user
-    }
-    
-    func getCurrentUserUid() -> String? {
-        if let currentUser = Auth.auth().currentUser {
-            return currentUser.uid
-        } else {
-            return nil
+        guard let token = try? await Auth.auth().currentUser?.getIDToken() else {
+            print("Failed to retrieve Firebase token")
+            return
+        }
+
+        guard let url = URL(string: "http://api.asone.life/me") else {
+            print("Invalid URL")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            print("Failed to fetch user data, status code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+            return
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            let user = try decoder.decode(User.self, from: data)
+            self.currentUser = user
+            print("User data successfully fetched from backend")
+        } catch {
+            print("Error decoding user data: \(error.localizedDescription)")
         }
     }
+
     
-    func fetchUserData(uid: String, completion: @escaping (UserProfile?) -> Void) {
+    func fetchUserData(uid: String, completion: @escaping (UserData?) -> Void) {
         guard let url = URL(string: "http://api.asone.life/userInfo/\(uid)") else {
             print("Invalid URL")
             completion(nil)
@@ -60,7 +79,7 @@ class UserService{
                 if let userInfo = jsonResponse?["userInfo"] as? [String: Any] {
                     let jsonData = try JSONSerialization.data(withJSONObject: userInfo, options: [])
                     let decoder = JSONDecoder()
-                    let userProfile = try decoder.decode(UserProfile.self, from: jsonData)
+                    let userProfile = try decoder.decode(UserData.self, from: jsonData)
                     completion(userProfile)
                 } else {
                     print("Invalid JSON format")
@@ -72,7 +91,6 @@ class UserService{
             }
         }.resume()
     }
-
     
     func reset(){
         self.currentUser = nil

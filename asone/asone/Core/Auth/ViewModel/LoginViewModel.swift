@@ -95,6 +95,4 @@ class LoginViewModel: ObservableObject {
 
       return hashString
     }
-
-
 }

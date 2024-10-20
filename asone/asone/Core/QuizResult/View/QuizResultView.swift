@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct QuizResultView: View {
     @StateObject var viewModel = QuizViewModel()
@@ -74,7 +75,7 @@ struct QuizResultView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            viewModel.getQuizResults(uid: UserService.shared.getCurrentUserUid() ?? "")
+            viewModel.getQuizResults(uid: Auth.auth().currentUser?.uid ?? "")
         }
     }
 }

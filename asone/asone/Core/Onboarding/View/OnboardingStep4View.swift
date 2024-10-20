@@ -12,11 +12,8 @@ struct OnboardingStep4View: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Are you using AsOne for yourself?")
-                .font(.headline)
-                .padding(.bottom, 20)
+            Header(title: "Are you using AsOne for yourself?")
             
-            // Custom bullet-style option buttons
             VStack(alignment: .leading, spacing: 15) {
                 BulletOption(title: "Yes", isSelected: viewModel.userData.isUsingForSelf) {
                     viewModel.userData.isUsingForSelf = true
@@ -27,7 +24,6 @@ struct OnboardingStep4View: View {
                 }
             }
             
-            // Show the code input field if the user selects "No"
             if !viewModel.userData.isUsingForSelf {
                 CustomTextField(placeholder: "Enter your code", text: $viewModel.userData.code)
                     .padding(.top, 10)
@@ -35,7 +31,6 @@ struct OnboardingStep4View: View {
             
             Spacer()
             
-            // Onboarding navigation buttons
             OnboardingNavigation(
                 backAction: {
                     viewModel.goToPreviousStep()
@@ -49,7 +44,6 @@ struct OnboardingStep4View: View {
     }
 }
 
-// Custom bullet option component
 struct BulletOption: View {
     let title: String
     let isSelected: Bool
