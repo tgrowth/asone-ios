@@ -170,7 +170,7 @@ struct DayView: View {
                 .font(.caption)
                 .fontWeight(isSelected ? .bold : .regular)
                 .foregroundColor(isSelected ? .black : .gray)
-                .padding(16)
+                .padding(12)
                 .background(isSelected ? Color.black.opacity(0.1) : Color.clear)
                 .cornerRadius(8)
         }

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct VerificationCodeView: View {
-    @State private var code = ""
+    let email: String
+    
+    @StateObject var viewModel = VerificationCodeViewModel()
     @State private var navigateToResetPassword = false
     @State private var resendTimer = 60
     
@@ -25,39 +27,28 @@ struct VerificationCodeView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
-            // Verification Code Fields
-            TextField(" ", text: $code)
-                .padding()
-                .keyboardType(.numberPad)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding()
+            CustomTextField(placeholder: "Code", text: $viewModel.verificationCode)
             
-            // Verify button
             NavigationLink(destination: ResetPasswordView(), isActive: $navigateToResetPassword) {
-                Button(action: {
-                    // Verification logic here
-                    navigateToResetPassword = true
-                }) {
-                    Text("Verify")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .cornerRadius(8)
-                }
+                PrimaryButton(
+                    title: "Verify",
+                    action: {
+                        Task { try await viewModel.sendVerificationRequest() }
+                        
+                        navigateToResetPassword = true
+                    },
+                    isDisabled: viewModel.verificationCode.isEmpty
+                )
             }
-            .padding(.top)
+            .padding()
             
             // Resend code
-            Button(action: {
-                // Resend code logic
+            PrimaryButton(title: "Send code again \(resendTimer) sec", action: {
+                Task { try await ApiService.shared.forgotPassword(email: email) }
+                
                 resendTimer = 60
-            }) {
-                Text("Send code again \(resendTimer)")
-                    .foregroundColor(.gray)
-            }
-            .padding(.top)
+                startResendTimer()
+            }, isDisabled: resendTimer != 0)
             
             Spacer()
         }
@@ -81,5 +72,5 @@ struct VerificationCodeView: View {
 }
 
 #Preview {
-    VerificationCodeView()
+    VerificationCodeView(email: "example@gmail.com")
 }

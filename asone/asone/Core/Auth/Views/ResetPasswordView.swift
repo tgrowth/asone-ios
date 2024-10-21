@@ -9,9 +9,7 @@
 import SwiftUI
 
 struct ResetPasswordView: View {
-    @State private var newPassword = ""
-    @State private var confirmPassword = ""
-    @State private var navigateToPasswordChanged = false
+    @StateObject var viewModel = ResetPasswordViewModel()
     
     var body: some View {
         VStack(spacing: 20) {
@@ -26,39 +24,35 @@ struct ResetPasswordView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
-            // New password field
-            SecureField("New password", text: $newPassword)
+            SecureField("New password", text: $viewModel.newPassword)
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .keyboardType(.default)
             
-            // Confirm password field
-            SecureField("Confirm password", text: $confirmPassword)
+            SecureField("Confirm password", text: $viewModel.confirmPassword)
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
                 .keyboardType(.default)
             
-            // Reset password button
-            NavigationLink(destination: PasswordChangedView(), isActive: $navigateToPasswordChanged) {
-                Button(action: {
-                    // Reset password logic here
-                    navigateToPasswordChanged = true
-                }) {
-                    Text("Reset password")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .cornerRadius(8)
-                }
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .font(.footnote)
             }
-            .padding(.top)
+            
+            NavigationLink(destination: PasswordChangedView(), isActive: $viewModel.isPasswordReset) {
+                PrimaryButton(title: "Reset password", action: {
+                    Task { try await viewModel.sendResetPasswordRequest() }
+                }, isDisabled: !viewModel.isPasswordValid || viewModel.newPassword.isEmpty || viewModel.confirmPassword.isEmpty)
+            }
+            .padding()
             
             Spacer()
         }
-        .padding(.horizontal)
+        .padding()
+        .navigationBarBackButtonHidden()
     }
 }
 

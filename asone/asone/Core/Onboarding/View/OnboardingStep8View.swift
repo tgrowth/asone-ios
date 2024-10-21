@@ -14,8 +14,7 @@ struct OnboardingStep8View: View {
         "Version 1 😌",
         "Version 2 😠",
         "Version 3 😕",
-        "Version 4 😌",
-        "Version 5 😔"
+        "Version 4 😔"
     ]
 
     var body: some View {
@@ -28,17 +27,17 @@ struct OnboardingStep8View: View {
                 Button(action: {
                     selectedOption = option
                 }) {
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .center, spacing: 10) {
                         Text(option)
                             .font(.body)
+                            .foregroundColor(.black)
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background(Color(UIColor.systemGray5))
                             .cornerRadius(10)
                         
-                        // Show additional information for Version 4 if selected
-                        if option == "Version 4 😌" && selectedOption == option {
-                            Text("The menstrual cycle can have a significant impact on a woman's physical and emotional well-being, which in turn affects her relationships. Understanding the cyclical changes and how they influence mood, energy levels, and needs helps partners to better support one another.")
+                        if selectedOption == option {
+                            Text(option)
                                 .font(.footnote)
                                 .foregroundColor(.white)
                                 .padding()
@@ -57,7 +56,6 @@ struct OnboardingStep8View: View {
                 },
                 nextAction: {
                     viewModel.userData.state = selectedOption ?? "Version 1"
-                    
                     viewModel.goToNextStep()
                 }
             )

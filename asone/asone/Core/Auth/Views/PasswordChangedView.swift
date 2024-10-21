@@ -31,22 +31,15 @@ struct PasswordChangedView: View {
             
             // Back to login button
             NavigationLink(destination: LoginView(), isActive: $navigateToLogin) {
-                Button(action: {
+                PrimaryButton(title: "Back to Login") {
                     navigateToLogin = true
-                }) {
-                    Text("Back to login")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .cornerRadius(8)
                 }
             }
-            .padding(.top)
             
             Spacer()
         }
-        .padding(.horizontal)
+        .padding()
+        .navigationBarBackButtonHidden()
     }
 }
 

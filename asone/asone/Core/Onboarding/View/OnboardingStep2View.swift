@@ -13,21 +13,15 @@ struct OnboardingStep2View: View {
     
     var body: some View {
         VStack {
-            // Top Icon
             Spacer()
+            
             Image(systemName: "heart.fill")
                 .resizable()
                 .frame(width: 100, height: 100)
                 .padding(.bottom, 20)
             
-            // Congratulatory Text
-            Header(title: "Nice to meet you,")
-            
-            Text("\(viewModel.userData.username ?? "") 🌷")
-                .font(.title)
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
-            
+            Header(title: "Nice to meet you, \(viewModel.userData.username) 🌷")
+
             Spacer()
             
             OnboardingNavigation(

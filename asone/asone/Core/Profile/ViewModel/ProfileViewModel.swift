@@ -14,7 +14,7 @@ import FirebaseAuth
 class ProfileViewModel: ObservableObject {
     @Published var uid: String = ""
     @Published var email: String = ""
-    @Published var displayName: String = ""
+    @Published var name: String = ""
     @Published var currentUser: UserData?
     private var cancellables = Set<AnyCancellable>()
     
@@ -26,7 +26,7 @@ class ProfileViewModel: ObservableObject {
         if let user = Auth.auth().currentUser {
             self.uid = user.uid
             self.email = user.email ?? "No Email"
-            self.displayName = user.displayName ?? "No Name"
+            self.name = user.displayName ?? "No Name"
             self.fetchUserProfile(uid: user.uid)
         } else {
             print("No user is logged in")

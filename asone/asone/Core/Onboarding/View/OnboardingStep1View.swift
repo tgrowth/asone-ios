@@ -12,14 +12,14 @@ struct OnboardingStep1View: View {
     
     var body: some View {
         VStack {
-            // Top Icon
             Spacer()
+            
             Image(systemName: "heart.fill")
                 .resizable()
                 .frame(width: 100, height: 100)
                 .padding(.bottom, 20)
             
-            Header(title: "What would you like AsOne call you?")
+            Header(title: "What would you like AsOne to call you?")
             
             CustomTextField(placeholder: "", text: $viewModel.userData.username)
             
@@ -30,14 +30,17 @@ struct OnboardingStep1View: View {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
-                    viewModel.goToNextStep()
+                    if !viewModel.userData.username.isEmpty {
+                        viewModel.goToNextStep()
+                    }
                 }
             )
+            .disabled(viewModel.userData.username.isEmpty)
+            .opacity(viewModel.userData.username.isEmpty ? 0.5 : 1.0)
         }
         .padding()
     }
 }
-
 
 #Preview {
     OnboardingStep1View(viewModel: OnboardingViewModel())

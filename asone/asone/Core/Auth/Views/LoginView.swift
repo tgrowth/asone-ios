@@ -19,10 +19,8 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                // Top spacer for centering elements
                 Spacer()
                 
-                // Welcome text with emoji and icon
                 HStack {
                     Text("Hi, Welcome to AsOne")
                         .font(.title)
@@ -31,10 +29,8 @@ struct LoginView: View {
                 
                 Spacer()
 
-                // Email Field
                 CustomTextField(placeholder: "Email", text: $viewModel.email)
-                
-                // Password Field
+
                 CustomTextField(placeholder: "Password", text: $viewModel.password, isSecure: true)
 
                 // Forgot Password
@@ -51,10 +47,8 @@ struct LoginView: View {
                     Task { try await viewModel.login() }
                 }, isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty)
 
-                // Spacer between login button and social login options
                 Spacer()
 
-                // Divider with "or"
                 HStack {
                     Rectangle()
                         .frame(height: 1)
@@ -70,15 +64,12 @@ struct LoginView: View {
                 .padding(.horizontal, 30)
                 .padding(.top, 10)
 
-                // Social login buttons
                 HStack(spacing: 20) {
-                    // Google
                     GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .light, style: .wide, state: .normal)) {
                         Task { try await viewModel.googleLogin() }
                     }
                     .frame(height: 40)
 
-                    // Apple Login
                     SignInWithAppleButton(.signIn) { request in
                         let nonce = viewModel.randomNonceString()
                         request.nonce = viewModel.sha256(nonce)
@@ -95,7 +86,6 @@ struct LoginView: View {
                 }
                 .padding(.horizontal)
 
-                // Sign up link
                 NavigationLink {
                     SignUpView()
                         .navigationBarBackButtonHidden(true)
@@ -111,7 +101,7 @@ struct LoginView: View {
 
                 Spacer()
             }
-            .padding(.top) // Adjust padding to ensure proper layout
+            .padding(.top)
         }.navigationBarBackButtonHidden()
     }
 }

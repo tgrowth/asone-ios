@@ -67,7 +67,7 @@ class ApiService {
     }
     
     @MainActor
-    func forgotPassword(withEmail email: String) async throws {
+    func forgotPassword(email: String) async throws {
         guard let url = URL(string: "http://api.asone.life/forgot-password") else {
             throw URLError(.badURL)
         }
@@ -91,7 +91,7 @@ class ApiService {
     }
 
     @MainActor
-    func resetPassword(newPassword: String, resetToken: String) async throws {
+    func resetPassword(newPassword: String, token: String) async throws {
         guard let url = URL(string: "http://api.asone.life/reset-password") else {
             throw URLError(.badURL)
         }
@@ -101,7 +101,7 @@ class ApiService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let body: [String: Any] = [
-            "token": resetToken,
+            "token": token,
             "password": newPassword
         ]
         
@@ -117,4 +117,29 @@ class ApiService {
         let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
         print("Reset password response: \(jsonResponse)")
     }
+    
+    @MainActor
+    func verifyCode(verificationCode: String) async throws {
+        guard let url = URL(string: "http://api.asone.life/verify") else {
+            throw URLError(.badURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: Any] = ["code": verificationCode]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+        print("Response from server: \(jsonResponse)")
+    }
+
 }

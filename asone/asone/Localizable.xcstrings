@@ -17,9 +17,6 @@
         }
       }
     },
-    " " : {
-
-    },
     "/mo" : {
       "localizations" : {
         "es" : {
@@ -52,9 +49,6 @@
           }
         }
       }
-    },
-    "%@ 🌷" : {
-
     },
     "%lld" : {
       "localizations" : {
@@ -292,7 +286,7 @@
         }
       }
     },
-    "Back to login" : {
+    "Back to Login" : {
 
     },
     "Calendar" : {
@@ -326,6 +320,9 @@
           }
         }
       }
+    },
+    "Code" : {
+
     },
     "Complete" : {
       "localizations" : {
@@ -562,6 +559,9 @@
         }
       }
     },
+    "Failed to fetch partner mode" : {
+
+    },
     "First and Last Name" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -578,6 +578,9 @@
           }
         }
       }
+    },
+    "Forgot Password" : {
+
     },
     "Forgot password?" : {
 
@@ -1446,7 +1449,7 @@
     "Send code" : {
 
     },
-    "Send code again %lld" : {
+    "Send code again %lld sec" : {
 
     },
     "Send Reset Link" : {
@@ -1682,9 +1685,6 @@
         }
       }
     },
-    "The menstrual cycle can have a significant impact on a woman's physical and emotional well-being, which in turn affects her relationships. Understanding the cyclical changes and how they influence mood, energy levels, and needs helps partners to better support one another." : {
-
-    },
     "Tip #%lld" : {
 
     },
@@ -1823,9 +1823,6 @@
           }
         }
       }
-    },
-    "Your email" : {
-
     },
     "Your feedback" : {
 

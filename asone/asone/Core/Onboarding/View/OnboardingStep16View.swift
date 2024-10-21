@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct OnboardingStep16View: View {
-    @ObservedObject var viewModel: OnboardingViewModel
-    @State private var selectedReason = ""
-    
+    @ObservedObject var viewModel: OnboardingViewModel    
     @State private var navigateToInvitePartner = false
     @State private var navigateToMainView = false
 
@@ -22,23 +20,16 @@ struct OnboardingStep16View: View {
                     .resizable()
                     .frame(width: 100, height: 100)
                 
-                // Title
                 Header(title: "Supercharge your lives with AsOne")
                 
-                // Radio buttons
                 VStack(alignment: .leading, spacing: 20) {
-                    RadioButtonField(id: "why1", label: "Why 1", isMarked: selectedReason == "why1") {
-                        self.selectedReason = "why1"
-                    }
-                    RadioButtonField(id: "why2", label: "Why 1", isMarked: selectedReason == "why2") {
-                        self.selectedReason = "why2"
-                    }
-                    RadioButtonField(id: "why3", label: "Why 3", isMarked: selectedReason == "why3") {
-                        self.selectedReason = "why3"
-                    }
+                    BulletPoint(text: "Understanding and tracking your cycle with ease")
+                    BulletPoint(text: "Managing your emotions and symptoms effectively")
+                    BulletPoint(text: "Improving communication and intimacy with your partner")
+                    BulletPoint(text: "Learning what your body is telling you about your health and well-being")
+                    BulletPoint(text: "Receiving personalized tips to enhance your well-being, tailored just for you")
                 }
                 
-                // Bottom Buttons
                 VStack(spacing: 20) {
                     Button(action: {
                         // Navigate to InvitePartnerView
@@ -68,7 +59,7 @@ struct OnboardingStep16View: View {
                             .hidden()
                     )
                 }
-                .padding(.horizontal, 30)
+                .padding()
                 Spacer()
                 
                 HStack {
@@ -90,24 +81,6 @@ struct OnboardingStep16View: View {
                     }
                 }
             }.padding()
-        }
-    }
-}
-
-struct RadioButtonField: View {
-    let id: String
-    let label: String
-    let isMarked: Bool
-    let callback: () -> Void
-
-    var body: some View {
-        Button(action: callback) {
-            HStack {
-                Image(systemName: isMarked ? "largecircle.fill.circle" : "circle")
-                    .foregroundColor(isMarked ? Color.black : Color.gray)
-                Text(label)
-                    .foregroundColor(.black)
-            }
         }
     }
 }

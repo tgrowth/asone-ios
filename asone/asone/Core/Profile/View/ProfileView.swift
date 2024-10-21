@@ -15,7 +15,7 @@ struct ProfileView: View {
                             .frame(width: 60, height: 60)
                         
                         VStack(alignment: .leading) {
-                            Text(profileViewModel.displayName)
+                            Text(profileViewModel.name)
                                 .font(.title2)
                                 .fontWeight(.semibold)
                             Text("Status: Period")

@@ -1,35 +1,44 @@
 import SwiftUI
+import FirebaseAuth
 
 struct MainView: View {
     @State private var selectedTab: Tab = .home
     @State private var isExpanded = false
-    @StateObject var profileViewModel = ProfileViewModel()
     @StateObject var partnerViewModel = PartnerViewModel()
-    
+    @State private var isLoading = true
+    @State private var partnerMode: Bool? = nil
     
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
-                // Render selected view based on tab selection
-                switch selectedTab {
-                case .home:
-                    HomeView()
-                case .calendar:
-                    CalendarView()
-                case .add:
-                    SymptomsView()
-                case .stats:
-                    PartnerView(viewModel: partnerViewModel)
-                case .partner:
-                    if profileViewModel.currentUser!.partnerMode {
+                // Check if loading, otherwise show appropriate view
+                if isLoading {
+                    ProgressView("Loading...")
+                } else {
+                    switch selectedTab {
+                    case .home:
+                        HomeView()
+                    case .calendar:
+                        CalendarView()
+                    case .add:
+                        SymptomsView()
+                    case .stats:
                         PartnerView(viewModel: partnerViewModel)
-                    } else {
-                        InvitePartnerView()
+                    case .partner:
+                        if let partnerMode = partnerMode {
+                            if partnerMode {
+                                PartnerView(viewModel: partnerViewModel)
+                            } else {
+                                InvitePartnerView()
+                            }
+                        } else {
+                            Text("Failed to fetch partner mode")
+                        }
+                    case .account:
+                        ProfileView()
                     }
-                case .account:
-                    ProfileView()
                 }
 
                 Spacer()
@@ -112,10 +121,34 @@ struct MainView: View {
                     }
                 }
             }
+            .onAppear {
+                fetchPartnerMode()
+            }
         }
         .navigationBarBackButtonHidden()
     }
+    
+    private func fetchPartnerMode() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("User is not logged in")
+            return
+        }
+        
+        isLoading = true
+        
+        UserService.shared.fetchUserData(uid: uid) { userData in
+            DispatchQueue.main.async {
+                if let userData = userData {
+                    self.partnerMode = userData.partnerMode
+                } else {
+                    print("Failed to fetch user data or user data is nil")
+                }
+                isLoading = false
+            }
+        }
+    }
 }
+
 
 // Tab Enum to switch between different tabs
 enum Tab {
@@ -166,7 +199,7 @@ struct OptionButton: View {
     var body: some View {
         Button(action: action) {
             Circle()
-                .foregroundColor(Color.gray) // Dark gray background for the expanded option buttons
+                .foregroundColor(Color.gray)
                 .frame(width: 50, height: 50)
                 .overlay(
                     Image(systemName: icon)

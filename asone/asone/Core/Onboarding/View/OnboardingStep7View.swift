@@ -44,24 +44,6 @@ struct OnboardingStep7View: View {
     }
 }
 
-// A reusable view for each bullet point
-struct BulletPoint: View {
-    let text: String
-    
-    var body: some View {
-        HStack {
-            Circle()
-                .fill(Color.gray)
-                .frame(width: 12, height: 12)
-            
-            Text(text)
-                .font(.subheadline)
-                .foregroundColor(.black)
-                .multilineTextAlignment(.leading)
-        }
-    }
-}
-
 #Preview {
     OnboardingStep7View(viewModel: OnboardingViewModel())
 }

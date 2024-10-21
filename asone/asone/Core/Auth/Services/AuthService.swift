@@ -29,6 +29,16 @@ class AuthService {
         }
     }
     
+    func thirdPartyLogin(credential: AuthCredential) async throws {
+       do {
+           let result = try await Auth.auth().signIn(with: credential)
+           self.userSession = result.user
+           try await UserService.shared.fetchCurrentUser()
+       } catch {
+           print("ERROR: \(error.localizedDescription)")
+       }
+    }
+    
     @MainActor
     func register(withEmail email: String, password: String, fullname: String) async throws {
         do {
@@ -37,28 +47,6 @@ class AuthService {
             try await ApiService.shared.signUp(email: email, fullname: fullname, uid: result.user.uid)
         } catch {
             print("ERROR: \(error.localizedDescription)")
-            throw error
-        }
-    }
-    
-    @MainActor
-    func forgotPassword(withEmail email: String) async throws {
-        do {
-            try await ApiService.shared.forgotPassword(withEmail: email)
-            print("Password reset request sent")
-        } catch {
-            print("Failed to request password reset: \(error.localizedDescription)")
-            throw error
-        }
-    }
-
-    @MainActor
-    func resetPassword(newPassword: String, token: String) async throws {
-        do {
-            try await ApiService.shared.resetPassword(newPassword: newPassword, resetToken: token)
-            print("Password successfully reset")
-        } catch {
-            print("Failed to reset password: \(error.localizedDescription)")
             throw error
         }
     }

@@ -10,10 +10,9 @@ import SwiftUI
 struct WelcomeView: View {
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(spacing: 10) {
                 Spacer()
 
-                // Mascot Image
                 Image(systemName: "heart.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -21,7 +20,6 @@ struct WelcomeView: View {
 
                 Spacer()
 
-                // Title and Subtitle
                 VStack(spacing: 10) {
                     Text("Welcome to AsOne")
                         .font(.title)
@@ -35,30 +33,25 @@ struct WelcomeView: View {
                 }
                 .padding(.bottom, 40)
 
-                // Sign In Button with Navigation
-                NavigationLink(destination: LoginView()) {
-                    Text("Sign In")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, minHeight: 50)
-                        .background(Color.black)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal, 30)
+                VStack(spacing: 10){
+                    NavigationLink(destination: LoginView()) {
+                        Text("Sign In")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, minHeight: 50)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
 
-                // Create Account Button with Navigation
-                NavigationLink(destination: SignUpView()) {
-                    Text("Create account")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, minHeight: 50)
-                        .foregroundColor(.black)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.black, lineWidth: 2)
-                        )
-                }
-                .padding(.horizontal, 30)
-                .padding(.top, 10)
+                    NavigationLink(destination: SignUpView()) {
+                        Text("Create account")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity, minHeight: 50)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                }.padding()
 
                 Spacer()
             }

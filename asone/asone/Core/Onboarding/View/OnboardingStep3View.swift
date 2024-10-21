@@ -138,8 +138,6 @@ struct OnboardingStep3View: View {
     }
 }
 
-
-// Preview for SwiftUI canvas
 #Preview {
     OnboardingStep3View(viewModel: OnboardingViewModel())
 }

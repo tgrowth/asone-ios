@@ -75,9 +75,10 @@ class OnboardingViewModel: ObservableObject {
         let userDataDictionary: [String: Any] = [
             "uid": Auth.auth().currentUser?.uid ?? "unknown uid",
             "username": userData.username,
-            "avatar": userData.avatar?.base64EncodedString(),
+            "avatar": userData.avatar?.base64EncodedString() as Any,
             "isUsingForSelf": userData.isUsingForSelf,
             "birthday": formattedBirthday,
+            "state": userData.state,
             "periodLength": userData.periodLength,
             "cycleLength": userData.cycleLength,
             "lastPeriodStartDate": formattedLastPeriodStartDate,

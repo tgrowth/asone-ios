@@ -13,7 +13,7 @@ struct OnboardingStep14View: View {
     
     var body: some View {
         VStack {
-            Header(title: "\(viewModel.userData.username ?? "Hey"), how are you feeling today?")
+            Header(title: "\(viewModel.userData.username), how are you feeling today?")
 
             // Slider with user avatar
             VStack {

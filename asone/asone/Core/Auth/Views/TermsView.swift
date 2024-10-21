@@ -30,32 +30,32 @@ struct TermsView: View {
                 
                 Spacer()
                 
-                // Terms and Conditions Checkbox
-                HStack {
-                    Circle()
-                        .stroke(acceptTerms ? Color.black : Color.gray, lineWidth: 2)
-                        .frame(width: 24, height: 24)
-                        .background(Circle().fill(acceptTerms ? Color.black : Color.clear))
-                        .onTapGesture {
-                            acceptTerms.toggle()
-                        }
+                VStack(alignment: .leading, spacing: 20) {
+                    HStack {
+                        Circle()
+                            .stroke(acceptTerms ? Color.black : Color.gray, lineWidth: 2)
+                            .frame(width: 24, height: 24)
+                            .background(Circle().fill(acceptTerms ? Color.black : Color.clear))
+                            .onTapGesture {
+                                acceptTerms.toggle()
+                            }
+                        
+                        Text("I agree with Terms and Conditions")
+                            .foregroundColor(acceptTerms ? Color.black : Color.gray)
+                    }
                     
-                    Text("I agree with Terms and Conditions")
-                        .foregroundColor(acceptTerms ? Color.black : Color.gray)
-                }
-                
-                // Privacy Policy Checkbox
-                HStack {
-                    Circle()
-                        .stroke(acceptPrivacy ? Color.black : Color.gray, lineWidth: 2)
-                        .frame(width: 24, height: 24)
-                        .background(Circle().fill(acceptPrivacy ? Color.black : Color.clear))
-                        .onTapGesture {
-                            acceptPrivacy.toggle()
-                        }
-                    
-                    Text("I agree with Privacy Policy")
-                        .foregroundColor(acceptPrivacy ? Color.black : Color.gray)
+                    HStack {
+                        Circle()
+                            .stroke(acceptPrivacy ? Color.black : Color.gray, lineWidth: 2)
+                            .frame(width: 24, height: 24)
+                            .background(Circle().fill(acceptPrivacy ? Color.black : Color.clear))
+                            .onTapGesture {
+                                acceptPrivacy.toggle()
+                            }
+                        
+                        Text("I agree with Privacy Policy")
+                            .foregroundColor(acceptPrivacy ? Color.black : Color.gray)
+                    }
                 }
                 
                 Spacer()
