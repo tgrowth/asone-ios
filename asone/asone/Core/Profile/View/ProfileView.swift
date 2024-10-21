@@ -52,14 +52,13 @@ struct ProfileView: View {
                     .cornerRadius(12)
                     .padding(.horizontal)
                     
-                    // Other menu options
-                    VStack(spacing: 8) {
+                    VStack(spacing: 4) {
                         NavigationLink(destination: InvitePartnerView()) {
-                            ProfileOptionRow(icon: "heart", text: "Invite partner")
+                            ProfileOptionRow(icon: "heart", text: "Partner")
                         }
                         
                         NavigationLink(destination: QuizListView(viewModel: QuizViewModel())) {
-                            ProfileOptionRow(icon: "list.bullet", text: "Re-Test Love Languages")
+                            ProfileOptionRow(icon: "list.bullet", text: "Love Languages")
                         }
                         
                         NavigationLink(destination: SettingsView()) {
@@ -69,6 +68,13 @@ struct ProfileView: View {
                         NavigationLink(destination: StatisticsView()) {
                             ProfileOptionRow(icon: "chart.bar", text: "Statistics")
                         }
+                        
+                        Button {
+                            // action to delete the account
+                        } label: {
+                            ProfileOptionRow(icon: "xmark.circle", text: "Delete account")
+                        }
+
                     }
                     .padding(.horizontal)
                 }

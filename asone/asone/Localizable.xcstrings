@@ -378,6 +378,15 @@
         }
       }
     },
+    "Cycle length" : {
+
+    },
+    "Cycle Length" : {
+
+    },
+    "Cycle settings" : {
+
+    },
     "Cycle Tracker" : {
       "localizations" : {
         "es" : {
@@ -425,6 +434,9 @@
           }
         }
       }
+    },
+    "Delete account" : {
+
     },
     "Do you know your last period?" : {
       "extractionState" : "stale",
@@ -802,6 +814,7 @@
       }
     },
     "Invite partner" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -937,6 +950,9 @@
           }
         }
       }
+    },
+    "Love Languages" : {
+
     },
     "Make your life with partner more peaceful and greatful with AsOne Premium" : {
       "localizations" : {
@@ -1089,6 +1105,9 @@
         }
       }
     },
+    "Notifications" : {
+
+    },
     "Now you can compare answers with your partner" : {
       "localizations" : {
         "es" : {
@@ -1161,7 +1180,6 @@
       }
     },
     "Partner" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1262,6 +1280,9 @@
         }
       }
     },
+    "Period length" : {
+
+    },
     "Period Length" : {
 
     },
@@ -1321,6 +1342,9 @@
           }
         }
       }
+    },
+    "Pregnancy probability" : {
+
     },
     "Quaterly" : {
       "localizations" : {
@@ -1393,6 +1417,7 @@
       }
     },
     "Re-Test Love Languages" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
