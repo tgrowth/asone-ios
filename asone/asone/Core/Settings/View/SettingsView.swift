@@ -12,7 +12,7 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 20) {
                     
                     // Cycle Settings

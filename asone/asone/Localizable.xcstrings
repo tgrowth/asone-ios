@@ -270,6 +270,9 @@
     "Authentication View" : {
 
     },
+    "Averaging your last 6 cycles" : {
+
+    },
     "Back" : {
       "localizations" : {
         "es" : {
@@ -362,6 +365,9 @@
     "Create account" : {
 
     },
+    "Cycle" : {
+
+    },
     "Cycle advices" : {
       "localizations" : {
         "es" : {
@@ -377,6 +383,9 @@
           }
         }
       }
+    },
+    "cycle length" : {
+
     },
     "Cycle length" : {
 
@@ -571,6 +580,9 @@
         }
       }
     },
+    "expected" : {
+
+    },
     "Failed to fetch partner mode" : {
 
     },
@@ -590,6 +602,9 @@
           }
         }
       }
+    },
+    "First Day" : {
+
     },
     "Forgot Password" : {
 
@@ -718,6 +733,9 @@
       }
     },
     "Hi, Welcome to AsOne" : {
+
+    },
+    "History" : {
 
     },
     "How long did your period last? (in days)" : {
@@ -883,6 +901,9 @@
           }
         }
       }
+    },
+    "Length" : {
+
     },
     "Loading user information..." : {
       "localizations" : {
@@ -1280,6 +1301,9 @@
         }
       }
     },
+    "period length" : {
+
+    },
     "Period length" : {
 
     },
@@ -1342,6 +1366,15 @@
           }
         }
       }
+    },
+    "Predicted Cycle" : {
+
+    },
+    "Prediction Date" : {
+
+    },
+    "Predictions" : {
+
     },
     "Pregnancy probability" : {
 
