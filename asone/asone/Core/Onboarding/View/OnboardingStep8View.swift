@@ -11,10 +11,10 @@ struct OnboardingStep8View: View {
     @ObservedObject var viewModel: OnboardingViewModel
     @State private var selectedOption: String? = nil
     let options = [
-        "Version 1 😌",
-        "Version 2 😠",
-        "Version 3 😕",
-        "Version 4 😔"
+        "Version 1",
+        "Version 2",
+        "Version 3",
+        "Version 4"
     ]
 
     var body: some View {

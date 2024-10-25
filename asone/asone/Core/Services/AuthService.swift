@@ -33,7 +33,7 @@ class AuthService {
        do {
            let result = try await Auth.auth().signIn(with: credential)
            self.userSession = result.user
-           try await UserService.shared.fetchCurrentUser()
+           // try await UserService.shared.fetchCurrentUser()
        } catch {
            print("ERROR: \(error.localizedDescription)")
        }
@@ -44,7 +44,7 @@ class AuthService {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            try await ApiService.shared.signUp(email: email, fullname: fullname, uid: result.user.uid)
+            try await ApiService.shared.signUp(email: email, fullname: fullname, uid: result.user.uid, password: password)
         } catch {
             print("ERROR: \(error.localizedDescription)")
             throw error

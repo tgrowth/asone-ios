@@ -38,13 +38,11 @@ struct ContentView: View {
             print(user)
             isLoggedIn = true
             
-            UserService.shared.fetchUserData(uid: user.uid) { userProfile in
+            UserService.shared.fetchIsComplete(uid: user.uid) { user in
                 DispatchQueue.main.async {
-                    if let userProfile = userProfile {
-                        // User exists, proceed to main view
+                    if let user = user {
                         showOnboarding = false
                     } else {
-                        // User not found, show onboarding
                         showOnboarding = true
                     }
                     isLoading = false

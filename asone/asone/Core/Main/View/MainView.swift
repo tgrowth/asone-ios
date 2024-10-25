@@ -209,14 +209,6 @@ struct OptionButton: View {
     }
 }
 
-struct CalendarView: View {
-    var body: some View {
-        Text("Calendar Screen")
-            .navigationTitle("Calendar")
-    }
-}
-
-
 #Preview {
     MainView()
 }

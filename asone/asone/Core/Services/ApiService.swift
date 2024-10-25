@@ -11,8 +11,8 @@ class ApiService {
     static let shared = ApiService()
     
     @MainActor
-    func signUp(email: String, fullname: String, uid: String) async throws {
-        guard let url = URL(string: "http://api.asone.life/signup") else {
+    func signUp(email: String, fullname: String, uid: String, password: String) async throws {
+        guard let url = URL(string: "http://api.asone.life/auth/signup") else {
             throw URLError(.badURL)
         }
         
@@ -24,6 +24,7 @@ class ApiService {
             "uid": uid,
             "name": fullname,
             "email": email,
+            "password": password
         ]
 
         request.httpBody = try JSONSerialization.data(withJSONObject: userData, options: [])
@@ -41,7 +42,7 @@ class ApiService {
     
     @MainActor
     func signIn(withToken token: String) async throws {
-        guard let url = URL(string: "http://api.asone.life/signin") else {
+        guard let url = URL(string: "http://api.asone.life/auth/signin") else {
             throw URLError(.badURL)
         }
         
@@ -141,5 +142,4 @@ class ApiService {
         let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
         print("Response from server: \(jsonResponse)")
     }
-
 }

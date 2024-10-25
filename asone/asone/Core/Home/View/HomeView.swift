@@ -46,7 +46,7 @@ struct HomeView: View {
                     
                     Image(systemName: "bell")
                 }
-                .padding(.horizontal)
+                .padding()
                 
                 HStack {
                     ForEach(0..<7) { index in
@@ -60,60 +60,43 @@ struct HomeView: View {
                         }
                     }
                 }
-                .padding()
             }
             
-            // Circular Progress Tracker
-            VStack {
-                CircularProgressView()
-                    .frame(width: 200, height: 200)
-                    .overlay {
-                        VStack {
-                            Text("Day 26")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            
-                            Text("Period in 3 days")
-                                .font(.body)
-                                .foregroundColor(.gray)
-                            
-                            Text("PMS phase")
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                        }
-                    }
-            }
-            
-            // Log Period Button
-            Button(action: {
-                // Log period action
-            }) {
-                Text("Log period")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.black)
-                    .cornerRadius(10)
-            }
-            .padding()
-            
-            // Cycle Advice Section
-            VStack {
-                Text("Cycle advices")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading)
+            ScrollView(showsIndicators: false) {
+                // Period Tracker View
+                PeriodTrackerView()
+                    .frame(width: 250, height: 250)
                 
-                HStack(spacing: 20) {
-                    AdviceCard(text: "Sample Advice")
-                    AdviceCard(text: "Sample Advice")
+                // Log Period Button
+                Button(action: {
+                    // Log period action
+                }) {
+                    Text("Log period")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.black)
+                        .cornerRadius(10)
                 }
-                .padding(.horizontal)
+                .padding()
+                
+                // Cycle Advice Section
+                VStack {
+                    Text("Cycle advices")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading)
+                    
+                    HStack(spacing: 20) {
+                        AdviceCard(text: "Sample Advice")
+                        AdviceCard(text: "Sample Advice")
+                    }
+                    .padding(.horizontal)
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
         }
-        .padding(.top)
     }
     
     // Helper function to get the day of the week for a specific date
@@ -131,66 +114,57 @@ struct HomeView: View {
     }
 }
 
-// Circular Progress View for tracking period/fertile window
-struct CircularProgressView: View {
-    var body: some View {
-        ZStack {
-            // Background Circle
-            Circle()
-                .stroke(Color.gray.opacity(0.2), lineWidth: 15)
-            
-            // Period Phase Indicator
-            Circle()
-                .trim(from: 0, to: 0.75)
-                .stroke(Color.black, lineWidth: 10)
-                .rotationEffect(.degrees(-90))
-            
-            // Fertile Window Indicator
-            Circle()
-                .trim(from: 0.75, to: 1.0)
-                .stroke(Color.gray, lineWidth: 10)
-                .rotationEffect(.degrees(-90))
-        }
-    }
-}
-
-// Small View for each day of the week in the picker
-struct DayView: View {
-    var day: String
-    var date: String
-    var isSelected: Bool
+// Period Tracker View (Assuming this code is already defined)
+struct PeriodTrackerView: View {
+    @State private var periodInDays = 3
     
     var body: some View {
         VStack {
-            Text(day)
-                .font(.body)
-                .foregroundColor(isSelected ? .black : .gray)
-            
-            Text(date)
-                .font(.caption)
-                .fontWeight(isSelected ? .bold : .regular)
-                .foregroundColor(isSelected ? .black : .gray)
-                .padding(12)
-                .background(isSelected ? Color.black.opacity(0.1) : Color.clear)
-                .cornerRadius(8)
-        }
-    }
-}
-
-// Advice Card View
-struct AdviceCard: View {
-    var text: LocalizedStringKey
-    
-    var body: some View {
-        VStack {
-            Text(text)
-                .font(.body)
-                .multilineTextAlignment(.center)
+            ZStack {
+                // Background Circle
+                Circle()
+                    .stroke(Color.gray.opacity(0.2), lineWidth: 20)
+                    .frame(width: 230, height: 230)
+                
+                // Fertile window segment (light gray)
+                Circle()
+                    .trim(from: 0.6, to: 1.0) // Adjust start and end points
+                    .stroke(Color.gray.opacity(0.5), lineWidth: 20)
+                    .rotationEffect(.degrees(270))
+                    .frame(width: 230, height: 230)
+                
+                // Period phase segment (dark gray)
+                Circle()
+                    .trim(from: 0.0, to: 0.3) // Adjust start and end points
+                    .stroke(Color.black.opacity(0.8), lineWidth: 20)
+                    .rotationEffect(.degrees(320))
+                    .frame(width: 230, height: 230)
+                
+                // Center text
+                VStack {
+                    Text("Period in")
+                        .foregroundColor(.gray)
+                    Text("\(periodInDays) days")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                }
                 .padding()
+                .background(
+                    Circle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 160, height: 160)
+                )
+                
+                // Pointer Indicator
+                PointerIndicator()
+                    .fill(Color.gray.opacity(0.2)) // Match color to period segment
+                    .frame(width: 21, height: 21)
+                    .offset(y: -90) // Position above the center
+                    .rotationEffect(.degrees(-60)) // Adjust the rotation as needed
+            }
         }
-        .frame(maxWidth: .infinity)
-        .background(Color.gray.opacity(0.2))
-        .cornerRadius(15)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
     }
 }
 

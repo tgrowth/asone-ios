@@ -34,7 +34,6 @@
       }
     },
     "%@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -154,6 +153,7 @@
 
     },
     "Activities" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -309,6 +309,7 @@
       }
     },
     "Calendar Screen" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -413,6 +414,7 @@
       }
     },
     "Day 26" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -905,6 +907,9 @@
     "Length" : {
 
     },
+    "Loading symptoms..." : {
+
+    },
     "Loading user information..." : {
       "localizations" : {
         "es" : {
@@ -939,6 +944,9 @@
           }
         }
       }
+    },
+    "Log Period" : {
+
     },
     "Login" : {
       "localizations" : {
@@ -992,6 +1000,7 @@
       }
     },
     "Mood" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1285,7 +1294,11 @@
     "Password changed" : {
 
     },
+    "Period in" : {
+
+    },
     "Period in 3 days" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1327,6 +1340,7 @@
       }
     },
     "Physical Symptoms" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1352,6 +1366,7 @@
 
     },
     "PMS phase" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1693,6 +1708,7 @@
       }
     },
     "Stress & Emotions" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1709,6 +1725,7 @@
       }
     },
     "Symptoms" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
