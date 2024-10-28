@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InvitePartnerView: View {
-    @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var onboardingViewModel = OnboardingViewModel()
     @State private var isCopied = false
     @State private var partnerCode: String = ""
     @State private var showError: Bool = false
@@ -46,7 +46,7 @@ struct InvitePartnerView: View {
                     
                     // Copy button
                     Button(action: {
-                        UIPasteboard.general.string = profileViewModel.currentUser?.code
+                        UIPasteboard.general.string = onboardingViewModel.userData.code
                         isCopied = true
                     }) {
                         HStack {
@@ -68,7 +68,7 @@ struct InvitePartnerView: View {
                     Text("Your code:")
                         .font(.subheadline)
                     
-                    Text(profileViewModel.currentUser?.code ?? "")
+                    Text(onboardingViewModel.userData.code)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity)
@@ -84,7 +84,7 @@ struct InvitePartnerView: View {
                 // Share invite button
                 Button(action: {
                     // Share code action
-                    shareCode(profileViewModel.currentUser?.code ?? "")
+                    shareCode(onboardingViewModel.userData.code ?? "")
                 }) {
                     Text("Share my invite code")
                         .font(.headline)

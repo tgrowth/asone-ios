@@ -142,4 +142,26 @@ class ApiService {
         let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
         print("Response from server: \(jsonResponse)")
     }
+    
+    @MainActor
+    func deleteAccount(uid: String) async throws {
+        guard let url = URL(string: "http://localhost:3000/user/\(uid)") else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NSError(
+                domain: "DeleteAccountError",
+                code: (response as? HTTPURLResponse)?.statusCode ?? 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to delete user account."]
+            )
+        }
+        print("Account successfully deleted.")
+    }
 }

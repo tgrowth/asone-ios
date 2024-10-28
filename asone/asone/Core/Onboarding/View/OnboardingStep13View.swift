@@ -62,7 +62,6 @@ struct OnboardingStep13View: View {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
-                    viewModel.generateInviteCode()
                     viewModel.goToNextStep()
                 }
             )

@@ -10,7 +10,7 @@ import SwiftUI
 struct CalendarView: View {
     @ObservedObject var viewModel = CalendarViewModel()
 
-    let columns = Array(repeating: GridItem(.flexible()), count: 7) // A 7-column grid
+    let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
     var body: some View {
         ScrollView(showsIndicators: false){
@@ -49,7 +49,7 @@ struct CalendarView: View {
 
                 if viewModel.selectedDate != nil {
                     Button(action: {
-                        logPeriod(for: viewModel.selectedDate!)
+                        Task { await viewModel.addPeriodLogs(uid: AuthService.shared.userSession?.uid ?? "unknown uid") }
                     }) {
                         Text("Log Period")
                             .font(.headline)
@@ -71,11 +71,6 @@ struct CalendarView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
         return formatter.string(from: date)
-    }
-
-    // Function for logging the period (this is just a placeholder)
-    func logPeriod(for date: Date) {
-        print("Logging period for \(date)")
     }
 }
 

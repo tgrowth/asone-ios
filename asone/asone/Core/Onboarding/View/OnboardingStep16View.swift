@@ -46,18 +46,6 @@ struct OnboardingStep16View: View {
                         NavigationLink("", destination: InvitePartnerView(), isActive: $navigateToInvitePartner)
                             .hidden()
                     )
-                    
-                    Button(action: {
-                        // Navigate to MainView
-                        navigateToMainView = true
-                    }) {
-                        Text("I'm not interested")
-                            .foregroundColor(.gray)
-                    }
-                    .background(
-                        NavigationLink("", destination: MainView(), isActive: $navigateToMainView)
-                            .hidden()
-                    )
                 }
                 .padding()
                 Spacer()
@@ -69,6 +57,7 @@ struct OnboardingStep16View: View {
                     ) {}
                     
                     Button(action: {
+                        navigateToMainView = true
                         viewModel.completeOnboarding()
                     }) {
                         HStack {
@@ -79,6 +68,10 @@ struct OnboardingStep16View: View {
                         .background(.black)
                         .cornerRadius(10)
                     }
+                    .background(
+                        NavigationLink("", destination: MainView(), isActive: $navigateToMainView)
+                            .hidden()
+                    )
                 }
             }.padding()
         }

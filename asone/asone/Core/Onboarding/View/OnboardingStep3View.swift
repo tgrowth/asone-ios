@@ -5,37 +5,41 @@ import UIKit
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
     @Binding var isPresented: Bool
-    
+
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: ImagePicker
-        
+
         init(parent: ImagePicker) {
             self.parent = parent
         }
-        
+
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
             }
-            parent.isPresented = false
+            DispatchQueue.main.async {
+                self.parent.isPresented = false
+            }
         }
-        
+
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.isPresented = false
+            DispatchQueue.main.async {
+                self.parent.isPresented = false
+            }
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent: self)
     }
-    
+
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         picker.sourceType = .photoLibrary
         return picker
     }
-    
+
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
 }
 
@@ -44,9 +48,9 @@ struct OnboardingStep3View: View {
     @State private var selectedAvatar: Int? = nil
     @State private var customAvatar: UIImage? = nil
     @State private var isImagePickerPresented = false
-    
+
     let avatars = Array(1...9)
-    
+
     var body: some View {
         VStack {
             if let customAvatar = customAvatar {
@@ -76,14 +80,14 @@ struct OnboardingStep3View: View {
                     )
                     .padding(.bottom, 30)
             }
-            
+
             Header(title: "Choose your avatar")
-            
+
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 20), count: 5), spacing: 20) {
                 ForEach(avatars, id: \.self) { avatar in
                     Button(action: {
                         selectedAvatar = avatar
-                        customAvatar = nil 
+                        customAvatar = nil
                     }) {
                         if selectedAvatar == avatar {
                             Circle()
@@ -101,6 +105,7 @@ struct OnboardingStep3View: View {
                     }
                 }
                 Button(action: {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     isImagePickerPresented.toggle()
                 }) {
                     Circle()
@@ -113,9 +118,9 @@ struct OnboardingStep3View: View {
                 }
             }
             .padding(.bottom, 30)
-            
+
             Spacer()
-            
+
             OnboardingNavigation(
                 backAction: {
                     viewModel.goToPreviousStep()
@@ -124,7 +129,7 @@ struct OnboardingStep3View: View {
                     if let customAvatar = customAvatar {
                         viewModel.setAvatar(image: customAvatar)
                     } else if let selectedAvatar = selectedAvatar {
-                        // to be implemented
+                        // Handle selectedAvatar save or assignment if necessary
                     }
                     
                     viewModel.goToNextStep()
@@ -141,4 +146,3 @@ struct OnboardingStep3View: View {
 #Preview {
     OnboardingStep3View(viewModel: OnboardingViewModel())
 }
- 

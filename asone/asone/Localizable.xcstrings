@@ -217,6 +217,12 @@
         }
       }
     },
+    "Are you sure you want to delete your account? This action cannot be undone." : {
+
+    },
+    "Are you sure?" : {
+
+    },
     "Are you trying to conceive right now?" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -445,6 +451,9 @@
           }
         }
       }
+    },
+    "Delete" : {
+
     },
     "Delete account" : {
 
@@ -767,6 +776,7 @@
 
     },
     "I'm not interested" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {

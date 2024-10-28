@@ -33,7 +33,7 @@ class ProfileViewModel: ObservableObject {
         }
     }
 
-    private func fetchUserProfile(uid: String) {
+    func fetchUserProfile(uid: String) {
         UserService.shared.fetchUserData(uid: uid) { [weak self] userProfile in
             guard let self = self else { return }
 
@@ -44,6 +44,23 @@ class ProfileViewModel: ObservableObject {
             } else {
                 print("Failed to fetch user profile")
             }
+        }
+    }
+    
+    func deleteAccount() async {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+
+        do {
+            try await ApiService.shared.deleteAccount(uid: uid)
+            print("Backend account deletion successful.")
+            
+            try await AuthService.shared.deleteFirebaseUser()
+            print("Firebase user deletion successful.")
+        } catch {
+            print("Failed to delete account: \(error.localizedDescription)")
         }
     }
 }

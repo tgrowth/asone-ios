@@ -9,9 +9,11 @@ import Foundation
 import SwiftUI
 
 class CalendarViewModel: ObservableObject {
-    @Published var currentDate: Date = Date() // The current date
-    @Published var selectedDate: Date? // The selected date
-    @Published var displayedMonth: Date = Date() // The month being displayed
+    @Published var currentDate: Date = Date()
+    @Published var selectedDate: Date?
+    @Published var displayedMonth: Date = Date()
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
 
     private let calendar = Calendar.current
 
@@ -54,5 +56,29 @@ class CalendarViewModel: ObservableObject {
     func isSelected(_ date: Date) -> Bool {
         guard let selectedDate = selectedDate else { return false }
         return calendar.isDate(date, inSameDayAs: selectedDate)
+    }
+    
+    // Asynchronous function to add period logs
+    @MainActor
+    func addPeriodLogs(uid: String) async {
+        isLoading = true
+        errorMessage = nil
+        
+        guard let selectedDate = selectedDate else {
+            self.errorMessage = "No date selected"
+            isLoading = false
+            return
+        }
+        
+        let periodLog = PeriodLog(uid: uid, startDates: [selectedDate.toString()])
+        
+        do {
+            try await PeriodLogService.shared.sendPeriodLogs(uid: uid, periodLog: periodLog)
+            print("Logs successfully added for user \(uid).")
+        } catch {
+            self.errorMessage = "Failed to add logs: \(error.localizedDescription)"
+        }
+        
+        isLoading = false
     }
 }

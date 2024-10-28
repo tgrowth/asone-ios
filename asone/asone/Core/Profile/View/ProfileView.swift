@@ -1,10 +1,11 @@
 import SwiftUI
 
-
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @StateObject var quizViewModel = QuizViewModel()
     
+    @State private var showDeleteAlert = false  // State to control alert visibility
+
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -70,11 +71,10 @@ struct ProfileView: View {
                         }
                         
                         Button {
-                            // action to delete the account
+                            showDeleteAlert = true
                         } label: {
                             ProfileOptionRow(icon: "xmark.circle", text: "Delete account")
                         }
-
                     }
                     .padding(.horizontal)
                 }
@@ -90,32 +90,19 @@ struct ProfileView: View {
                     }
                 }
             }
+            .alert(isPresented: $showDeleteAlert) {
+                Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("Are you sure you want to delete your account? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        Task { await profileViewModel.deleteAccount() }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
         }
     }
 }
-
-struct ProfileOptionRow: View {
-    var icon: String
-    var text: LocalizedStringKey
-    var iconColor: Color = .black
-    
-    var body: some View {
-        HStack {
-            Image(systemName: icon)
-                .foregroundColor(iconColor)
-                .frame(width: 24, height: 24)
-            Text(text)
-                .foregroundColor(.black)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
-        }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(10)
-    }
-}
-
 
 #Preview {
     ProfileView()

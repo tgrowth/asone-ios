@@ -5,41 +5,19 @@ enum OnboardingStep: Int, CaseIterable {
     case start, step1, step2, step3, step4, step5, step6, step7, step8, step9, step10, step11, step12, step13, step14, step15, step16
 }
 
-struct UserData: Decodable {
-    var id: Int? = nil
-    var uid: String = ""
-    var username: String = ""
-    var avatar: Data? = nil
-    var isUsingForSelf: Bool = true
-    var birthday: Date = Date()
-    var state: String = ""
-    var periodLength: Int = 7
-    var cycleLength: Int = 7
-    var lastPeriodStartDate: Date = Date()
-    var lastPeriodEndDate: Date = Date()
-    var isTryingToConceive: Bool = false
-    var mood: Double = 1.0
-    var symptoms: [Int] = []
-    var partnerMode: Bool = false
-    var partnerUid: String? = nil
-    var code: String = ""
-    var isComplete: Bool = false
-}
-
 class OnboardingViewModel: ObservableObject {
     @Published var currentStep: OnboardingStep = .start
-    @Published var userData = UserData()
+    @Published var userData: UserData = UserData()
     @Published var symptoms: [Symptom] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
+    
+    init() {
+        generateInviteCode()
+    }
+
 
     func goToNextStep() {
-        // Validation example: check if userData.username is empty
-        if currentStep == .step15, userData.symptoms.isEmpty {
-            errorMessage = "Please select at least one symptom."
-            return
-        }
-
         if let nextStep = OnboardingStep(rawValue: currentStep.rawValue + 1) {
             currentStep = nextStep
         }
@@ -58,14 +36,25 @@ class OnboardingViewModel: ObservableObject {
         }
 
         self.userData.isComplete = true
-        self.submitUserData(uid: user.uid)
+        Task {
+            await submitUserData(uid: user.uid)
+            UserDefaults.standard.set(true, forKey: "onboardingComplete")
+            UserDefaults.standard.removeObject(forKey: "inviteCode")
+        }
     }
 
+
     func generateInviteCode(length: Int = 6) {
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let code = String((0..<length).map { _ in characters.randomElement()! })
-        userData.code = code
+        if let savedCode = UserDefaults.standard.string(forKey: "inviteCode") {
+            userData.code = savedCode
+        } else {
+            let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            let code = String((0..<length).map { _ in characters.randomElement()! })
+            userData.code = code
+            UserDefaults.standard.set(code, forKey: "inviteCode")
+        }
     }
+
 
     func setAvatar(image: UIImage) {
         if let imageData = image.pngData() {
@@ -73,27 +62,18 @@ class OnboardingViewModel: ObservableObject {
         }
     }
 
-    func submitUserData(uid: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-
-        let formattedBirthday = dateFormatter.string(from: userData.birthday)
-        let formattedLastPeriodStartDate = dateFormatter.string(from: userData.lastPeriodStartDate)
-        let formattedLastPeriodEndDate = dateFormatter.string(from: userData.lastPeriodEndDate)
-
+    func submitUserData(uid: String) async {
         let userDataDictionary: [String: Any] = [
             "uid": uid,
             "username": userData.username,
-            "avatar": userData.avatar?.base64EncodedString() as Any,
+            "avatar": userData.avatar?.base64EncodedString() ?? "null",
             "isUsingForSelf": userData.isUsingForSelf,
-            "birthday": formattedBirthday,
+            "birthday": userData.birthday.toString(),
             "state": userData.state,
             "periodLength": userData.periodLength,
             "cycleLength": userData.cycleLength,
-            "lastPeriodStartDate": formattedLastPeriodStartDate,
-            "lastPeriodEndDate": formattedLastPeriodEndDate,
+            "lastPeriodStartDate": userData.lastPeriodStartDate.toString(),
+            "lastPeriodEndDate": userData.lastPeriodEndDate.toString(),
             "isTryingToConceive": userData.isTryingToConceive,
             "mood": userData.mood,
             "symptoms": userData.symptoms,
@@ -103,43 +83,17 @@ class OnboardingViewModel: ObservableObject {
             "isComplete": userData.isComplete
         ]
 
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: userDataDictionary) else {
-            print("Error serializing user data to JSON")
-            return
+        do {
+            try await UserService.shared.sendUserData(userDataDictionary: userDataDictionary)
+        } catch {
+            DispatchQueue.main.async {
+                self.errorMessage = "Failed to send user data: \(error.localizedDescription)"
+            }
+            print(error)
         }
-
-        print(String(data: jsonData, encoding: .utf8) ?? "Invalid JSON")
-        sendUserData(jsonData: jsonData, uid: uid)
     }
 
-    private func sendUserData(jsonData: Data, uid: String) {
-        guard let url = URL(string: "\(APIConfig.baseURL)\(APIConfig.userInfoEndpoint)\(uid)") else {
-            print("Invalid URL")
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error sending user data to backend: \(error)")
-                return
-            }
-
-            if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 200 {
-                    print("User data successfully sent to backend.")
-                } else {
-                    print("Failed to send user data. Status code: \(httpResponse.statusCode)")
-                }
-            }
-        }
-        task.resume()
-    }
-
+    @MainActor
     func loadSymptoms() async {
         isLoading = true
         errorMessage = nil

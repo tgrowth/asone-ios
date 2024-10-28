@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingStep15View: View {
     @StateObject var viewModel = OnboardingViewModel()
-    @State private var selectedSymptoms: [Int] = []  // Store selected symptom IDs
+    @State private var selectedSymptoms: [Int] = []
 
     var body: some View {
         VStack {

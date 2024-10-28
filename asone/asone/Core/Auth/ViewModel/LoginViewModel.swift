@@ -12,7 +12,6 @@ import FirebaseAuth
 import CryptoKit
 import AuthenticationServices
 
-
 class LoginViewModel: ObservableObject {
     @Published var email = "";
     @Published var password = "";

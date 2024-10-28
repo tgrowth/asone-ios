@@ -9,15 +9,15 @@ import SwiftUI
 import FirebaseAuth
 
 struct ContentView: View {
-    @State private var isLoggedIn: Bool = false
     @State private var showOnboarding: Bool = false
     @State private var isLoading: Bool = true
-    
+    @ObservedObject private var authService = AuthService.shared
+
     var body: some View {
         Group {
             if isLoading {
                 ProgressView("Loading...")
-            } else if isLoggedIn {
+            } else if authService.userSession != nil {
                 if showOnboarding {
                     OnboardingMainView()
                 } else {
@@ -31,26 +31,35 @@ struct ContentView: View {
             checkUserStatus()
         }
     }
-    
-    // Function to check login and onboarding status
+
     func checkUserStatus() {
-        if let user = Auth.auth().currentUser {
-            print(user)
-            isLoggedIn = true
-            
-            UserService.shared.fetchIsComplete(uid: user.uid) { user in
+        isLoading = true
+
+        if UserDefaults.standard.bool(forKey: "onboardingComplete") {
+            // If onboarding is marked complete in UserDefaults, skip backend check
+            self.showOnboarding = false
+            self.isLoading = false
+            return
+        }
+
+        if let user = authService.userSession {
+            // Check backend for existing user data if onboardingComplete is unset or false
+            UserService.shared.fetchUserData(uid: user.uid) { userData in
                 DispatchQueue.main.async {
-                    if let user = user {
-                        showOnboarding = false
+                    if userData != nil {
+                        // User data exists, skip onboarding
+                        self.showOnboarding = false
+                        UserDefaults.standard.set(true, forKey: "onboardingComplete")
                     } else {
-                        showOnboarding = true
+                        // No user data, show onboarding
+                        self.showOnboarding = true
                     }
-                    isLoading = false
+                    self.isLoading = false
                 }
             }
         } else {
-            isLoggedIn = false
-            isLoading = false
+            // No authenticated session, show TermsView
+            self.isLoading = false
         }
     }
 }
