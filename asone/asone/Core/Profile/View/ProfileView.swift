@@ -4,7 +4,7 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @StateObject var quizViewModel = QuizViewModel()
     
-    @State private var showDeleteAlert = false  // State to control alert visibility
+    @State private var showDeleteAlert = false
 
     var body: some View {
         NavigationStack {
@@ -16,10 +16,10 @@ struct ProfileView: View {
                             .frame(width: 60, height: 60)
                         
                         VStack(alignment: .leading) {
-                            Text(profileViewModel.name)
+                            Text(profileViewModel.currentUser?.username ?? profileViewModel.name)
                                 .font(.title2)
                                 .fontWeight(.semibold)
-                            Text("Status: Period")
+                            Text(profileViewModel.email) // "Status: Period"
                                 .foregroundColor(.gray)
                         }
                         Spacer()

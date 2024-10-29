@@ -1702,6 +1702,7 @@
       }
     },
     "Status: Period" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {

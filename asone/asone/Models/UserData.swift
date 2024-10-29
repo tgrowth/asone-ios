@@ -11,7 +11,7 @@ struct UserData: Decodable {
     var id: Int? = nil
     var uid: String = ""
     var username: String = ""
-    var avatar: Data? = nil
+    var avatar: String = ""
     var isUsingForSelf: Bool = true
     var birthday: Date = Date()
     var state: String = ""
@@ -23,7 +23,7 @@ struct UserData: Decodable {
     var mood: Double = 1.0
     var symptoms: [Int] = []
     var partnerMode: Bool = false
-    var partnerUid: String? = nil
+    var partnerUid: String = ""
     var code: String = ""
     var isComplete: Bool = false
 }

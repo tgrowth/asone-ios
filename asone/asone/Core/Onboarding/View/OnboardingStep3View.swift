@@ -53,33 +53,33 @@ struct OnboardingStep3View: View {
 
     var body: some View {
         VStack {
-            if let customAvatar = customAvatar {
-                Image(uiImage: customAvatar)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(Circle())
-                    .frame(width: 120, height: 120)
-                    .padding(.bottom, 30)
-            } else if let avatarData = viewModel.userData.avatar, let uiImage = UIImage(data: avatarData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(Circle())
-                    .frame(width: 120, height: 120)
-                    .padding(.bottom, 30)
-            } else {
-                Circle()
-                    .fill(Color.gray.opacity(0.5))
-                    .frame(width: 120, height: 120)
-                    .overlay(
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80, height: 80)
-                            .foregroundColor(.white)
-                    )
-                    .padding(.bottom, 30)
-            }
+//            if let customAvatar = customAvatar {
+//                Image(uiImage: customAvatar)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .clipShape(Circle())
+//                    .frame(width: 120, height: 120)
+//                    .padding(.bottom, 30)
+//            } else if let avatarData = viewModel.userData.avatar, let uiImage = UIImage(data: avatarData) {
+//                Image(uiImage: uiImage)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .clipShape(Circle())
+//                    .frame(width: 120, height: 120)
+//                    .padding(.bottom, 30)
+//            } else {
+//                Circle()
+//                    .fill(Color.gray.opacity(0.5))
+//                    .frame(width: 120, height: 120)
+//                    .overlay(
+//                        Image(systemName: "person.circle")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 80, height: 80)
+//                            .foregroundColor(.white)
+//                    )
+//                    .padding(.bottom, 30)
+//            }
 
             Header(title: "Choose your avatar")
 
@@ -126,11 +126,11 @@ struct OnboardingStep3View: View {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
-                    if let customAvatar = customAvatar {
-                        viewModel.setAvatar(image: customAvatar)
-                    } else if let selectedAvatar = selectedAvatar {
-                        // Handle selectedAvatar save or assignment if necessary
-                    }
+//                    if let customAvatar = customAvatar {
+//                        viewModel.setAvatar(image: customAvatar)
+//                    } else if let selectedAvatar = selectedAvatar {
+//                        // Handle selectedAvatar save or assignment if necessary
+//                    }
                     
                     viewModel.goToNextStep()
                 }

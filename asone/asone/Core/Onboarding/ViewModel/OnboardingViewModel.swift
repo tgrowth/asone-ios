@@ -56,17 +56,17 @@ class OnboardingViewModel: ObservableObject {
     }
 
 
-    func setAvatar(image: UIImage) {
-        if let imageData = image.pngData() {
-            userData.avatar = imageData
-        }
-    }
+//    func setAvatar(image: UIImage) {
+//        if let imageData = image.pngData() {
+//            userData.avatar = imageData
+//        }
+//    }
 
     func submitUserData(uid: String) async {
         let userDataDictionary: [String: Any] = [
             "uid": uid,
             "username": userData.username,
-            "avatar": userData.avatar?.base64EncodedString() ?? "null",
+            "avatar": userData.avatar,
             "isUsingForSelf": userData.isUsingForSelf,
             "birthday": userData.birthday.toString(),
             "state": userData.state,
@@ -78,7 +78,7 @@ class OnboardingViewModel: ObservableObject {
             "mood": userData.mood,
             "symptoms": userData.symptoms,
             "partnerMode": userData.partnerMode,
-            "partnerUid": userData.partnerUid as Any,
+            "partnerUid": userData.partnerUid,
             "code": userData.code,
             "isComplete": userData.isComplete
         ]

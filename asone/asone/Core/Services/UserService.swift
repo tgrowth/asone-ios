@@ -17,7 +17,7 @@ class UserService{
     private init() {}
     
     func sendUserData(userDataDictionary: [String: Any]) async throws {
-        guard let url = URL(string: "\(APIConfig.serverURL)/userInfo/") else {
+        guard let url = URL(string: "\(APIConfig.baseURL)/userInfo/") else {
             throw URLError(.badURL)
         }
         
@@ -42,7 +42,7 @@ class UserService{
 
     
     func fetchUserData(uid: String, completion: @escaping (UserData?) -> Void) {
-        guard let url = URL(string: "http://localhost:3000/userInfo/\(uid)") else {
+        guard let url = URL(string: "\(APIConfig.serverURL)/userInfo/\(uid)") else {
             print("Invalid URL")
             completion(nil)
             return
@@ -72,11 +72,17 @@ class UserService{
                 // Successfully fetched user data, parse it
                 do {
                     let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    
                     if let userInfo = jsonResponse?["userInfo"] as? [String: Any] {
                         let jsonData = try JSONSerialization.data(withJSONObject: userInfo, options: [])
                         let decoder = JSONDecoder()
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd"
+                        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                        
                         let userProfile = try decoder.decode(UserData.self, from: jsonData)
                         completion(userProfile)
+                    
                     } else {
                         print("Invalid JSON format")
                         completion(nil)
@@ -91,49 +97,6 @@ class UserService{
             }
         }.resume()
     }
-
-//    func fetchIsComplete(uid: String, completion: @escaping (Bool?) -> Void) {
-//        guard let url = URL(string: "http://localhost:3000/user/\(uid)/isComplete") else {
-//            print("Invalid URL")
-//            completion(nil)
-//            return
-//        }
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let error = error {
-//                print("Error fetching isComplete data: \(error.localizedDescription)")
-//                completion(nil)
-//                return
-//            }
-//
-//            guard let httpResponse = response as? HTTPURLResponse else {
-//                print("No valid HTTP response")
-//                completion(nil)
-//                return
-//            }
-//            
-//            if httpResponse.statusCode == 200, let data = data {
-//                do {
-//                    let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//                    if let isComplete = jsonResponse?["isComplete"] as? Bool {
-//                        completion(isComplete)
-//                    } else {
-//                        print("Invalid JSON format or missing isComplete field")
-//                        completion(false)
-//                    }
-//                } catch {
-//                    print("Error decoding isComplete data: \(error.localizedDescription)")
-//                    completion(false)
-//                }
-//            } else {
-//                print("Failed to fetch isComplete data, status code: \(httpResponse.statusCode)")
-//                completion(false)
-//            }
-//        }.resume()
-//    }
 
     func reset(){
         self.currentUser = nil
