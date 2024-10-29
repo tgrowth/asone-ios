@@ -22,7 +22,7 @@ struct ProfileOptionRow: View {
             Image(systemName: "chevron.right")
                 .foregroundColor(.gray)
         }
-        .padding()
+        .padding(12)
         .background(Color.white)
         .cornerRadius(10)
     }

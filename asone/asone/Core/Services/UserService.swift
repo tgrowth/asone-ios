@@ -39,7 +39,6 @@ class UserService{
         
         print("User data successfully sent to backend: \(String(data: data, encoding: .utf8) ?? "No response data")")
     }
-
     
     func fetchUserData(uid: String, completion: @escaping (UserData?) -> Void) {
         guard let url = URL(string: "\(APIConfig.serverURL)/userInfo/\(uid)") else {
@@ -96,6 +95,25 @@ class UserService{
                 completion(nil)
             }
         }.resume()
+    }
+    
+    func updateUserData(uid: String, userData: [String: Any]) async throws {
+        guard let url = URL(string: "\(APIConfig.baseURL)/userInfo/\(uid)") else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
+        request.httpBody = jsonData
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw NSError(domain: "HTTPError", code: (response as? HTTPURLResponse)?.statusCode ?? 0, userInfo: [NSLocalizedDescriptionKey: "Failed to update user data"])
+        }
     }
 
     func reset(){

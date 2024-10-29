@@ -94,7 +94,7 @@ struct StatisticsView: View {
                         
                         ForEach(viewModel.history) { item in
                             HStack {
-                                Text(item.firstDay)
+                                Text(item.startDate)
                                 Spacer()
                                 Text("\(item.length)")
                                 Spacer()
@@ -152,6 +152,11 @@ struct StatisticsView: View {
                 }) {
                     Image(systemName: "square.and.arrow.up").foregroundColor(.black)
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchCycleHistory(uid: AuthService.shared.userSession?.uid ?? "unknown_uid")
             }
         }
     }

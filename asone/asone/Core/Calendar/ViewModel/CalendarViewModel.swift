@@ -73,7 +73,7 @@ class CalendarViewModel: ObservableObject {
         let periodLog = PeriodLog(uid: uid, startDates: [selectedDate.toString()])
         
         do {
-            try await PeriodLogService.shared.sendPeriodLogs(uid: uid, periodLog: periodLog)
+            try await PeriodLogService.shared.sendPeriodLogs(periodLog: periodLog)
             print("Logs successfully added for user \(uid).")
         } catch {
             self.errorMessage = "Failed to add logs: \(error.localizedDescription)"

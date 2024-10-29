@@ -42,7 +42,7 @@ struct SettingsView: View {
                                 .font(.headline)
                             Spacer()
                             Picker("Period Length", selection: $viewModel.periodLength) {
-                                ForEach(1...10, id: \.self) { value in
+                                ForEach(1...30, id: \.self) { value in
                                     Text("\(value) days").tag(value)
                                 }
                             }
@@ -92,6 +92,11 @@ struct SettingsView: View {
                 .padding()
             }
             .navigationTitle("Settings")
+        }
+        .onAppear {
+            Task {
+                await viewModel.fetchUserData(uid: AuthService.shared.userSession?.uid ?? "unknown_uid")
+            }
         }
     }
 }
