@@ -17,7 +17,7 @@ class UserService{
     private init() {}
     
     func sendUserData(userDataDictionary: [String: Any]) async throws {
-        guard let url = URL(string: "\(APIConfig.baseURL)\(APIConfig.userInfoEndpoint)") else {
+        guard let url = URL(string: "\(APIConfig.serverURL)/userInfo/") else {
             throw URLError(.badURL)
         }
         

@@ -12,7 +12,7 @@ class SymptomService {
     static let shared = SymptomService()
     
     func fetchSymptoms() async throws -> [Symptom] {
-        guard let url = URL(string: "\(APIConfig.baseURL)/symptoms") else {
+        guard let url = URL(string: "\(APIConfig.serverURL)/symptoms") else {
             throw URLError(.badURL)
         }
 

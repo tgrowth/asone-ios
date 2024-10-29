@@ -11,7 +11,7 @@ class PeriodLogService {
     static let shared = PeriodLogService()
     
     func sendPeriodLogs(uid: String, periodLog: PeriodLog) async throws {
-        guard let url = URL(string: "\(APIConfig.baseURL)/period_logs/\(uid)") else {
+        guard let url = URL(string: "\(APIConfig.serverURL)/period_logs/\(uid)") else {
             throw URLError(.badURL)
         }
         
