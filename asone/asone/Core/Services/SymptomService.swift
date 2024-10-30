@@ -38,10 +38,9 @@ class SymptomService {
         let (_, response) = try await URLSession.shared.data(for: request)
 
         if let httpResponse = response as? HTTPURLResponse {
-            guard httpResponse.statusCode == 200 else {
+            guard httpResponse.statusCode == 201 else {
                 throw URLError(.badServerResponse)
             }
-            print("Symptom \(symptomId) successfully added for user \(uid).")
         }
     }
 }

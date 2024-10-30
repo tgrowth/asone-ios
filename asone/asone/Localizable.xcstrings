@@ -298,6 +298,9 @@
     "Back to Login" : {
 
     },
+    "Boost your relationship and communication" : {
+
+    },
     "Calendar" : {
       "localizations" : {
         "es" : {
@@ -643,6 +646,9 @@
     "Full Name" : {
 
     },
+    "Generating code..." : {
+
+    },
     "Get 33% off premium" : {
       "localizations" : {
         "es" : {
@@ -742,9 +748,6 @@
           }
         }
       }
-    },
-    "Hi, Welcome to AsOne" : {
-
     },
     "History" : {
 
@@ -1204,6 +1207,7 @@
       }
     },
     "Pair with your partner to boost your relationship and communication" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {

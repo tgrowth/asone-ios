@@ -25,7 +25,7 @@ struct OnboardingStep4View: View {
             }
             
             if !viewModel.userData.isUsingForSelf {
-                CustomTextField(placeholder: "Enter your code", text: $viewModel.userData.code)
+                CustomTextField(placeholder: "Enter your code", text: $viewModel.userData.partnerUid)
                     .padding(.top, 10)
             }
             

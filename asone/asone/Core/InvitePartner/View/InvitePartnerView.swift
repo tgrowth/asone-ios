@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InvitePartnerView: View {
-    @StateObject var onboardingViewModel = OnboardingViewModel()
+    @StateObject private var viewModel = InvitePartnerViewModel(userData: UserData())
     @State private var isCopied = false
     @State private var partnerCode: String = ""
     @State private var showError: Bool = false
@@ -25,18 +25,16 @@ struct InvitePartnerView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // Title
             Text("Pair with your partner")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.top, 40)
             
-            // Description
-            Text("Pair with your partner to boost your relationship and communication")
+            Text("Boost your relationship and communication")
                 .font(.body)
                 .foregroundColor(.gray)
+
             
-            // Invite code card
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("Invite your partner")
@@ -44,10 +42,11 @@ struct InvitePartnerView: View {
                         .fontWeight(.bold)
                     Spacer()
                     
-                    // Copy button
                     Button(action: {
-                        UIPasteboard.general.string = onboardingViewModel.userData.code
-                        isCopied = true
+                        if let code = viewModel.inviteCode {
+                            UIPasteboard.general.string = code
+                            isCopied = true
+                        }
                     }) {
                         HStack {
                             Image(systemName: isCopied ? "checkmark" : "doc.on.doc")
@@ -63,28 +62,41 @@ struct InvitePartnerView: View {
                     }
                 }
                 
-                // Invite code section
                 VStack(spacing: 10) {
                     Text("Your code:")
                         .font(.subheadline)
                     
-                    Text(onboardingViewModel.userData.code)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
+                    if let inviteCode = viewModel.inviteCode {
+                        Text(inviteCode)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                    } else {
+                        Text("Generating code...")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                    }
                 }
                 
-                // Share invite button
                 Button(action: {
-                    // Share code action
-                    shareCode(onboardingViewModel.userData.code ?? "")
+                    if let code = viewModel.inviteCode {
+                        shareCode(code)
+                    }
                 }) {
                     Text("Share my invite code")
                         .font(.headline)
@@ -101,13 +113,11 @@ struct InvitePartnerView: View {
             
             Text("─────────   OR   ─────────").foregroundColor(.gray)
             
-            // Enter code card
             VStack(alignment: .leading, spacing: 10) {
                 Text("Enter partner's code")
                     .font(.title3)
                     .fontWeight(.bold)
                 
-                // TextField for entering code
                 TextField("Enter code here", text: $partnerCode)
                     .font(.title3)
                     .padding()
@@ -118,6 +128,11 @@ struct InvitePartnerView: View {
                             .stroke(Color.gray, lineWidth: 1)
                     )
                     .autocapitalization(.allCharacters)
+                    .onChange(of: partnerCode) { newValue in
+                        if isValidCode(newValue) {
+                            showError = false
+                        }
+                    }
                 
                 if showError {
                     Text("Invalid code. Please try again.")
@@ -126,12 +141,9 @@ struct InvitePartnerView: View {
                 }
                 
                 Button(action: {
-                    // Action to validate and pair with partner's code
                     if isValidCode(partnerCode) {
-                        // Proceed with pairing logic
                         pairWithPartner(code: partnerCode)
                     } else {
-                        // Show error if code is invalid
                         showError = true
                     }
                 }) {
@@ -147,14 +159,13 @@ struct InvitePartnerView: View {
             .padding()
             .background(Color.gray.opacity(0.2))
             .cornerRadius(20)
-        
+            
             Spacer()
         }
-        .padding(.horizontal, 20)
+        .padding()
     }
     
     func shareCode(_ code: String) {
-        // Share code functionality
         let activityVC = UIActivityViewController(activityItems: [code], applicationActivities: nil)
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first {

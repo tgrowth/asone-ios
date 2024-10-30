@@ -24,6 +24,6 @@ struct UserData: Decodable {
     var symptoms: [Int] = []
     var partnerMode: Bool = false
     var partnerUid: String = ""
-    var code: String = ""
+    var code: String? = nil
     var isComplete: Bool = false
 }

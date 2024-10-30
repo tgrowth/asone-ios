@@ -21,11 +21,7 @@ struct LoginView: View {
             VStack {
                 Spacer()
                 
-                HStack {
-                    Text("Hi, Welcome to AsOne")
-                        .font(.title)
-                        .fontWeight(.bold)
-                }
+                Header(title: "Hi, Welcome to AsOne")
                 
                 Spacer()
 

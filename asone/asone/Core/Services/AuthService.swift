@@ -61,9 +61,6 @@ class AuthService: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            
-            UserDefaults.standard.set(false, forKey: "onboardingComplete")
-            
             try await ApiService.shared.signUp(email: email, fullname: fullname, uid: result.user.uid, password: password)
         } catch {
             print("ERROR: \(error.localizedDescription)")
@@ -78,21 +75,18 @@ class AuthService: ObservableObject {
         UserService.shared.reset()
     }
     
-    func deleteFirebaseUser() async throws {
-        guard let user = Auth.auth().currentUser else {
-            throw NSError(domain: "DeleteUserError", code: 401, userInfo: [NSLocalizedDescriptionKey: "No authenticated user found."])
-        }
-
-        do {
-            try await user.delete()
-            self.signOut()
-            print("Firebase user deleted successfully.")
-        } catch {
-            print("Error deleting Firebase user: \(error.localizedDescription)")
-            throw error
-        }
-    }
-    
-    
-
+//    func deleteFirebaseUser() async throws {
+//        guard let user = Auth.auth().currentUser else {
+//            throw NSError(domain: "DeleteUserError", code: 401, userInfo: [NSLocalizedDescriptionKey: "No authenticated user found."])
+//        }
+//
+//        do {
+//            try await user.delete()
+//            self.signOut()
+//            print("Firebase user deleted successfully.")
+//        } catch {
+//            print("Error deleting Firebase user: \(error.localizedDescription)")
+//            throw error
+//        }
+//    }
 }

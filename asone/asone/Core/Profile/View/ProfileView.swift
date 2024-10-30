@@ -95,7 +95,7 @@ struct ProfileView: View {
                     title: Text("Are you sure?"),
                     message: Text("Are you sure you want to delete your account? This action cannot be undone."),
                     primaryButton: .destructive(Text("Delete")) {
-                        Task { await profileViewModel.deleteAccount() }
+                        // Task { await profileViewModel.deleteAccount() }
                     },
                     secondaryButton: .cancel()
                 )

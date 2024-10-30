@@ -12,11 +12,6 @@ class OnboardingViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    init() {
-        generateInviteCode()
-    }
-
-
     func goToNextStep() {
         if let nextStep = OnboardingStep(rawValue: currentStep.rawValue + 1) {
             currentStep = nextStep
@@ -38,23 +33,8 @@ class OnboardingViewModel: ObservableObject {
         self.userData.isComplete = true
         Task {
             await submitUserData(uid: user.uid)
-            UserDefaults.standard.set(true, forKey: "onboardingComplete")
-            UserDefaults.standard.removeObject(forKey: "inviteCode")
         }
     }
-
-
-    func generateInviteCode(length: Int = 6) {
-        if let savedCode = UserDefaults.standard.string(forKey: "inviteCode") {
-            userData.code = savedCode
-        } else {
-            let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let code = String((0..<length).map { _ in characters.randomElement()! })
-            userData.code = code
-            UserDefaults.standard.set(code, forKey: "inviteCode")
-        }
-    }
-
 
 //    func setAvatar(image: UIImage) {
 //        if let imageData = image.pngData() {

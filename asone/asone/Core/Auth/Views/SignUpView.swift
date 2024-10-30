@@ -16,16 +16,16 @@ struct SignUpView: View {
     @StateObject var viewModel = SignUpViewModel()
     @StateObject var loginViewModel = LoginViewModel()
     @Environment(\.dismiss) var dismiss;
+    @State private var isRegistered: Bool = false
     
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
-                Text("Create account")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 40)
+                Header(title: "Create account")
+                
+                Spacer()
                 
                 // Name Field
                 CustomTextField(placeholder: "Full Name", text: $viewModel.fullname)
@@ -38,13 +38,21 @@ struct SignUpView: View {
                 
                 // Sign Up Button
                 PrimaryButton(title: "Sign Up", action: {
-                    Task { try await viewModel.register() }
-                }, isDisabled: viewModel.email.isEmpty ||  viewModel.password.isEmpty ||  viewModel.fullname.isEmpty)
+                    Task {
+                        do {
+                            try await viewModel.register()
+                            // Set isRegistered to true after successful registration
+                            isRegistered = true
+                        } catch {
+                            // Handle any registration errors here
+                            print("Registration failed: \(error.localizedDescription)")
+                        }
+                    }
+                }, isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty || viewModel.fullname.isEmpty)
+
                 
-                // Spacer between signup button and social login options
                 Spacer()
 
-                // Divider with "or"
                 HStack {
                     Rectangle()
                         .frame(height: 1)

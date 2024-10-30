@@ -14,55 +14,44 @@ struct ContentView: View {
     @ObservedObject private var authService = AuthService.shared
 
     var body: some View {
-        Group {
-            if isLoading {
-                ProgressView("Loading...")
-            } else if authService.userSession != nil {
-                if showOnboarding {
-                    OnboardingMainView()
+        NavigationView {
+            Group {
+                if isLoading {
+                    ProgressView("Loading...")
+                } else if authService.userSession != nil {
+                    if showOnboarding {
+                        OnboardingMainView()
+                    } else {
+                        MainView()
+                    }
                 } else {
-                    MainView()
+                    TermsView()
                 }
-            } else {
-                TermsView()
             }
-        }
-        .onAppear {
-            checkUserStatus()
+            .onAppear {
+                checkUserStatus()
+            }
         }
     }
 
     func checkUserStatus() {
-        isLoading = true
-
-        if UserDefaults.standard.bool(forKey: "onboardingComplete") {
-            // If onboarding is marked complete in UserDefaults, skip backend check
-            self.showOnboarding = false
-            self.isLoading = false
-            return
-        }
-
         if let user = authService.userSession {
-            // Check backend for existing user data if onboardingComplete is unset or false
             UserService.shared.fetchUserData(uid: user.uid) { userData in
                 DispatchQueue.main.async {
-                    if userData != nil {
-                        // User data exists, skip onboarding
-                        self.showOnboarding = false
-                        UserDefaults.standard.set(true, forKey: "onboardingComplete")
+                    if let userData = userData {
+                        self.showOnboarding = !userData.isComplete
                     } else {
-                        // No user data, show onboarding
                         self.showOnboarding = true
                     }
                     self.isLoading = false
                 }
             }
         } else {
-            // No authenticated session, show TermsView
             self.isLoading = false
         }
     }
 }
+
 
 #Preview {
     ContentView()
