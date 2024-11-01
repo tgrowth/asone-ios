@@ -45,7 +45,7 @@ class StatisticsViewModel: ObservableObject {
             let periodLog = try await PeriodLogService.shared.fetchPeriodLogs(uid: uid)
             
             // Populate the history array with cycle data
-            let cycleHistories = periodLog.startDates.enumerated().map { index, date in
+            let cycleHistories = periodLog.periodLogs.enumerated().map { index, date in
                 CycleHistory(
                     startDate: date,
                     length: self.periodLength,

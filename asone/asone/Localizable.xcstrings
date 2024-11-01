@@ -302,6 +302,7 @@
 
     },
     "Calendar" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -752,9 +753,6 @@
     "History" : {
 
     },
-    "How long did your period last? (in days)" : {
-
-    },
     "How long is your period?" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -812,6 +810,7 @@
       }
     },
     "Invalid code. Please try again." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -826,9 +825,6 @@
           }
         }
       }
-    },
-    "Invalid Input" : {
-
     },
     "Invite my partner" : {
       "localizations" : {
@@ -897,9 +893,6 @@
           }
         }
       }
-    },
-    "Last Period End Date" : {
-
     },
     "Learn how hormonal changes affect your relationship day-by-day." : {
       "localizations" : {
@@ -1167,9 +1160,6 @@
         }
       }
     },
-    "OK" : {
-
-    },
     "or" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1373,9 +1363,6 @@
     "Please check your email" : {
 
     },
-    "Please enter a valid period length greater than 0." : {
-
-    },
     "Please type something you’ll remember." : {
 
     },
@@ -1513,9 +1500,6 @@
           }
         }
       }
-    },
-    "Select the last day of your period" : {
-
     },
     "Select your cycle days" : {
       "localizations" : {

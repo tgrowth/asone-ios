@@ -5,38 +5,52 @@
 //  Created by Arslan Kamchybekov on 10/9/24.
 //
 
-import Foundation
+import SwiftUI
 import FirebaseAuth
 
 class InvitePartnerViewModel: ObservableObject {
     @Published var inviteCode: String?
     @Published var errorMessage: String?
-    var userData: UserData
-   
-    init(userData: UserData) {
-       self.userData = userData
-       fetchOrGenerateInviteCode()
-   }
 
-    func fetchOrGenerateInviteCode() {
-        if let user = Auth.auth().currentUser {
-            UserService.shared.fetchUserData(uid: user.uid) { userData in
-                DispatchQueue.main.async {
-                    if let userData = userData {
+    init() {
+        checkAndFetchInviteCode()
+    }
+
+    // Fetch the invite code if the user's data is complete
+    func checkAndFetchInviteCode() {
+        guard let user = Auth.auth().currentUser else {
+            self.inviteCode = nil
+            return
+        }
+
+        UserService.shared.fetchUserData(uid: user.uid) { [weak self] userData in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if let userData = userData {
+                    if userData.isComplete {
                         self.inviteCode = userData.code
-                        self.userData.code = userData.code
                     } else {
-                        self.generateInviteCode()
+                        self.inviteCode = OnboardingViewModel.shared.inviteCode
                     }
+                } else {
+                    self.errorMessage = "Failed to fetch user data."
                 }
             }
         }
     }
-
-    func generateInviteCode(length: Int = 6) {
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let code = String((0..<length).map { _ in characters.randomElement()! })
-        self.inviteCode = code
-        self.userData.code = code
+    
+    // Pair the partner by sending the uid and code
+    func pairPartner(uid: String, code: String) {
+        UserService.shared.addPartner(uid: uid, code: code) { [weak self] success in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if success {
+                    self.inviteCode = code
+                    self.errorMessage = nil
+                } else {
+                    self.errorMessage = "Failed to pair with the partner."
+                }
+            }
+        }
     }
 }

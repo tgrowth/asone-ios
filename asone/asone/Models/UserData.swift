@@ -17,8 +17,6 @@ struct UserData: Decodable {
     var state: String = ""
     var periodLength: Int = 7
     var cycleLength: Int = 7
-    var lastPeriodStartDate: Date = Date()
-    var lastPeriodEndDate: Date = Date()
     var isTryingToConceive: Bool = false
     var mood: Double = 1.0
     var symptoms: [Int] = []

@@ -6,11 +6,20 @@ enum OnboardingStep: Int, CaseIterable {
 }
 
 class OnboardingViewModel: ObservableObject {
+    static let shared = OnboardingViewModel() // Singleton instance
+    
     @Published var currentStep: OnboardingStep = .start
     @Published var userData: UserData = UserData()
     @Published var symptoms: [Symptom] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var inviteCode: String?
+    
+    init() {
+        generateInviteCode { code in
+            self.userData.code = code
+        }
+    }
     
     func goToNextStep() {
         if let nextStep = OnboardingStep(rawValue: currentStep.rawValue + 1) {
@@ -41,6 +50,19 @@ class OnboardingViewModel: ObservableObject {
 //            userData.avatar = imageData
 //        }
 //    }
+    
+    func generateInviteCode(completion: @escaping (String?) -> Void) {
+        if userData.code == nil || userData.code?.isEmpty == true {
+            let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            let code = String((0..<6).map { _ in characters.randomElement()! })
+            self.userData.code = code
+            self.inviteCode = code
+            completion(code) // Code generated, pass it back
+        } else {
+            completion(self.userData.code)
+        }
+    }
+
 
     func submitUserData(uid: String) async {
         let userDataDictionary: [String: Any] = [
@@ -52,14 +74,12 @@ class OnboardingViewModel: ObservableObject {
             "state": userData.state,
             "periodLength": userData.periodLength,
             "cycleLength": userData.cycleLength,
-            "lastPeriodStartDate": userData.lastPeriodStartDate.toString(),
-            "lastPeriodEndDate": userData.lastPeriodEndDate.toString(),
             "isTryingToConceive": userData.isTryingToConceive,
             "mood": userData.mood,
             "symptoms": userData.symptoms,
             "partnerMode": userData.partnerMode,
             "partnerUid": userData.partnerUid,
-            "code": userData.code,
+            "code": inviteCode,
             "isComplete": userData.isComplete
         ]
 

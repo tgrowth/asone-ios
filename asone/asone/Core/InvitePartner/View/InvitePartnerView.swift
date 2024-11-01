@@ -7,9 +7,10 @@
 
 
 import SwiftUI
+import FirebaseAuth
 
 struct InvitePartnerView: View {
-    @StateObject private var viewModel = InvitePartnerViewModel(userData: UserData())
+    @ObservedObject private var viewModel = InvitePartnerViewModel()
     @State private var isCopied = false
     @State private var partnerCode: String = ""
     @State private var showError: Bool = false
@@ -18,23 +19,12 @@ struct InvitePartnerView: View {
         return !code.isEmpty && code.count == 6
     }
     
-    func pairWithPartner(code: String) {
-        // Pairing logic goes here
-        print("Pairing with partner's code: \(code)")
-    }
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("Pair with your partner")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.top, 40)
-            
             Text("Boost your relationship and communication")
                 .font(.body)
                 .foregroundColor(.gray)
 
-            
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("Invite your partner")
@@ -46,6 +36,9 @@ struct InvitePartnerView: View {
                         if let code = viewModel.inviteCode {
                             UIPasteboard.general.string = code
                             isCopied = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                isCopied = false
+                            }
                         }
                     }) {
                         HStack {
@@ -134,15 +127,19 @@ struct InvitePartnerView: View {
                         }
                     }
                 
-                if showError {
-                    Text("Invalid code. Please try again.")
+                if showError || viewModel.errorMessage != nil {
+                    Text(viewModel.errorMessage ?? "Invalid code. Please try again.")
                         .foregroundColor(.red)
                         .font(.caption)
                 }
                 
                 Button(action: {
                     if isValidCode(partnerCode) {
-                        pairWithPartner(code: partnerCode)
+                        if let uid = AuthService.shared.userSession?.uid {
+                            viewModel.pairPartner(uid: uid, code: partnerCode)
+                        } else {
+                            viewModel.errorMessage = "User not authenticated."
+                        }
                     } else {
                         showError = true
                     }
@@ -162,6 +159,7 @@ struct InvitePartnerView: View {
             
             Spacer()
         }
+        .navigationTitle("Pair with your partner")
         .padding()
     }
     

@@ -9,13 +9,11 @@ import SwiftUI
 
 struct CalendarView: View {
     @ObservedObject var viewModel = CalendarViewModel()
-
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
     var body: some View {
-        ScrollView(showsIndicators: false){
+        ScrollView(showsIndicators: false) {
             VStack {
-                // Month Navigation Header
                 HStack {
                     Button(action: {
                         viewModel.previousMonth()
@@ -36,18 +34,26 @@ struct CalendarView: View {
                 }
                 .padding()
 
+                // Calendar Grid
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(viewModel.daysForMonth(), id: \.self) { date in
-                        CalendarDayView(date: date, isSelected: viewModel.isSelected(date), isToday: viewModel.isToday(date))
-                            .onTapGesture {
-                                viewModel.selectedDate = date
+                        CalendarDayView(
+                            date: date,
+                            isSelected: viewModel.isSelected(date),
+                            isToday: viewModel.isToday(date),
+                            isFuture: viewModel.isFuture(date),
+                            isPeriodDate: viewModel.periodDates.contains { viewModel.calendar.isDate($0, inSameDayAs: date) }
+                        )
+                        .onTapGesture {
+                            if !viewModel.isFuture(date) {
+                                viewModel.selectDate(date)
                             }
+                        }
                     }
                 }
                 .padding(.horizontal)
-                
 
-                if viewModel.selectedDate != nil {
+                if viewModel.selectedRanges.count > 0 {
                     Button(action: {
                         Task { await viewModel.addPeriodLogs(uid: AuthService.shared.userSession?.uid ?? "unknown uid") }
                     }) {
@@ -63,35 +69,17 @@ struct CalendarView: View {
                     .padding()
                 }
             }
-        }.navigationTitle("Calendar")
+            .onAppear {
+                Task {
+                    await viewModel.fetchPeriodLogs(uid: AuthService.shared.userSession?.uid ?? "unknown uid")
+                }
+            }
+        }
     }
 
-    // Helper to format the month and year
     func monthYearString(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: date)
-    }
-}
-
-struct CalendarDayView: View {
-    let date: Date
-    let isSelected: Bool
-    let isToday: Bool
-
-    var body: some View {
-        Text(dayString(for: date))
-            .fontWeight(isSelected ? .bold : .regular)
-            .frame(width: 40, height: 40)
-            .background(isSelected ? Color.black : (isToday ? Color.gray.opacity(0.3) : Color.clear))
-            .cornerRadius(10)
-            .foregroundColor(isSelected ? .white : .black)
-    }
-
-    // Get the day as a string
-    func dayString(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
         return formatter.string(from: date)
     }
 }
