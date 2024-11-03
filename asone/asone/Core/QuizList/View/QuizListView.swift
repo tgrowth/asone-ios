@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuizListView: View {
-    @ObservedObject var viewModel: QuizViewModel
+    @ObservedObject private var viewModel = QuizViewModel()
     @State private var showingQuizResult: Bool = false
     
     var body: some View {
@@ -58,5 +58,5 @@ struct QuizListView: View {
 }
 
 #Preview {
-    QuizListView(viewModel: QuizViewModel())
+    QuizListView()
 }

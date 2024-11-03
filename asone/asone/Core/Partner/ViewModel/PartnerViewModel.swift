@@ -9,21 +9,39 @@ import Foundation
 import Combine
 
 class PartnerViewModel: ObservableObject {
-    @Published var dayNames: [String] = []
-    @Published var dayDates: [String] = []
-    @Published var phaseInfo: String = ""
-    @Published var feedbackPrompt: String = ""
-    @Published var tips: [(tipNumber: Int, text: String)] = []
+    @Published var partner: UserData?
+    @Published var currentDay = "Wed"
+    @Published var emotions = [
+        Emotion(title: "sexy mood", iconName: "cloud"),
+        Emotion(title: "feeling low", iconName: "cloud"),
+        Emotion(title: "need space", iconName: "cloud"),
+        Emotion(title: "irritated", iconName: "cloud"),
+        Emotion(title: "need support", iconName: "cloud")
+    ]
+    @Published var tips = [
+        "Thank your partner for being understanding during your luteal phase. Even a simple 'I appreciate you' can make a difference.",
+        "Feeling a bit emotional? Share your thoughts with your partner—they'll appreciate the trust you put in them."
+    ]
+    @Published var feedbackRating = 3
+
     
-    init() {
-        // Populate with default data or fetch from a data source
-        dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        dayDates = ["30", "1", "2", "3", "4", "5", "6"]
-        phaseInfo = "You're in the luteal phase."
-        feedbackPrompt = "How is your partner responding to your needs during this week?"
-        tips = [
-            (1, "Thank your partner for being understanding during your luteal phase."),
-            (2, "Feeling a bit emotional? Share your thoughts with your partner.")
-        ]
+    func fetchPartnerProfile(uid: String) {
+        UserService.shared.fetchPartnerData(uid: uid) { [weak self] userProfile in
+            guard let self = self else { return }
+
+            if let userProfile = userProfile {
+                DispatchQueue.main.async {
+                    self.partner = userProfile
+                }
+            } else {
+                print("Failed to fetch user profile")
+            }
+        }
     }
+}
+
+struct Emotion: Identifiable, Hashable {
+    var id = UUID()
+    var title: String
+    var iconName: String
 }

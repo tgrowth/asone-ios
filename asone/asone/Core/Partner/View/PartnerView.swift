@@ -12,103 +12,68 @@ struct PartnerView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 15) {
-                // Date Indicator
-                HStack(spacing: 8) {
-                    ForEach(0..<7) { day in
-                        VStack {
-                            Text(viewModel.dayNames[day])
-                                .font(.footnote)
-                            Text(viewModel.dayDates[day])
-                                .font(.subheadline)
-                        }
-                        .frame(width: 40, height: 40)
-                        .background(day == 2 ? Color.black : Color.gray.opacity(0.2))
-                        .foregroundColor(day == 2 ? .white : .black)
-                        .cornerRadius(8)
+            VStack(spacing: 20) {
+                Text("You're in the luteal phase.")
+                    .padding()
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(10)
+                
+                Text("You may feel a bit tired and irritable. This is a great time to communicate openly with your partner about your needs, while showing appreciation for their patience and support.")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
+                
+                // Emotions
+                Text("Tell your partner about your emotions for today")
+                    .font(.headline)
+                
+                HStack(spacing: 15) {
+                    ForEach(viewModel.emotions, id: \.self) { emotion in
+                        //emotions
                     }
                 }
-                .padding(.horizontal, 10)
-
-                // Phase Information
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(viewModel.phaseInfo)
-                        .font(.subheadline)
-                        .bold()
-                    Text("You may feel a bit tired and irritable. This is a great time to communicate openly with your partner about your needs, while showing appreciation for their patience and support.")
-                        .font(.footnote)
-                }
-                .padding(12)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(8)
-                .padding(.horizontal, 10)
-
-                // Feedback Section
-                VStack(alignment: .leading) {
-                    Text("Give feedback to John")
-                        .font(.subheadline)
-                    TextField("Write a few nice words to John or thank him for his efforts", text: .constant(""))
-                        .padding(10)
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(8)
-                }
-                .padding(.horizontal, 10)
-
+                
                 // Tips Section
-                VStack(alignment: .leading, spacing: 15) {
-                    Text("Tips for you")
-                        .font(.subheadline)
-                    
-                    HStack(spacing: 8) {
-                        ForEach(viewModel.tips, id: \.tipNumber) { tip in
-                            TipView(tipNumber: tip.tipNumber, text: tip.text)
-                        }
+                Text("Tips for you")
+                    .font(.headline)
+                
+                VStack(spacing: 10) {
+                    ForEach(viewModel.tips, id: \.self) { tip in
+                        Text(tip)
+                            .padding()
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-                .padding(.horizontal, 10)
-
-                // Partner Feedback Section
-                VStack(alignment: .leading) {
-                    Text("Your feedback")
-                        .font(.subheadline)
-                    Text(viewModel.feedbackPrompt)
-                        .font(.footnote)
-                    
-                    HStack(spacing: 12) {
-                        ForEach(0..<5) { _ in
-                            Circle()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.gray.opacity(0.5))
-                        }
+                
+                // Feedback Section
+                Text("Your feedback")
+                    .font(.headline)
+                
+                Text("How is your partner responding to your needs during this week?")
+                    .font(.subheadline)
+                    .padding(.top, 5)
+                
+                HStack(spacing: 10) {
+                    ForEach(0..<5) { index in
+                        Circle()
+                            .fill(index < viewModel.feedbackRating ? Color.blue : Color.gray.opacity(0.2))
+                            .frame(width: 20, height: 20)
+                            .onTapGesture {
+                                viewModel.feedbackRating = index + 1
+                            }
                     }
                 }
-                .padding(.horizontal, 10)
             }
-            .navigationTitle("John is connected")
+            .padding()
+        }
+        .navigationTitle("\(viewModel.partner?.username ?? "Error") is connected")
+        .onAppear {
+            viewModel.fetchPartnerProfile(uid: AuthService.shared.userSession?.uid ?? "unknown uid")
         }
     }
 }
-
-struct TipView: View {
-    var tipNumber: Int
-    var text: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Tip #\(tipNumber)")
-                .font(.footnote)
-                .bold()
-            Text(text)
-                .font(.footnote)
-                .fixedSize(horizontal: false, vertical: true) // Allows text to wrap
-        }
-        .padding(10)
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(8)
-        .frame(maxWidth: .infinity)
-    }
-}
-
 
 #Preview {
     PartnerView(viewModel: PartnerViewModel())

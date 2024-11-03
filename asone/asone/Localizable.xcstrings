@@ -49,6 +49,9 @@
         }
       }
     },
+    "%@ is connected" : {
+
+    },
     "%lld" : {
       "localizations" : {
         "es" : {
@@ -730,9 +733,6 @@
         }
       }
     },
-    "Give feedback to John" : {
-
-    },
     "Google" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -751,6 +751,9 @@
       }
     },
     "History" : {
+
+    },
+    "How is your partner responding to your needs during this week?" : {
 
     },
     "How long is your period?" : {
@@ -874,9 +877,6 @@
           }
         }
       }
-    },
-    "John is connected" : {
-
     },
     "Join premium" : {
       "localizations" : {
@@ -1759,6 +1759,9 @@
         }
       }
     },
+    "Tell your partner about your emotions for today" : {
+
+    },
     "Tip #%lld" : {
 
     },
@@ -1828,9 +1831,6 @@
     "Welcome to AsOne" : {
 
     },
-    "Write a few nice words to John or thank him for his efforts" : {
-
-    },
     "Yearly" : {
       "localizations" : {
         "es" : {
@@ -1880,6 +1880,9 @@
       }
     },
     "You may feel a bit tired and irritable. This is a great time to communicate openly with your partner about your needs, while showing appreciation for their patience and support." : {
+
+    },
+    "You're in the luteal phase." : {
 
     },
     "Your code:" : {

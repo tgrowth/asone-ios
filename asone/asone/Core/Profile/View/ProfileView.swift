@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject var profileViewModel = ProfileViewModel()
-    @StateObject var quizViewModel = QuizViewModel()
+    @StateObject var viewModel = ProfileViewModel()
     
     @State private var showDeleteAlert = false
 
@@ -16,10 +15,10 @@ struct ProfileView: View {
                             .frame(width: 60, height: 60)
                         
                         VStack(alignment: .leading) {
-                            Text(profileViewModel.currentUser?.username ?? profileViewModel.name)
+                            Text(viewModel.currentUser?.username ?? viewModel.name)
                                 .font(.title2)
                                 .fontWeight(.semibold)
-                            Text(profileViewModel.email) // "Status: Period"
+                            Text(viewModel.email) // "Status: Period"
                                 .foregroundColor(.gray)
                         }
                         Spacer()
@@ -58,7 +57,7 @@ struct ProfileView: View {
                             ProfileOptionRow(icon: "heart", text: "Partner")
                         }
                         
-                        NavigationLink(destination: QuizListView(viewModel: QuizViewModel())) {
+                        NavigationLink(destination: QuizListView()){
                             ProfileOptionRow(icon: "list.bullet", text: "Love Languages")
                         }
                         
