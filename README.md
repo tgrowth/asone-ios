@@ -48,6 +48,8 @@ AsOne is an innovative app designed to strengthen relationships by providing ins
 
 - Log moods, symptoms, cravings, and activities to observe patterns and receive increasingly accurate predictions powered by machine learning.
 
+## AsOne Backend Repository: https://github.com/tgrowth/asone-backend
+
 ## Machine Learning Predictions
 
 AsOne incorporates machine learning models to provide tailored predictions and suggestions. Here’s how machine learning enhances the AsOne experience:
