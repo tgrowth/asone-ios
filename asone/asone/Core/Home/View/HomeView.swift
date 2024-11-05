@@ -34,35 +34,34 @@ struct HomeView: View {
     }
     
     var body: some View {
-        VStack(spacing: 20) {
-            // Top Date Picker Section
-            VStack {
-                HStack {
-                    Text("Today, \(today)")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 20) {
+                // Top Date Picker Section
+                VStack {
+                    HStack {
+                        Text("Today, \(today)")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "bell")
+                    }
+                    .padding()
                     
-                    Spacer()
-                    
-                    Image(systemName: "bell")
-                }
-                .padding()
-                
-                HStack {
-                    ForEach(0..<7) { index in
-                        DayView(
-                            day: getDayOfWeek(for: weekDays[index]),
-                            date: getDate(for: weekDays[index]),
-                            isSelected: index == selectedDayIndex
-                        )
-                        .onTapGesture {
-                            selectedDayIndex = index
+                    HStack {
+                        ForEach(0..<7) { index in
+                            DayView(
+                                day: getDayOfWeek(for: weekDays[index]),
+                                date: getDate(for: weekDays[index]),
+                                isSelected: index == selectedDayIndex
+                            )
+                            .onTapGesture {
+                                selectedDayIndex = index
+                            }
                         }
                     }
                 }
-            }
-            
-            ScrollView(showsIndicators: false) {
                 // Period Tracker View
                 PeriodTrackerView()
                     .frame(width: 250, height: 250)

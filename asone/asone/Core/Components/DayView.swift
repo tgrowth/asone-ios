@@ -21,10 +21,10 @@ struct DayView: View {
             Text(date)
                 .font(.caption)
                 .fontWeight(isSelected ? .bold : .regular)
-                .foregroundColor(isSelected ? .black : .gray)
-                .padding(12)
-                .background(isSelected ? Color.black.opacity(0.1) : Color.clear)
+                .foregroundColor(isSelected ? .white : .black)
+                .padding()
+                .background(isSelected ? .black : Color.black.opacity(0.1))
                 .cornerRadius(8)
-        }
+        }.padding(.horizontal, 4)
     }
 }
