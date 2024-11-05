@@ -12,7 +12,7 @@ struct CalendarDayView: View {
     let isSelected: Bool
     let isToday: Bool
     let isFuture: Bool
-    let isPeriodDate: Bool // New parameter to mark period dates
+    let isPeriodDate: Bool
 
     var body: some View {
         Text(dayString(for: date))
