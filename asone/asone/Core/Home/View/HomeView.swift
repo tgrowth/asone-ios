@@ -114,7 +114,6 @@ struct HomeView: View {
     }
 }
 
-// Period Tracker View (Assuming this code is already defined)
 struct PeriodTrackerView: View {
     @State private var periodInDays = 3
     
@@ -167,6 +166,7 @@ struct PeriodTrackerView: View {
         .background(Color.white)
     }
 }
+
 
 #Preview {
     HomeView()
