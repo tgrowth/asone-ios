@@ -9,9 +9,9 @@ import SwiftUI
 
 struct StatisticsView: View {
     @StateObject private var viewModel = StatisticsViewModel()
-    
-    // State to track which view to display (History by default)
     @State private var showingHistory = true
+    @State private var isExporting = false
+    @State private var exportURL: URL?
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -147,10 +147,8 @@ struct StatisticsView: View {
         .navigationTitle("Statistics")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    // Export action
-                }) {
-                    Image(systemName: "square.and.arrow.up").foregroundColor(.black)
+                Button(action: exportHistory) {
+                   Image(systemName: "square.and.arrow.up").foregroundColor(.black)
                 }
             }
         }
@@ -158,6 +156,27 @@ struct StatisticsView: View {
             Task {
                 await viewModel.fetchCycleHistory(uid: AuthService.shared.userSession?.uid ?? "unknown_uid")
             }
+        }
+        .sheet(isPresented: $isExporting, onDismiss: {
+            exportURL = nil
+        }) {
+            if let exportURL = exportURL {
+                ShareSheet(activityItems: [exportURL])
+            }
+        }
+    }
+    
+    private func exportHistory() {
+        let csvText = viewModel.exportHistoryAsCSV()
+        let fileName = "CycleHistory.csv"
+        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+        
+        do {
+            try csvText.write(to: tempURL, atomically: true, encoding: .utf8)
+            exportURL = tempURL
+            isExporting = true
+        } catch {
+            print("Failed to create CSV file: \(error)")
         }
     }
 }

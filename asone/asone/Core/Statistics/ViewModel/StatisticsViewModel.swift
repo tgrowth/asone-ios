@@ -58,4 +58,15 @@ class StatisticsViewModel: ObservableObject {
             print("Failed to fetch cycle history: \(error.localizedDescription)")
         }
     }
+    
+    func exportHistoryAsCSV() -> String {
+        var csvText = "First Day,Length,Cycle,Expected\n"
+        
+        for item in history {
+            let line = "\(item.startDate),\(item.length),\(item.cycle),\(item.isExpected ? "Yes" : "No")\n"
+            csvText += line
+        }
+        
+        return csvText
+    }
 }

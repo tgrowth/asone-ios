@@ -53,7 +53,15 @@ struct ProfileView: View {
                     .padding(.horizontal)
                     
                     VStack(spacing: 4) {
-                        NavigationLink(destination: InvitePartnerView()) {
+                        NavigationLink(
+                            destination: {
+                                if viewModel.currentUser?.partnerMode == true {
+                                    PartnerView(viewModel: PartnerViewModel())
+                                } else {
+                                    InvitePartnerView()
+                                }
+                            }
+                        ) {
                             ProfileOptionRow(icon: "heart", text: "Partner")
                         }
                         

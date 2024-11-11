@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct AdviceCard: View {
-    var text: LocalizedStringKey
+    var text: String
     
     var body: some View {
         VStack {

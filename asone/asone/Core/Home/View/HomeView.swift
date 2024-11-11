@@ -3,13 +3,6 @@ import SwiftUI
 struct HomeView: View {
     @State private var selectedDayIndex: Int = 0
     
-    // Formatter for "Today"
-    private var today: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d" // Format as "Month Day"
-        return formatter.string(from: Date())
-    }
-    
     // Get the week days (starting from Sunday, or locale dependent)
     private var weekDays: [Date] {
         let calendar = Calendar.current
@@ -34,82 +27,75 @@ struct HomeView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 20) {
-                // Top Date Picker Section
-                VStack {
-                    HStack {
-                        Text("Today, \(today)")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Spacer()
-                        
-                        Image(systemName: "bell")
-                    }
-                    .padding()
-                    
-                    HStack {
-                        ForEach(0..<7) { index in
-                            DayView(
-                                day: getDayOfWeek(for: weekDays[index]),
-                                date: getDate(for: weekDays[index]),
-                                isSelected: index == selectedDayIndex
-                            )
-                            .onTapGesture {
-                                selectedDayIndex = index
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 20) {
+                    // Top Date Picker Section
+                    VStack {
+                        HStack {
+                            Text("Today, \(Date().toString(format: "MMMM d"))")
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            Spacer()
+
+                            // Make the entire button area a NavigationLink
+                            NavigationLink(destination: NotificationsView()) {
+                                Image(systemName: "bell")
+                                    .foregroundColor(.black)
+                            }
+                        }
+                        .padding()
+
+                        HStack {
+                            ForEach(0..<7) { index in
+                                DayView(
+                                    day: weekDays[index].toString(format: "E"),
+                                    date: weekDays[index].toString(format: "d"),
+                                    isSelected: index == selectedDayIndex
+                                )
+                                .onTapGesture {
+                                    selectedDayIndex = index
+                                }
                             }
                         }
                     }
-                }
-                // Period Tracker View
-                PeriodTrackerView()
-                    .frame(width: 250, height: 250)
-                
-                // Log Period Button
-                Button(action: {
-                    // Log period action
-                }) {
-                    Text("Log period")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.black)
-                        .cornerRadius(10)
-                }
-                .padding()
-                
-                // Cycle Advice Section
-                VStack {
-                    Text("Cycle advices")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading)
-                    
-                    HStack(spacing: 20) {
-                        AdviceCard(text: "Sample Advice")
-                        AdviceCard(text: "Sample Advice")
+
+                    // Period Tracker View
+                    PeriodTrackerView()
+                        .frame(width: 250, height: 250)
+
+                    // Log Period Button
+                    Button(action: {
+                        // Log period action
+                    }) {
+                        Text("Log period")
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.black)
+                            .cornerRadius(10)
                     }
-                    .padding(.horizontal)
+                    .padding()
+
+                    // Cycle Advice Section
+                    VStack {
+                        Text("Cycle advices")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading)
+
+                        HStack(spacing: 20) {
+                            AdviceCard(text: "Sample Advice")
+                            AdviceCard(text: "Sample Advice")
+                        }
+                        .padding(.horizontal)
+                    }
+
+                    Spacer()
                 }
-                
-                Spacer()
             }
         }
-    }
-    
-    // Helper function to get the day of the week for a specific date
-    func getDayOfWeek(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E"  // Format as "Mon", "Tue", etc.
-        return formatter.string(from: date)
-    }
-    
-    // Helper function to get the date (day number) for a specific day
-    func getDate(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter.string(from: date)
     }
 }
 

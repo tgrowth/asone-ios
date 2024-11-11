@@ -11,13 +11,6 @@ import Combine
 class PartnerViewModel: ObservableObject {
     @Published var partner: UserData?
     @Published var currentDay = "Wed"
-    @Published var emotions = [
-        Emotion(title: "sexy mood", iconName: "cloud"),
-        Emotion(title: "feeling low", iconName: "cloud"),
-        Emotion(title: "need space", iconName: "cloud"),
-        Emotion(title: "irritated", iconName: "cloud"),
-        Emotion(title: "need support", iconName: "cloud")
-    ]
     @Published var tips = [
         "Thank your partner for being understanding during your luteal phase. Even a simple 'I appreciate you' can make a difference.",
         "Feeling a bit emotional? Share your thoughts with your partner—they'll appreciate the trust you put in them."

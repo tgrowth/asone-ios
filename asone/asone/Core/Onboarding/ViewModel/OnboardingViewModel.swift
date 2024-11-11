@@ -76,7 +76,7 @@ class OnboardingViewModel: ObservableObject {
             "cycleLength": userData.cycleLength,
             "isTryingToConceive": userData.isTryingToConceive,
             "mood": userData.mood,
-            "symptoms": userData.symptoms,
+            "symptom_logs": userData.symptom_logs,
             "partnerMode": userData.partnerMode,
             "partnerUid": userData.partnerUid,
             "code": inviteCode,

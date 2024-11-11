@@ -51,7 +51,7 @@ struct OnboardingStep15View: View {
                     viewModel.goToPreviousStep()
                 },
                 nextAction: {
-                    viewModel.userData.symptoms = selectedSymptoms 
+                    viewModel.userData.symptom_logs = selectedSymptoms 
                     viewModel.goToNextStep()
                 }
             )

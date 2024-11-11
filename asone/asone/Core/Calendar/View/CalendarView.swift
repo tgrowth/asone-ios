@@ -19,7 +19,7 @@ struct CalendarView: View {
                         viewModel.previousMonth()
                     }) {
                         Image(systemName: "chevron.left")
-                            .padding()
+                            .padding().foregroundColor(.black)
                     }
                     Spacer()
                     Text("\(monthYearString(for: viewModel.displayedMonth))")
@@ -29,7 +29,7 @@ struct CalendarView: View {
                         viewModel.nextMonth()
                     }) {
                         Image(systemName: "chevron.right")
-                            .padding()
+                            .padding().foregroundColor(.black)
                     }
                 }
                 .padding()

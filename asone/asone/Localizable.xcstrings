@@ -205,6 +205,7 @@
       }
     },
     "Apply" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -954,6 +955,9 @@
     "Log Period" : {
 
     },
+    "Log Symptoms" : {
+
+    },
     "Login" : {
       "localizations" : {
         "es" : {
@@ -1486,6 +1490,7 @@
 
     },
     "Sample Advice" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1759,13 +1764,7 @@
         }
       }
     },
-    "Tell your partner about your emotions for today" : {
-
-    },
     "Tip #%lld" : {
-
-    },
-    "Tips for you" : {
 
     },
     "Today, %@" : {
@@ -1900,9 +1899,6 @@
           }
         }
       }
-    },
-    "Your feedback" : {
-
     },
     "Your love language is..." : {
       "localizations" : {

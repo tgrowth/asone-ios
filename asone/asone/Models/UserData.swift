@@ -19,7 +19,7 @@ struct UserData: Decodable {
     var cycleLength: Int = 7
     var isTryingToConceive: Bool = false
     var mood: Double = 1.0
-    var symptoms: [Int] = []
+    var symptom_logs: [Int] = []
     var partnerMode: Bool = false
     var partnerUid: String = ""
     var code: String? = nil

@@ -12,7 +12,7 @@ class SymptomService {
     static let shared = SymptomService()
     
     func fetchSymptoms() async throws -> [Symptom] {
-        guard let url = URL(string: "\(APIConfig.serverURL)/symptoms") else {
+        guard let url = URL(string: "\(APIConfig.baseURL)/symptom_logs") else {
             throw URLError(.badURL)
         }
 
@@ -26,21 +26,46 @@ class SymptomService {
         return json["symptoms"] ?? []
     }
     
-    func sendSymptoms(uid: String, symptomId: Int) async throws {
-        guard let url = URL(string: "http://localhost:3000/userInfo/\(uid)/symptoms/\(symptomId)") else {
+    func sendSymptomLog(_ symptomLog: SymptomLog) async throws {
+        guard let url = URL(string: "\(APIConfig.baseURL)/symptom_logs") else {
             throw URLError(.badURL)
         }
-
+        
+        // Encode the SymptomLog to JSON
+        let jsonData = try JSONEncoder().encode(["symptomLog": symptomLog])
+        
+        // Create the request
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        request.httpBody = jsonData
+        
+        // Perform the request
         let (_, response) = try await URLSession.shared.data(for: request)
-
-        if let httpResponse = response as? HTTPURLResponse {
-            guard httpResponse.statusCode == 201 else {
-                throw URLError(.badServerResponse)
-            }
+        
+        // Check for a successful response (status code 200)
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode < 200 || httpResponse.statusCode > 201 {
+            print(httpResponse)
+            throw URLError(.badServerResponse)
         }
     }
+    
+    func fetchSymptomsForDate(uid: String, date: String) async throws -> SymptomLog {
+        guard let url = URL(string: "\(APIConfig.baseURL)/symptom_logs/\(uid)/\(date)") else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        // Decode the response
+        let decodedResponse = try JSONDecoder().decode([String: SymptomLog].self, from: data)
+        
+        // Access the symptomLog from the response
+        guard let symptomLog = decodedResponse["symptomLog"] else {
+            throw URLError(.badServerResponse)
+        }
+    
+        return symptomLog
+    }
+
 }
