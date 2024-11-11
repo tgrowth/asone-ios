@@ -1,6 +1,6 @@
 # AsOne - A Couple’s Guide to Harmony through Menstrual Cycle Tracking
 
-AsOne is an innovative app designed to strengthen relationships by providing insights into the female partner’s menstrual cycle, mood, and energy levels, which can influence relationship dynamics. Using machine learning predictions, AsOne delivers personalized tips and daily insights, helping couples foster empathy, enhance communication, and reduce potential conflicts.
+AsOne is an iOS app designed to strengthen relationships by providing insights into the female partner’s menstrual cycle, mood, and energy levels, which can influence relationship dynamics. Using machine learning predictions, AsOne delivers personalized tips and daily insights, helping couples foster empathy, enhance communication, and reduce potential conflicts.
 
 ## Features
 
@@ -77,6 +77,10 @@ All user data and machine learning predictions are securely stored, respecting p
 ## Backend Repository
 
 For more information on the AsOne backend implementation and setup, please visit the AsOne Backend Repository on GitHub: [AsOne Backend Repository](https://github.com/tgrowth/asone-backend)
+
+## Project Design
+
+For more information on the AsOne Design, please visit the AsOne Figma: [AsOne Figma](https://www.figma.com/design/zLDBrt2hvblQEuLhm0VxqB/As-One---%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%B0%D1%80?node-id=0-1&t=l2y6V3PjH1XUpZlB-1)
 
 ## License
 
